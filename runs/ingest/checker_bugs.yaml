@@ -1,0 +1,7 @@
+# 檢查腳本本身的誤判（SPEC §10.5）。summarize_runs.py 統計時把這些細項另列為 checker_bug，不算進節點失敗原因。
+- check_file: runs/ingest/checks/A4-lint-S1-a1.json
+  id: L7
+  by: script
+  where: sources/S1-nist-pqc-explainer.md
+  cause: PARAM_NUM 的 2[−-]\d{2,3} 把日期 2026-02-27 中的「2-27」當成 2^-27
+  fixed_in: scripts/lint_wiki.py（加上 (?<![\d-]) 前置條件）

@@ -1,0 +1,9 @@
+{
+  "checker": "semantic-subagent",
+  "target": "wiki/ (S1 ingest)",
+  "results": [
+    {"id": "L7", "status": "PASS", "details": []},
+    {"id": "L8", "status": "PASS", "details": []}
+  ],
+  "notes": "L7：兩個概念頁開頭都有時間說明，寫明依據的是 S1 的 2026-02-27 更新版，並附查核日期 2026-11-19。容易被當成現況的說法都有標示：量子電腦何時出現的估計、需要好幾千個量子位元、哪種量子位元技術勝出尚無定論、『最初四個』演算法、『另有演算法在考慮中』、2024 年發布『前三個』標準。69 個候選、10–20 年這些數字都註明出自 S1 並帶日期，S1 本身沒有規格版本可標。來源摘要頁的重點段也寫了版本日期與查核日期。術語表只有定義性質的句子，沒有現況說法。L8：各頁之間的數字（69、2016、2024、前三個、10–20 年、幾天到幾小時、幾年到幾十年）、PQC 與量子密碼學的區分、術語定義，以及『7 個術語』和術語表的實際列數都一致。另外有一點不影響 L7/L8 判定、但和原始來源不符：wiki/sources/S1-nist-pqc-explainer.md〈可信度與限制〉寫『沒有點名 RSA、橢圓曲線或「公鑰」這些名詞』，但 raw S1 的 Q12 段其實有提到 elliptic curves（『PQC algorithms are based on mathematical techniques that can be very old, such as elliptic curves』），建議另行修正。"
+}

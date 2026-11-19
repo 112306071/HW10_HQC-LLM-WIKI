@@ -14,3 +14,6 @@ status: draft
 
 ## 更新了哪些頁
 - [量子威脅](../concepts/quantum-threat.md)
+
+## 書目資料
+- 2026-02-27 更新的頁面。

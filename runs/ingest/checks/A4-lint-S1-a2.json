@@ -1,0 +1,83 @@
+{
+  "run_id": "ingest",
+  "workflow_version": "v1",
+  "node": "A4",
+  "attempt": 2,
+  "timestamp": "2026-11-19T23:36:53+08:00",
+  "target": "wiki/",
+  "results": [
+    {
+      "id": "L1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L6",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L8",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L9",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/concepts/post-quantum-cryptography.md:## 細節 > ### S1 提到的演算法數量（只到最初四個）第 2 點「S1 也提到，還有其他用於一般加密、不用格也不用雜湊函數的演算法仍在考慮中。[S1 Q5]」",
+          "problem": "「仍在考慮中」是會隨時間改變的狀態說法，句旁沒有查核日期，本頁也沒有寫出 S1 的發布或更新日期（量子威脅頁有頁首時間說明，本頁沒有），讀者可能把它當成這些演算法現在仍未選定；同一節下一句又說「之後新選出的演算法要由其他來源補上」，更顯示這句已不是現況。"
+        }
+      ],
+      "by": "semantic"
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "A3"
+}
