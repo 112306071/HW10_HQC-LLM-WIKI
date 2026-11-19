@@ -1,0 +1,13 @@
+# 來源登記（SPEC §5.4）。每次 A1 新增一筆，只增不改。
+sources:
+  - id: S1
+    title: "What Is Post-Quantum Cryptography?"
+    author: NIST
+    published: 2024-08-13
+    updated: 2026-02-27
+    url: https://www.nist.gov/cybersecurity/what-post-quantum-cryptography
+    final_url: https://www.nist.gov/cybersecurity-and-privacy/what-post-quantum-cryptography
+    retrieved: 2026-11-19T23:19:42+08:00
+    files: [raw/S1-nist-pqc-explainer.md]
+    public: true
+    note: 網頁存成 Markdown（scripts/fetch_web.py）。原網址會轉址，見 wiki/log.md 2026-11-19 issue。

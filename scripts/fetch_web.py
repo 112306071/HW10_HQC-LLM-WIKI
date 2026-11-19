@@ -6,8 +6,8 @@
 from __future__ import annotations
 
 import argparse
+import subprocess
 import sys
-import urllib.request
 from pathlib import Path
 
 from bs4 import BeautifulSoup, NavigableString
@@ -68,10 +68,11 @@ def main() -> int:
     out = Path(a.out)
     if out.exists():
         raise SystemExit(f"{out} 已存在；raw/ 只能新增不能修改")
-    req = urllib.request.Request(a.url, headers={"User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        final = r.geturl()
-        html = r.read().decode("utf-8", "replace")
+    # 用 curl 下載（python.org 版 Python 在 macOS 上沒有預裝根憑證）
+    p = subprocess.run(["curl", "-sSL", "-A", UA, "-m", "60", "-w", "\n%{url_effective}", a.url],
+                       capture_output=True, check=True)
+    raw_text = p.stdout.decode("utf-8", "replace")
+    html, _, final = raw_text.rpartition("\n")
     soup = BeautifulSoup(html, "html.parser")
     for t in soup(["script", "style", "nav", "header", "footer", "form", "noscript"]):
         t.decompose()

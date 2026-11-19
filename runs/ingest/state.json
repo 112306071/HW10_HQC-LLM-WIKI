@@ -1,0 +1,12 @@
+{
+  "run_id": "ingest",
+  "workflow_version": "v1",
+  "attempts": {},
+  "extra_sources": [],
+  "history_len": 2,
+  "last_node": "A2",
+  "last_result": "DONE",
+  "current_node": "H1",
+  "target": "S1",
+  "updated": "2026-11-19T23:22:42+08:00"
+}
