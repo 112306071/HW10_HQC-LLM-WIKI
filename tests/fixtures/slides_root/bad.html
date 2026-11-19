@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Bad deck</title>
+<script src="https://cdn.example.com/reveal.js"></script>
+<style>
+.deck{position:fixed;inset:0} section.slide{position:absolute;inset:0;display:none;padding:40px;width:1280px;height:720px;overflow:hidden}
+section.slide.active{display:block} .wide{white-space:nowrap;width:300px;font-size:30px}
+</style></head>
+<body>
+<main class="deck">
+  <section class="slide active" data-slide="01" data-type="cover" data-wiki="concepts/kem.md"><h1>封面</h1></section>
+  <section class="slide" data-slide="02" data-type="concept"><h2>HQC-1 公鑰 9,999 位元組</h2></section>
+  <section class="slide" data-slide="03" data-type="concept" data-wiki="concepts/kem.md">
+    <div class="wide">這一行非常非常長而且不會換行所以一定會水平溢出這個寬度只有三百像素的盒子</div></section>
+  <section class="slide" data-slide="04" data-type="quiz" data-wiki="concepts/kem.md">
+    <div class="quiz-q"><p>第一題</p><button class="opt" data-correct="true">A</button><button class="opt" data-correct="false">B</button></div>
+  </section>
+</main>
+</body></html>

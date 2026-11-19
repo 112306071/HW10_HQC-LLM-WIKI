@@ -1,0 +1,39 @@
+# HQC LLM Wiki — Schema
+
+## 目的
+為「HQC 是什麼？」教學簡報建立可追溯來源的知識庫。讀者是沒學過編碼理論的大學生。
+完整流程與檢查規格見 [SPEC.md](SPEC.md)；執行流程以 [workflow/graph.yaml](workflow/graph.yaml) 為準。
+
+## 硬性規則
+1. raw/ 只能新增，不能修改或刪除。
+2. wiki 的每個事實句結尾加來源標記，格式 [S5 §3.5] 或 [S3 p.12]。沒有來源就不寫。
+   由 scripts/examples.py 算出的教學示例改用 [示例由腳本計算] 標記。
+3. 出現數字、參數、演算法步驟時，必須標明規格版本，例如「HQC 規格 2025-08-22 版」。
+4. 不同來源說法衝突時，兩種都保留並標出「衝突」，寫明採用哪個、為什麼，然後寫進 log.md。
+5. 比喻用引用區塊並以「比喻：」開頭。比喻不是事實，可以沒有來源，但不得與來源矛盾。
+6. 頁面互連用標準相對連結 [文字](../concepts/kem.md)，不用 [[...]]。
+7. 每次修改 wiki 都要更新 index.md 與 log.md。
+8. ingest 前必須先完成討論，且使用者回覆「確認」後才能寫入（見 SPEC.md §6）。
+9. 時效說法（尚未、預計、草案、即將）旁要寫「查核日期 YYYY-MM-DD」。
+
+## 目錄
+overview/ 總覽　concepts/ 概念　entities/ 組織、標準、其他演算法
+comparisons/ 比較　sources/ 每份來源一頁摘要　glossary.md 術語表
+
+## 命名
+檔名用英文小寫加連字號（hqc-pke.md）；頁面標題用繁體中文。
+參數組名稱以 2025-08-22 規格為準（HQC-1/3/5），第一次出現時註明舊名 hqc-128/192/256。
+
+## 頁面模板
+frontmatter 欄位：title、type、sources、related、spec_version、updated、status（見 SPEC.md §4.3）。
+- 概念頁內文依序：`## 一句話定義`、`## 白話解釋`、`## 重點`、`## 細節`、`## 常見誤解`、`## 相關頁面`。
+- 來源摘要頁：`## 書目資料`、`## 重點`、`## 更新了哪些頁`、`## 可信度與限制`。
+- 「相關頁面」一節只放連結，不放事實。
+
+## 執行規則（給 Claude Code）
+- Python 一律用 `.venv/bin/python`。
+- 每執行完一個節點就跑 `scripts/trace.py` 寫 trace；trace 與 checks JSON 只由腳本寫入，不可手改。
+- 決定下一步前先讀 `workflow/graph.yaml` 與 `runs/<run_id>/state.json`，依 `when` 條件選邊。
+- 遇到【人工關卡】（H1、H2）一定停下等使用者回覆。
+- 語意檢查交給子代理執行，它只看得到待檢查檔案、被引用的 wiki 頁與評分表。
+- 時間一律用 Asia/Taipei（+08:00）。

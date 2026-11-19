@@ -1,0 +1,9 @@
+slides:
+  - {n: 1, type: cover}
+  - {n: 2, type: objectives}
+  - {n: 3, type: motivation}
+  - {n: 4, type: concept}
+  - {n: 5, type: example}
+  - {n: 6, type: misconception}
+  - {n: 7, type: quiz}
+  - {n: 8, type: summary}

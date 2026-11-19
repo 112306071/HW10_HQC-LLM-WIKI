@@ -1,0 +1,15 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# 版權：非 NIST 文件不進公開 repo（SPEC §5.4）
+raw/S4-*.pdf
+raw/S4-*.txt
+raw/S5-*.pdf
+raw/S5-*.txt
+raw/S7-*.pdf
+raw/S7-*.txt
+
+# macOS
+.DS_Store

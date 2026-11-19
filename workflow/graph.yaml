@@ -1,0 +1,40 @@
+version: v1
+limits:
+  max_attempts_per_check_node: 3   # A4、B3、B5 各自計算；B5 的兩種退回合計
+  max_extra_sources_per_run: 2      # B1 → A1 的次數
+  max_steps_phase_b: 15             # 整個階段二最多執行的節點次數
+on_limit: escalate_to_user
+nodes:
+  A1: {name: 取得來源, type: action}
+  A2: {name: 寫討論備忘錄, type: action}
+  H1: {name: 使用者確認, type: human_gate}
+  A3: {name: 寫入 Wiki, type: action}
+  A4: {name: Wiki lint, type: check, checks: [L1, L2, L3, L4, L5, L6, L7, L8, L9]}
+  B1: {name: 查詢 Wiki, type: action}
+  B2: {name: 整理大綱, type: action}
+  B3: {name: 大綱檢查, type: check, checks: [O1, O2, O3, O4, O5]}
+  B4: {name: 產生 HTML, type: action}
+  B5: {name: 成品檢查, type: check, checks: [P1, P2, P3, P4, P5, P6, P7, P8]}
+  H2: {name: 使用者預覽, type: human_gate}
+  B6: {name: 發布, type: action}
+edges:
+  - {from: A1, to: A2}
+  - {from: A2, to: H1}
+  - {from: H1, to: A3, when: confirmed}
+  - {from: H1, to: A2, when: revise}
+  - {from: A3, to: A4}
+  - {from: A4, to: A3, when: fail}
+  - {from: A4, to: A1, when: pass_and_sources_left}
+  - {from: A4, to: B1, when: pass_and_no_sources_left}
+  - {from: B1, to: A1, when: wiki_gap}
+  - {from: B1, to: B2, when: answered}
+  - {from: B2, to: B3}
+  - {from: B3, to: B2, when: fail}
+  - {from: B3, to: B4, when: pass}
+  - {from: B4, to: B5}
+  - {from: B5, to: B4, when: fail_format}
+  - {from: B5, to: B2, when: fail_content}
+  - {from: B5, to: H2, when: pass}
+  - {from: H2, to: B2, when: revise_content}
+  - {from: H2, to: B4, when: revise_format}
+  - {from: H2, to: B6, when: approved}
