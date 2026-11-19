@@ -11,3 +11,13 @@ sources:
     files: [raw/S1-nist-pqc-explainer.md]
     public: true
     note: 網頁存成 Markdown（scripts/fetch_web.py）。原網址會轉址，見 wiki/log.md 2026-11-19 issue。
+  - id: S2
+    title: "NIST Selects HQC as Fifth Algorithm for Post-Quantum Encryption"
+    author: NIST
+    published: 2025-03-11
+    updated: 2025-03-20
+    url: https://www.nist.gov/news-events/news/2025/03/nist-selects-hqc-fifth-algorithm-post-quantum-encryption
+    retrieved: 2026-11-19T23:43:10+08:00
+    files: [raw/S2-nist-news-hqc.md]
+    public: true
+    note: 網頁存成 Markdown（scripts/fetch_web.py）。
