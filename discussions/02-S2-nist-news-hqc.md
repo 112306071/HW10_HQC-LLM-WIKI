@@ -51,9 +51,27 @@ NIST 在 2025-03-11 宣布選出 HQC，做為一般加密主力 ML-KEM 的備援
    - (b) 簡報不放日期，只寫「標準制定中」，日期留在 wiki。
 
 ## 7. 使用者回覆（原文照貼，不可修改）
+1. (a), 2. 簡單講就好 我的主題是HQC 請著重於此 你可以看一下現在的題目，我當初就說要著重在hqc技術了 如果有些不合 幫我改 還有，如果有些資料對於學會HQC沒幫助 幫我刪掉 反正至少五個就好。
+3. (a)
+確認
 
 ## 8. 最終決定
-- 確認時間：
+- 確認時間：2026-11-20 16:42
 - 寫入：
+  - 重點 1、2、3 → `overview/hqc-overview.md`（HQC 的定位、為什麼要備援、取捨）。
+  - 重點 2、3 → `comparisons/hqc-vs-ml-kem.md`（數學基礎不同、HQC 比較吃資源；大小數字等 S5）。
+  - 重點 4、7 → `concepts/kem.md`（KEM 是什麼、用在哪裡；三個函式等 S5）。
+  - 重點 5（簡化版）、6 → `entities/fips-207.md`（HQC 是第五個、時程是 2025-03 的預估）；`concepts/post-quantum-cryptography.md` 補上「HQC 是第五個」。
+  - `sources/S2-nist-news-hqc.md` 來源摘要；`glossary.md` 新增 HQC、ML-KEM、KEM、錯誤更正碼、結構化格、FIPS。
 - 不寫入：
+  - 第 4 節列的四項（SP 800-227 與研討會只在來源摘要提一句）。
+  - FIPS 204、205 的內容、FALCON／FIPS 206（Q2：簡單講就好）。
 - 因討論而改變的地方：
+  - Q1：KEM 用「開著的掛鎖」比喻，寫進 `concepts/kem.md`。
+  - Q2：「五個演算法」只講結構：「HQC 之前 NIST 已選四個，其中三個在 2024 年成為正式標準；HQC 是第五個」，只點名 ML-KEM 和 HQC。因此**不新增** `entities/nist-pqc-process.md` 與 `entities/ml-kem.md`；ML-KEM 的內容放進 `comparisons/hqc-vs-ml-kem.md`。
+  - Q3：時程寫成「NIST 在 2025 年 3 月的預估」並標查核日期，S6 ingest 時再查實際狀態。
+  - **範圍調整（使用者要求「著重 HQC 技術」「對學會 HQC 沒幫助的資料刪掉，至少五個」）**：
+    - 來源從 8 份減為 5 份：保留 S1、S2、S4、S5、S6。S3、S7、S8 不 ingest：S7 講的是實作層的計時攻擊，不是 HQC 怎麼運作；S8 只提供 ML-KEM 的數字；S3 共 34 頁，大多在評估其他候選，HQC 的選擇理由 S2 和 S6 已經涵蓋。S3 列為備用：若 S4–S6 有一份取不到，改用 S3 補足 5 份。`raw/S7-*.pdf` 依 CLAUDE.md 規則 1 保留在 raw/ 不刪，只是不 ingest。
+    - 簡報從 22 張改為 21 張，把篇幅移到 HQC 技術：舊第 3、4 張（量子威脅、先收集後解密）合併成 1 張；第 5 張改成「HQC 的位置」，不再列五個演算法；刪掉第 19 張「計時攻擊」；新增第 13 張「用小數字走一遍 HQC」（由 scripts/examples.py 計算）；誤解頁換掉「PQC 等於量子密碼學？」「HQC 已被攻破？」，改成兩個 HQC 技術誤解。
+    - 學習目標 G1、G5 隨之修改。
+    - 修改處：SPEC.md（§2.1、§2.2、§4.5、§5、§9.1、§9.2、§9.4、§13.3 等）、workflow/questions.yaml、CLAUDE.md；紀錄見 wiki/log.md 2026-11-20 issue。

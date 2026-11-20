@@ -4,19 +4,26 @@
 讀者：知道公鑰／私鑰、但沒學過編碼理論的大學生。
 規則見 [CLAUDE.md](../CLAUDE.md)；每份來源的討論紀錄在 [discussions/](../discussions/)。
 
+時間說明：下列各頁的一句話摘要若提到定位、時程或狀態，都是該頁來源當時的說法，不代表現況；查核日期寫在各行與各頁。
+
 ## 總覽
+- [HQC 總覽](overview/hqc-overview.md) — HQC 是什麼、NIST 為什麼在 2025 年 3 月選它當 ML-KEM 的備援（S2 的說法，查核日期 2026-11-19）。來源：S2
 
 ## 概念
 - [量子威脅](concepts/quantum-threat.md) — 為什麼量子電腦會危及今天的加密、為什麼現在就要換。來源：S1
-- [後量子密碼學（PQC）](concepts/post-quantum-cryptography.md) — 連量子電腦也難解的新加密方法，和量子密碼學不同。來源：S1
+- [後量子密碼學（PQC）](concepts/post-quantum-cryptography.md) — 連量子電腦也難解的新加密方法，和量子密碼學不同；HQC 是 NIST 選的第五個。來源：S1, S2
+- [金鑰封裝機制（KEM）](concepts/kem.md) — 兩方在公開網路上交換機密前的「第一次握手」。來源：S2
 
 ## 實體
+- [HQC 的標準化進度](entities/fips-207.md) — HQC 是第五個演算法、2025 年 3 月預估的時程（S2 的說法，查核日期 2026-11-19）。來源：S2
 
 ## 比較
+- [HQC 與 ML-KEM 比較](comparisons/hqc-vs-ml-kem.md) — 同樣是 KEM，數學基礎不同；依 S2（2025-03）的說法，ML-KEM 是主力、HQC 是備援（查核日期 2026-11-19）。來源：S2
 
 ## 來源摘要
 - [S1 NIST：What Is Post-Quantum Cryptography?](sources/S1-nist-pqc-explainer.md) — 官方科普問答頁，入門。
+- [S2 NIST：NIST Selects HQC as Fifth Algorithm for Post-Quantum Encryption](sources/S2-nist-news-hqc.md) — 官方新聞稿，選 HQC 的理由與定位。
 
 ## 工具頁
-- [術語表](glossary.md) — 中文、英文、一句話解釋。來源：S1
+- [術語表](glossary.md) — 中文、英文、一句話解釋。來源：S1, S2
 - [Wiki 紀錄](log.md) — ingest、lint、issue 等所有變動的時間紀錄。

@@ -1,30 +1,30 @@
 # B1 查詢 wiki 的問題清單（SPEC §9.2）。run-001 與 run-002 使用同一份。
+# 2026-11-20 依討論紀錄 02 改為 21 張、聚焦 HQC 技術（舊版見 git 歷史）。
 goals:
-  G1: 說出為什麼量子電腦會威脅現在的公鑰密碼，以及為什麼「現在」就要準備。
+  G1: 說出為什麼量子電腦會威脅現在的加密，以及 HQC 在後量子密碼中扮演的角色（ML-KEM 的備援）。
   G2: 用自己的話解釋金鑰封裝機制（KEM）在做什麼。
   G3: 說明錯誤更正碼、漢明重量的意思，以及「故意加錯誤」為什麼能拿來加密。
   G4: 依序描述 HQC 的金鑰產生、加密、解密三步，並指出哪個值是公開的、哪個是秘密的。
-  G5: 比較 HQC 與 ML-KEM 的數學基礎與大小差異，說出 NIST 選 HQC 當備援的理由。
+  G5: 比較 HQC 與 ML-KEM 的數學基礎與取捨，說出 NIST 選 HQC 當備援的理由。
 slides:
   - {n: 1, type: cover, title: "HQC 是什麼？用「故意加入的錯誤」保護量子時代的金鑰", questions: [], wiki: [overview/hqc-overview.md], goals: []}
   - {n: 2, type: objectives, title: 看完這份簡報，你會學會 5 件事, questions: [學習目標與路線圖], wiki: [overview/hqc-overview.md], goals: [G1, G2, G3, G4, G5]}
-  - {n: 3, type: motivation, title: 量子電腦會讓今天的公鑰密碼失效, questions: [量子電腦威脅哪一類密碼？為什麼？], wiki: [concepts/quantum-threat.md], goals: [G1]}
-  - {n: 4, type: motivation, title: "「先收集、後解密」：為什麼現在就要換", questions: [什麼是先收集後解密？哪些資料要擔心？], wiki: [concepts/quantum-threat.md], goals: [G1]}
-  - {n: 5, type: concept, title: 後量子密碼學：NIST 選出的五個演算法, questions: [PQC 是什麼？, 和量子密碼學有何不同？, HQC 排在哪？], wiki: [concepts/post-quantum-cryptography.md, entities/nist-pqc-process.md], goals: [G1, G5]}
-  - {n: 6, type: concept, title: KEM：在公開網路上安全地交換一把鑰匙, questions: [KEM 做什麼？, 三個函式各做什麼？], wiki: [concepts/kem.md], goals: [G2]}
-  - {n: 7, type: example, title: 錯誤更正碼：多傳一點，就能修正錯誤, questions: [什麼是錯誤更正碼？, 漢明距離、漢明重量是什麼？], wiki: [concepts/error-correcting-codes.md], goals: [G3]}
-  - {n: 8, type: concept, title: 核心點子：故意加錯誤，只有懂結構的人修得回來, questions: [為什麼解碼隨機的碼很難？], wiki: [concepts/syndrome-decoding.md, concepts/code-based-cryptography.md], goals: [G3]}
-  - {n: 9, type: compare, title: McEliece 把結構藏起來，HQC 乾脆不藏, questions: [HQC 和傳統編碼式密碼的設計差在哪？], wiki: [concepts/code-based-cryptography.md], goals: [G3]}
-  - {n: 10, type: concept, title: 準循環：用一個向量代表一整個矩陣, questions: [準循環結構為什麼讓金鑰變小？], wiki: [concepts/quasi-cyclic-codes.md], goals: [G3]}
-  - {n: 11, type: process, title: 步驟一：金鑰產生, questions: [x、y、h、s 各是什麼？, 哪些公開、哪些秘密？], wiki: [concepts/hqc-pke.md], goals: [G4]}
-  - {n: 12, type: process, title: 步驟二：加密, questions: [u、v 怎麼算？, 訊息藏在哪裡？], wiki: [concepts/hqc-pke.md], goals: [G4]}
-  - {n: 13, type: process, title: 步驟三：解密——剩下的錯誤小到修得回來, questions: [v 減掉 u·y 之後剩下什麼？, 為什麼能解碼？], wiki: [concepts/hqc-pke.md], goals: [G4]}
+  - {n: 3, type: motivation, title: 量子電腦會解開今天的加密，而且資料現在就可能被偷存, questions: [量子電腦威脅哪一類密碼？為什麼？, 什麼是先收集後解密？, 為什麼現在就要換？], wiki: [concepts/quantum-threat.md], goals: [G1]}
+  - {n: 4, type: concept, title: HQC 是 NIST 選出的第五個演算法，當 ML-KEM 的備援, questions: [PQC 是什麼？, HQC 排在哪、扮演什麼角色？], wiki: [concepts/post-quantum-cryptography.md, overview/hqc-overview.md], goals: [G1, G5]}
+  - {n: 5, type: concept, title: KEM：在公開網路上安全地交換一把鑰匙, questions: [KEM 做什麼？, 三個函式各做什麼？], wiki: [concepts/kem.md], goals: [G2]}
+  - {n: 6, type: example, title: 錯誤更正碼：多傳一點，就能修正錯誤, questions: [什麼是錯誤更正碼？, 漢明距離、漢明重量是什麼？], wiki: [concepts/error-correcting-codes.md], goals: [G3]}
+  - {n: 7, type: concept, title: 核心點子：故意加錯誤，只有懂結構的人修得回來, questions: [為什麼解碼隨機的碼很難？], wiki: [concepts/syndrome-decoding.md, concepts/code-based-cryptography.md], goals: [G3]}
+  - {n: 8, type: compare, title: McEliece 把結構藏起來，HQC 乾脆不藏, questions: [HQC 和傳統編碼式密碼的設計差在哪？], wiki: [concepts/code-based-cryptography.md], goals: [G3]}
+  - {n: 9, type: concept, title: 準循環：用一個向量代表一整個矩陣, questions: [準循環結構為什麼讓金鑰變小？], wiki: [concepts/quasi-cyclic-codes.md], goals: [G3]}
+  - {n: 10, type: process, title: 步驟一：金鑰產生, questions: [x、y、h、s 各是什麼？, 哪些公開、哪些秘密？], wiki: [concepts/hqc-pke.md], goals: [G4]}
+  - {n: 11, type: process, title: 步驟二：加密, questions: [u、v 怎麼算？, 訊息藏在哪裡？], wiki: [concepts/hqc-pke.md], goals: [G4]}
+  - {n: 12, type: process, title: 步驟三：解密——剩下的錯誤小到修得回來, questions: [v 減掉 u·y 之後剩下什麼？, 為什麼能解碼？], wiki: [concepts/hqc-pke.md], goals: [G4]}
+  - {n: 13, type: example, title: 用小數字走一遍 HQC：從金鑰到解密, questions: [用很小的參數實際算一次，金鑰、密文、解密結果各長什麼樣？], wiki: [concepts/hqc-toy-example.md], goals: [G3, G4]}
   - {n: 14, type: concept, title: 公開碼：Reed-Muller 與 Reed-Solomon 串起來, questions: [解密用的是什麼碼？, 為什麼公開也沒關係？], wiki: [concepts/concatenated-rm-rs.md], goals: [G4]}
   - {n: 15, type: concept, title: 從加密到 KEM：多一道「重新加密檢查」, questions: [Fujisaki-Okamoto 轉換在做什麼？], wiki: [concepts/hqc-kem-fo-transform.md], goals: [G2, G4]}
   - {n: 16, type: concept, title: 解碼失敗率：小到可以忽略, questions: [解碼失敗率是什麼？, 為什麼要小於 2^-128？], wiki: [concepts/decryption-failure-rate.md], goals: [G4]}
-  - {n: 17, type: compare, title: HQC vs ML-KEM：金鑰較大，但數學不同, questions: [大小差多少？, 數學基礎差在哪？], wiki: [comparisons/hqc-vs-ml-kem.md, comparisons/hqc-parameter-sets.md], goals: [G5]}
-  - {n: 18, type: concept, title: NIST 為什麼選 HQC 當備援, questions: [為什麼要備援？, 為什麼不是 BIKE 或 Classic McEliece？, 標準化到哪了？], wiki: [entities/bike-and-classic-mceliece.md, entities/fips-207.md], goals: [G5]}
-  - {n: 19, type: concept, title: 演算法安全不等於實作安全：計時攻擊, questions: [什麼是計時攻擊？, HQC 怎麼修補？], wiki: [concepts/implementation-security.md], goals: [G5]}
-  - {n: 20, type: misconception, title: 四個常見誤解, questions: [HQC 要取代 ML-KEM？, PQC 等於量子密碼學？, 應該等 HQC 再遷移？, HQC 已被攻破？], wiki: [concepts/common-misconceptions.md], goals: [G1, G2, G3, G4, G5]}
-  - {n: 21, type: quiz, title: 小測驗, questions: [5 題選擇題，每題對應一個目標，答後顯示解釋], wiki: [], goals: [G1, G2, G3, G4, G5]}
-  - {n: 22, type: summary, title: 五句話記住 HQC, questions: [五個重點, 延伸閱讀 S1–S8], wiki: [overview/hqc-overview.md], goals: []}
+  - {n: 17, type: compare, title: HQC vs ML-KEM：數學不同，HQC 比較大、比較吃資源, questions: [HQC-1/3/5 的金鑰與密文多大？, 和 ML-KEM 的數學基礎與取捨差在哪？], wiki: [comparisons/hqc-vs-ml-kem.md, comparisons/hqc-parameter-sets.md], goals: [G5]}
+  - {n: 18, type: concept, title: NIST 為什麼選 HQC 當備援, questions: [為什麼要備援？, 為什麼是 HQC 而不是其他第四輪候選？, 標準化到哪了？], wiki: [entities/fips-207.md], goals: [G5]}
+  - {n: 19, type: misconception, title: 四個常見誤解, questions: [HQC 要取代 ML-KEM？, 應該等 HQC 再遷移？, 故意加錯誤會讓解密常常出錯？, 碼是公開的，不就不安全？], wiki: [concepts/common-misconceptions.md], goals: [G1, G2, G3, G4, G5]}
+  - {n: 20, type: quiz, title: 小測驗, questions: [5 題選擇題，每題對應一個目標，答後顯示解釋], wiki: [], goals: [G1, G2, G3, G4, G5]}
+  - {n: 21, type: summary, title: 五句話記住 HQC, questions: [五個重點, 延伸閱讀 S1、S2、S4、S5、S6], wiki: [overview/hqc-overview.md], goals: []}

@@ -1,0 +1,91 @@
+{
+  "run_id": "ingest",
+  "workflow_version": "v1",
+  "node": "A4",
+  "attempt": 3,
+  "timestamp": "2026-11-20T16:54:17+08:00",
+  "target": "wiki/",
+  "results": [
+    {
+      "id": "L1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L6",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L8",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L9",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/glossary.md: ML-KEM 列「NIST 在 2024 年定案的一般加密主力演算法…」",
+          "problem": "「一般加密主力」是會隨時間改變的定位狀態（S2 原文是 ML-KEM will remain the recommended choice），本句與本頁都沒寫明是 S2（2025-03）的說法，也沒附查核日期；而 comparisons/hqc-vs-ml-kem.md 的「角色」列把同一件事標成「S2，2025-03 的說法，查核日期 2026-11-19」。"
+        },
+        {
+          "where": "wiki/glossary.md: HQC 列「NIST 在 2025 年選出的後量子加密演算法…當 ML-KEM 的備援。」",
+          "problem": "「當 ML-KEM 的備援」是定位狀態，沒有寫明是 S2（2025-03）的說法，也沒附查核日期；glossary 沒有頁首時間說明可以涵蓋。"
+        },
+        {
+          "where": "wiki/index.md: 比較一節「HQC 與 ML-KEM 比較 — 同樣是 KEM，數學基礎不同；ML-KEM 主力、HQC 備援。」",
+          "problem": "「ML-KEM 主力、HQC 備援」寫得像現況，沒有來源時間點與查核日期（同頁實體一節則有寫「2025 年 3 月預估的時程」）。"
+        }
+      ],
+      "by": "semantic"
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "A3"
+}

@@ -3,6 +3,8 @@
 2026-11-19
 
 > 本檔由使用者提供的規格書轉存。原文 §7 的 workflow v1 嵌入圖在匯出時遺失，已依 §7.1 節點表與 §7.2 graph.yaml 重畫於 `workflow/graph.md`（見 `wiki/log.md` 的 issue 紀錄）。
+>
+> **2026-11-20 範圍調整**：依使用者在討論紀錄 02 的要求（簡報著重 HQC 技術；對學會 HQC 沒幫助的資料刪掉，至少 5 份），來源由 8 份減為 5 份（S1、S2、S4、S5、S6），簡報由 22 張改為 21 張。改動處：§1.1、§2.1、§2.2、§4.5、§5、§9.1、§9.2、§9.4、§10.2、§12.2、§13。原因與明細見 `discussions/02-S2-nist-news-hqc.md` 第 8 節、`wiki/log.md` 2026-11-20 issue。
 
 ## 0. 這份規格書怎麼用
 
@@ -39,7 +41,7 @@ Claude Code 可以做完幾乎所有工作，但下面這些必須是你本人�
 | --- | --- | --- | --- |
 | R1 | 建立自己主題的 LLM Wiki | §2、§4 | `wiki/` 整個資料夾 |
 | R2 | 用「先討論、後生成」建立 Wiki | §6 | `discussions/NN-*.md`（每篇一份，含你的回覆原文） |
-| R3 | 至少 ingest 5 篇資料 | §5 | `raw/` 8 份來源、`wiki/sources/` 8 頁摘要、`wiki/log.md` 8 筆 ingest |
+| R3 | 至少 ingest 5 篇資料 | §5 | `raw/` 5 份採用的來源、`wiki/sources/` 5 頁摘要、`wiki/log.md` 5 筆 ingest |
 | R4 | 讓 AI 以 Wiki 為知識來源製作教學型 HTML 簡報 | §7、§9 | `slides/index.html`（GitHub Pages 公開連結） |
 | R5 | 讓不熟悉主題的人理解基本概念 | §9.1、§8.2 的 O3–O5 | 教學結構、初學者檢查結果 |
 | R6 | 說明流程（取得 → 查詢 → 整理 → 檢查 → 產生） | §7 | `workflow/graph.yaml`、`workflow/graph.md`（流程圖） |
@@ -85,11 +87,13 @@ Claude Code 可以做完幾乎所有工作，但下面這些必須是你本人�
 
 看完簡報後，學習者應該能夠：
 
-1. 說出為什麼量子電腦會威脅現在的公鑰密碼，以及為什麼「現在」就要準備。
+1. 說出為什麼量子電腦會威脅現在的加密，以及 HQC 在後量子密碼中扮演的角色（ML-KEM 的備援）。
 2. 用自己的話解釋金鑰封裝機制（KEM）在做什麼。
 3. 說明錯誤更正碼、漢明重量的意思，以及「故意加錯誤」為什麼能拿來加密。
 4. 依序描述 HQC 的金鑰產生、加密、解密三步，並指出哪個值是公開的、哪個是秘密的。
-5. 比較 HQC 與 ML-KEM 的數學基礎與大小差異，說出 NIST 選 HQC 當備援的理由。
+5. 比較 HQC 與 ML-KEM 的數學基礎與取捨，說出 NIST 選 HQC 當備援的理由。
+
+（2026-11-20 修改 G1、G5：G1 把「為什麼現在就要準備」縮成一句，加上 HQC 的定位；G5 的「大小差異」改成「取捨」，因為不再 ingest 提供 ML-KEM 數字的 S8。）
 
 ### 2.2 範圍
 
@@ -98,8 +102,9 @@ Claude Code 可以做完幾乎所有工作，但下面這些必須是你本人�
 | 量子威脅的直觀說明（不推導 Shor 演算法） | 量子計算的數學細節 |
 | 錯誤更正碼、漢明距離／重量、伴隨式解碼問題的直觀意義 | Reed-Muller、Reed-Solomon 的解碼演算法細節 |
 | HQC-PKE 三個步驟、從 PKE 到 KEM 的概念 | 安全性證明的推導 |
-| 參數與大小（標明規格版本）、解碼失敗率、實作安全（計時攻擊） | 實際程式實作、效能跑分 |
-| NIST 標準化進度（FIPS 203–207） | 其他國家的標準 |
+| 參數與大小（標明規格版本）、解碼失敗率 | 實際程式實作、效能跑分、實作攻擊（計時攻擊）（2026-11-20 移出） |
+| 用小數字走一遍 HQC 的完整示例（由腳本計算） | 其他國家的標準 |
+| HQC 在 NIST 標準化中的位置與 FIPS 207 狀態（其他 FIPS 只提一句） | 其他 PQC 演算法的細節（FIPS 204–206） |
 
 ## 3. 技術選型與目錄結構
 
@@ -234,58 +239,59 @@ status: draft          # draft | reviewed（通過 lint 後改成 reviewed）
 
 | 頁面 | 內容 | 主要來源 | 投影片 |
 | --- | --- | --- | --- |
-| `overview/hqc-overview.md` | HQC 是什麼、為什麼重要、一張圖看全貌 | S2, S4, S5 | 2, 9, 22 |
-| `concepts/quantum-threat.md` | 量子電腦為什麼威脅 RSA／ECC、先收集後解密 | S1 | 3, 4 |
-| `concepts/post-quantum-cryptography.md` | 後量子密碼學的定義、和量子密碼學的差別 | S1, S2 | 5 |
-| `concepts/kem.md` | 金鑰封裝機制的用途與三個函式 | S2, S5 | 6 |
-| `concepts/error-correcting-codes.md` | 錯誤更正碼、漢明距離與漢明重量 | S5, S4 | 7 |
-| `concepts/syndrome-decoding.md` | 伴隨式解碼問題（SD、QCSD）的直觀意義 | S4, S5 | 8 |
-| `concepts/code-based-cryptography.md` | 編碼式密碼：McEliece 藏結構 vs HQC 不藏結構 | S4, S3 | 8, 9 |
-| `concepts/quasi-cyclic-codes.md` | 準循環結構為什麼讓金鑰變小 | S4, S5 | 10 |
-| `concepts/hqc-pke.md` | 金鑰產生、加密、解密，每個變數是公開或秘密 | S5, S6 | 11, 12, 13 |
+| `overview/hqc-overview.md` | HQC 是什麼、為什麼重要、一張圖看全貌 | S2, S4, S5 | 1, 2, 4, 21 |
+| `concepts/quantum-threat.md` | 量子電腦為什麼威脅今天的加密、先收集後解密 | S1 | 3 |
+| `concepts/post-quantum-cryptography.md` | 後量子密碼學的定義、和量子密碼學的差別、HQC 是第五個 | S1, S2 | 4 |
+| `concepts/kem.md` | 金鑰封裝機制的用途與三個函式 | S2, S5 | 5 |
+| `concepts/error-correcting-codes.md` | 錯誤更正碼、漢明距離與漢明重量 | S5, S4 | 6 |
+| `concepts/syndrome-decoding.md` | 伴隨式解碼問題（SD、QCSD）的直觀意義 | S4, S5 | 7 |
+| `concepts/code-based-cryptography.md` | 編碼式密碼：McEliece 藏結構 vs HQC 不藏結構 | S4, S6 | 7, 8 |
+| `concepts/quasi-cyclic-codes.md` | 準循環結構為什麼讓金鑰變小 | S4, S5 | 9 |
+| `concepts/hqc-pke.md` | 金鑰產生、加密、解密，每個變數是公開或秘密 | S5, S6 | 10, 11, 12 |
+| `concepts/hqc-toy-example.md` | 用很小的參數實際走一次 HQC（數字由 scripts/examples.py 計算） | S5 | 13 |
 | `concepts/concatenated-rm-rs.md` | 公開碼：Reed-Muller + Reed-Solomon 串接（只講用途） | S5 | 14 |
 | `concepts/hqc-kem-fo-transform.md` | 從 PKE 到 KEM：Fujisaki-Okamoto 轉換的概念 | S5, S6 | 15 |
-| `concepts/decryption-failure-rate.md` | 解碼失敗率是什麼、為什麼要小於 2^-128 | S5, S3 | 16 |
-| `concepts/implementation-security.md` | 計時攻擊與修補 | S7, S5 | 19 |
-| `concepts/common-misconceptions.md` | 常見誤解與正確說法 | 多份 | 20 |
-| `entities/nist-pqc-process.md` | NIST PQC 標準化時間線與 FIPS 203–207 | S1, S2, S3 | 5, 18 |
-| `entities/fips-207.md` | HQC 標準制定狀態、考慮中的修改（附「狀態查核日期」） | S2, S6 | 5, 18 |
-| `entities/ml-kem.md` | ML-KEM 簡介（比較對象） | S2, S8 | 17 |
-| `entities/bike-and-classic-mceliece.md` | 第四輪的其他候選與落選理由 | S3, S6 | 18 |
-| `comparisons/hqc-vs-ml-kem.md` | 數學基礎、金鑰與密文大小、定位 | S2, S5, S8 | 17 |
+| `concepts/decryption-failure-rate.md` | 解碼失敗率是什麼、為什麼要小於 2^-128 | S5, S6 | 16 |
+| `concepts/common-misconceptions.md` | 常見誤解與正確說法 | 多份 | 19 |
+| `entities/fips-207.md` | HQC 的標準化：第五個演算法、時程、為什麼不是其他第四輪候選、考慮中的修改（附「狀態查核日期」） | S2, S6 | 4, 18 |
+| `comparisons/hqc-vs-ml-kem.md` | 數學基礎、定位、取捨（ML-KEM 的內容放這頁，不另開實體頁） | S2, S5, S6 | 17 |
 | `comparisons/hqc-parameter-sets.md` | HQC-1/3/5 參數表與舊版名稱對照 | S5 | 17 |
 | `glossary.md` | 術語表：中文、英文、一句話解釋、連到概念頁 | 全部 | 全部 |
-| `sources/S1–S8-*.md` | 每份來源一頁摘要 | 各自 | — |
+| `sources/S1、S2、S4–S6-*.md` | 每份來源一頁摘要 | 各自 | — |
+
+2026-11-20 移除的預定頁：`concepts/implementation-security.md`（S7 不採用）、`entities/nist-pqc-process.md`（五個演算法只講結構，併入 post-quantum-cryptography 與 fips-207）、`entities/ml-kem.md`（併入 hqc-vs-ml-kem）、`entities/bike-and-classic-mceliece.md`（併入 fips-207，來源改用 S6）。新增 `concepts/hqc-toy-example.md`。
 
 ## 5. 資料來源清單
 
-共 8 份來源：S1–S7 必做（超過作業要求的 5 篇），S8 只用來提供 ML-KEM 的對照數字。依表中順序 ingest：先入門、再核心、最後實作安全，讓 wiki 先有骨架再補細節。所有連結已於 2026-11-19 確認可開啟。
+採用 5 份來源：S1、S2、S4、S5、S6（剛好是作業要求的 5 篇）。依 S1 → S2 → S4 → S5 → S6 的順序 ingest：先入門、再核心、最後標準化現況，讓 wiki 先有骨架再補細節。所有連結已於 2026-11-19 確認可開啟。
+
+2026-11-20 使用者要求「著重 HQC 技術、對學會 HQC 沒幫助的資料刪掉，至少五個」，因此 S3、S7、S8 不採用（理由見下表「狀態」欄與討論紀錄 02 第 8 節）。S3 列為備用：S4–S6 若有一份取不到，改用 S3 補足 5 份。表中保留這三列，方便對照原本的規劃。
 
 ### 5.1 來源表
 
-| ID | 來源 | 類型與難度 | 用來提供什麼 | 主要更新的 wiki 頁 |
-| --- | --- | --- | --- | --- |
-| S1 | [NIST：What Is Post-Quantum Cryptography?](https://www.nist.gov/cybersecurity/what-post-quantum-cryptography)（2024-08-13 發布，2026-02-27 更新） | 政府科普頁，入門 | 量子威脅、先收集後解密、PQC 與量子密碼學的差別 | quantum-threat、post-quantum-cryptography |
-| S2 | [NIST：NIST Selects HQC as Fifth Algorithm for Post-Quantum Encryption](https://www.nist.gov/news-events/news/2025/03/nist-selects-hqc-fifth-algorithm-post-quantum-encryption)（2025-03-11） | 官方新聞稿，入門 | 選 HQC 的理由、KEM 的白話解釋、標準化時程 | kem、nist-pqc-process、fips-207、hqc-overview |
-| S3 | [NIST IR 8545：Status Report on the Fourth Round](https://nvlpubs.nist.gov/nistpubs/ir/2025/NIST.IR.8545.pdf)（2025-03） | 官方技術報告，中等 | 第四輪候選（BIKE、Classic McEliece、HQC、SIKE）評估與選擇理由 | bike-and-classic-mceliece、decryption-failure-rate、nist-pqc-process |
-| S4 | [Aguilar-Melchor 等：Efficient Encryption from Random Quasi-Cyclic Codes](https://arxiv.org/abs/1612.05572)（IEEE Trans. Inf. Theory 64(5)，2018） | 原始論文，進階 | 核心想法：不在公鑰裡藏結構、安全性建立在準循環碼解碼問題 | code-based-cryptography、syndrome-decoding、quasi-cyclic-codes |
-| S5 | [HQC 官方規格書 2025-08-22 版](https://www.pqc-hqc.org/doc/hqc_specifications_2025_08_22.pdf) | 演算法規格，進階 | 金鑰產生／加密／解密、公開碼、參數與大小、解碼失敗率、版本修改紀錄 | hqc-pke、concatenated-rm-rs、hqc-kem-fo-transform、hqc-parameter-sets |
-| S6 | [NIST（Angela Robinson）：FIPS 207: HQC-KEM 簡報](https://csrc.nist.gov/csrc/media/presentations/2025/fips-207-hqc-kem/fips_207-robinson_2.4.pdf)（第 6 屆 PQC 標準化會議，2025-09） | 官方簡報，中等 | 為什麼選 HQC 而非 BIKE／Classic McEliece、轉成 FIPS 的計畫、考慮中的修改 | fips-207、bike-and-classic-mceliece、hqc-kem-fo-transform |
-| S7 | [Guo 等：Don’t Reject This: Key-Recovery Timing Attacks Due to Rejection-Sampling in HQC and BIKE](https://tches.iacr.org/index.php/TCHES/article/view/9700)（TCHES 2022 第 3 期） | 學術論文，進階 | 實作層的計時攻擊與對策 | implementation-security |
-| S8（補充） | [FIPS 203：ML-KEM 標準](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf)（2024-08） | 官方標準，只取大小表 | ML-KEM 的金鑰與密文大小，用於和 HQC 比較 | ml-kem、hqc-vs-ml-kem |
+| ID | 來源 | 類型與難度 | 用來提供什麼 | 主要更新的 wiki 頁 | 狀態 |
+| --- | --- | --- | --- | --- | --- |
+| S1 | [NIST：What Is Post-Quantum Cryptography?](https://www.nist.gov/cybersecurity/what-post-quantum-cryptography)（2024-08-13 發布，2026-02-27 更新） | 政府科普頁，入門 | 量子威脅、先收集後解密、PQC 與量子密碼學的差別 | quantum-threat、post-quantum-cryptography | 採用 |
+| S2 | [NIST：NIST Selects HQC as Fifth Algorithm for Post-Quantum Encryption](https://www.nist.gov/news-events/news/2025/03/nist-selects-hqc-fifth-algorithm-post-quantum-encryption)（2025-03-11） | 官方新聞稿，入門 | 選 HQC 的理由、KEM 的白話解釋、標準化時程 | kem、fips-207、hqc-overview、hqc-vs-ml-kem | 採用 |
+| S3 | [NIST IR 8545：Status Report on the Fourth Round](https://nvlpubs.nist.gov/nistpubs/ir/2025/NIST.IR.8545.pdf)（2025-03） | 官方技術報告，中等 | 第四輪候選（BIKE、Classic McEliece、HQC、SIKE）評估與選擇理由 | — | 不採用（備用）：34 頁大多在評估其他候選；HQC 的選擇理由 S2、S6 已涵蓋 |
+| S4 | [Aguilar-Melchor 等：Efficient Encryption from Random Quasi-Cyclic Codes](https://arxiv.org/abs/1612.05572)（IEEE Trans. Inf. Theory 64(5)，2018） | 原始論文，進階 | 核心想法：不在公鑰裡藏結構、安全性建立在準循環碼解碼問題 | code-based-cryptography、syndrome-decoding、quasi-cyclic-codes | 採用 |
+| S5 | [HQC 官方規格書 2025-08-22 版](https://www.pqc-hqc.org/doc/hqc_specifications_2025_08_22.pdf) | 演算法規格，進階 | 金鑰產生／加密／解密、公開碼、參數與大小、解碼失敗率、版本修改紀錄 | hqc-pke、hqc-toy-example、concatenated-rm-rs、hqc-kem-fo-transform、hqc-parameter-sets | 採用 |
+| S6 | [NIST（Angela Robinson）：FIPS 207: HQC-KEM 簡報](https://csrc.nist.gov/csrc/media/presentations/2025/fips-207-hqc-kem/fips_207-robinson_2.4.pdf)（第 6 屆 PQC 標準化會議，2025-09） | 官方簡報，中等 | 為什麼選 HQC 而非 BIKE／Classic McEliece、轉成 FIPS 的計畫、考慮中的修改 | fips-207、hqc-kem-fo-transform | 採用 |
+| S7 | [Guo 等：Don’t Reject This: Key-Recovery Timing Attacks Due to Rejection-Sampling in HQC and BIKE](https://tches.iacr.org/index.php/TCHES/article/view/9700)（TCHES 2022 第 3 期） | 學術論文，進階 | 實作層的計時攻擊與對策 | — | 不採用：講實作攻擊，不是 HQC 怎麼運作（raw/ 的 PDF 依規則 1 保留） |
+| S8（補充） | [FIPS 203：ML-KEM 標準](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.203.pdf)（2024-08） | 官方標準，只取大小表 | ML-KEM 的金鑰與密文大小，用於和 HQC 比較 | — | 不採用：只提供 ML-KEM 的數字，對學會 HQC 幫助小 |
 
 ### 5.2 每份來源的注意事項
 
 這些是已知容易出錯的地方，討論備忘錄裡要提出來問使用者。
 
-- **S1**：只講一般概念，沒有列出標準名稱。標準清單改由 S2、S3 提供。
+- **S1**：只講一般概念，沒有列出標準名稱。標準清單改由 S2 提供。
 - **S2**：發布時說草案「約一年後」公布。這是 2025 年的預估，必須再查現況（見 5.3）。
-- **S3**：全文 34 頁，只需讀 HQC、BIKE、Classic McEliece 相關段落。表 5 的 Classic McEliece 效能數字有人提出更正請求，簡報不要引用那個數字。
+- **S3**（不採用，備用）：全文 34 頁，只需讀 HQC、BIKE、Classic McEliece 相關段落。表 5 的 Classic McEliece 效能數字有人提出更正請求，簡報不要引用那個數字。
 - **S4**：2016–2018 年的論文，參數與細節已經過時。只用來講概念與設計動機，數字一律以 S5 為準。
 - **S5**：參數組命名是 HQC-1/3/5，舊版和外部資料常用 hqc-128/192/256。公鑰大小也和舊版不同（例：舊版 hqc-128 的 2,249 位元組，新版 HQC-1 是 2,241）。wiki 的每個數字都要標版本。
 - **S6**：裡面的修改是「考慮中」的提案，不是定案。wiki 要寫成「2025 年 9 月 NIST 提出考慮……」。
-- **S7**：攻擊的對象是當時的實作；S5 的修改紀錄顯示 2022 年已改採樣方式來對應計時攻擊。簡報不可以寫成「HQC 已被攻破」。
-- **S8**：只取金鑰與密文大小表，不要展開 ML-KEM 的數學。
+- **S7**（不採用）：攻擊的對象是當時的實作；S5 的修改紀錄顯示 2022 年已改採樣方式來對應計時攻擊。簡報不可以寫成「HQC 已被攻破」。
+- **S8**（不採用）：只取金鑰與密文大小表，不要展開 ML-KEM 的數學。
 
 ### 5.3 時效查核
 
@@ -386,7 +392,7 @@ FIPS 207 的狀態會變。2026-11-19 查到的最新公開資訊（2026 年 10 
 
 ### 7.3 哪些步驟會重複執行
 
-1. **Ingest 迴圈 A1→A4**：每份來源一次，至少 8 次。
+1. **Ingest 迴圈 A1→A4**：每份來源一次，共 5 次（2026-11-20 前規劃為 8 次）。
 2. **討論迴圈 A2↔H1**：你要求修改就再來一輪。
 3. **Wiki 修正迴圈 A3↔A4**：lint 不過就修。
 4. **大綱迴圈 B2↔B3**：大綱不合格就重寫。
@@ -514,18 +520,18 @@ B5 的兩種退回合計最多 3 次。同一次檢查同時有格式錯與內�
 
 ## 9. HTML 簡報規格
 
-簡報共 22 張，照「為什麼 → 基礎 → 怎麼運作 → 好壞與現況 → 確認理解」的順序。每張都標註來源 wiki 頁，頁尾可以直接點過去。
+簡報共 21 張，照「為什麼 → 基礎 → 怎麼運作 → 好壞與現況 → 確認理解」的順序。每張都標註來源 wiki 頁，頁尾可以直接點過去。2026-11-20 起篇幅集中在 HQC 技術（基礎＋運作共 12 張），動機只留 2 張。
 
 ### 9.1 教學結構
 
 | 段落 | 投影片 | type | 目的 |
 | --- | --- | --- | --- |
 | 開場 | 1–2 | cover、objectives | 告訴學習者會學到什麼 |
-| 動機 | 3–5 | motivation、concept | 為什麼需要後量子密碼、HQC 在哪個位置 |
-| 基礎 | 6–10 | concept、example | KEM、錯誤更正碼、編碼式密碼的核心點子 |
-| 運作 | 11–16 | process、concept | 金鑰產生、加密、解密、公開碼、KEM、解碼失敗率 |
-| 現況 | 17–19 | compare、concept | 和 ML-KEM 比較、為什麼被選中、實作安全 |
-| 驗收 | 20–22 | misconception、quiz、summary | 釐清誤解、小測驗、總結 |
+| 動機 | 3–4 | motivation、concept | 為什麼需要後量子密碼、HQC 在哪個位置（各一張，點到為止） |
+| 基礎 | 5–9 | concept、example、compare | KEM、錯誤更正碼、編碼式密碼的核心點子、準循環 |
+| 運作 | 10–16 | process、example、concept | 金鑰產生、加密、解密、小數字示例、公開碼、KEM、解碼失敗率 |
+| 現況 | 17–18 | compare、concept | 和 ML-KEM 比較、為什麼被選中 |
+| 驗收 | 19–21 | misconception、quiz、summary | 釐清誤解、小測驗、總結 |
 
 每張內容投影片都要有：結論式標題（一句話講完重點）、最多 4 個重點、一個圖、例子或比喻、頁尾來源。
 
@@ -545,28 +551,29 @@ B5 的兩種退回合計最多 3 次。同一次檢查同時有格式錯與內�
 | --- | --- | --- | --- | --- | --- |
 | 1 | cover | HQC 是什麼？用「故意加入的錯誤」保護量子時代的金鑰 | — | overview/hqc-overview | — |
 | 2 | objectives | 看完這份簡報，你會學會 5 件事 | 學習目標與路線圖 | overview/hqc-overview | G1–G5 |
-| 3 | motivation | 量子電腦會讓今天的公鑰密碼失效 | 量子電腦威脅哪一類密碼？為什麼？ | concepts/quantum-threat | G1 |
-| 4 | motivation | 「先收集、後解密」：為什麼現在就要換 | 什麼是先收集後解密？哪些資料要擔心？ | concepts/quantum-threat | G1 |
-| 5 | concept | 後量子密碼學：NIST 選出的五個演算法 | PQC 是什麼？和量子密碼學有何不同？HQC 排在哪？ | concepts/post-quantum-cryptography、entities/nist-pqc-process | G1, G5 |
-| 6 | concept | KEM：在公開網路上安全地交換一把鑰匙 | KEM 做什麼？三個函式各做什麼？ | concepts/kem | G2 |
-| 7 | example | 錯誤更正碼：多傳一點，就能修正錯誤 | 什麼是錯誤更正碼？漢明距離、漢明重量是什麼？ | concepts/error-correcting-codes | G3 |
-| 8 | concept | 核心點子：故意加錯誤，只有懂結構的人修得回來 | 為什麼解碼隨機的碼很難？ | concepts/syndrome-decoding、concepts/code-based-cryptography | G3 |
-| 9 | compare | McEliece 把結構藏起來，HQC 乾脆不藏 | HQC 和傳統編碼式密碼的設計差在哪？ | concepts/code-based-cryptography | G3 |
-| 10 | concept | 準循環：用一個向量代表一整個矩陣 | 準循環結構為什麼讓金鑰變小？ | concepts/quasi-cyclic-codes | G3 |
-| 11 | process | 步驟一：金鑰產生 | x、y、h、s 各是什麼？哪些公開、哪些秘密？ | concepts/hqc-pke | G4 |
-| 12 | process | 步驟二：加密 | u、v 怎麼算？訊息藏在哪裡？ | concepts/hqc-pke | G4 |
-| 13 | process | 步驟三：解密——剩下的錯誤小到修得回來 | v 減掉 u·y 之後剩下什麼？為什麼能解碼？ | concepts/hqc-pke | G4 |
+| 3 | motivation | 量子電腦會解開今天的加密，而且資料現在就可能被偷存 | 量子電腦威脅哪一類密碼？為什麼？什麼是先收集後解密？為什麼現在就要換？ | concepts/quantum-threat | G1 |
+| 4 | concept | HQC 是 NIST 選出的第五個演算法，當 ML-KEM 的備援 | PQC 是什麼？HQC 排在哪、扮演什麼角色？ | concepts/post-quantum-cryptography、overview/hqc-overview | G1, G5 |
+| 5 | concept | KEM：在公開網路上安全地交換一把鑰匙 | KEM 做什麼？三個函式各做什麼？ | concepts/kem | G2 |
+| 6 | example | 錯誤更正碼：多傳一點，就能修正錯誤 | 什麼是錯誤更正碼？漢明距離、漢明重量是什麼？ | concepts/error-correcting-codes | G3 |
+| 7 | concept | 核心點子：故意加錯誤，只有懂結構的人修得回來 | 為什麼解碼隨機的碼很難？ | concepts/syndrome-decoding、concepts/code-based-cryptography | G3 |
+| 8 | compare | McEliece 把結構藏起來，HQC 乾脆不藏 | HQC 和傳統編碼式密碼的設計差在哪？ | concepts/code-based-cryptography | G3 |
+| 9 | concept | 準循環：用一個向量代表一整個矩陣 | 準循環結構為什麼讓金鑰變小？ | concepts/quasi-cyclic-codes | G3 |
+| 10 | process | 步驟一：金鑰產生 | x、y、h、s 各是什麼？哪些公開、哪些秘密？ | concepts/hqc-pke | G4 |
+| 11 | process | 步驟二：加密 | u、v 怎麼算？訊息藏在哪裡？ | concepts/hqc-pke | G4 |
+| 12 | process | 步驟三：解密——剩下的錯誤小到修得回來 | v 減掉 u·y 之後剩下什麼？為什麼能解碼？ | concepts/hqc-pke | G4 |
+| 13 | example | 用小數字走一遍 HQC：從金鑰到解密 | 用很小的參數實際算一次，金鑰、密文、解密結果各長什麼樣？ | concepts/hqc-toy-example | G3, G4 |
 | 14 | concept | 公開碼：Reed-Muller 與 Reed-Solomon 串起來 | 解密用的是什麼碼？為什麼公開也沒關係？ | concepts/concatenated-rm-rs | G4 |
 | 15 | concept | 從加密到 KEM：多一道「重新加密檢查」 | Fujisaki-Okamoto 轉換在做什麼？ | concepts/hqc-kem-fo-transform | G2, G4 |
 | 16 | concept | 解碼失敗率：小到可以忽略 | 解碼失敗率是什麼？為什麼要小於 2^-128？ | concepts/decryption-failure-rate | G4 |
-| 17 | compare | HQC vs ML-KEM：金鑰較大，但數學不同 | 大小差多少？數學基礎差在哪？ | comparisons/hqc-vs-ml-kem、comparisons/hqc-parameter-sets | G5 |
-| 18 | concept | NIST 為什麼選 HQC 當備援 | 為什麼要備援？為什麼不是 BIKE 或 Classic McEliece？標準化到哪了？ | entities/bike-and-classic-mceliece、entities/fips-207 | G5 |
-| 19 | concept | 演算法安全不等於實作安全：計時攻擊 | 什麼是計時攻擊？HQC 怎麼修補？ | concepts/implementation-security | G5 |
-| 20 | misconception | 四個常見誤解 | HQC 要取代 ML-KEM？PQC 等於量子密碼學？應該等 HQC 再遷移？HQC 已被攻破？ | concepts/common-misconceptions | G1–G5 |
-| 21 | quiz | 小測驗 | 5 題選擇題，每題對應一個目標，答後顯示解釋 | 各題對應的頁 | G1–G5 |
-| 22 | summary | 五句話記住 HQC | 五個重點＋延伸閱讀（S1–S8） | overview/hqc-overview、sources/ | — |
+| 17 | compare | HQC vs ML-KEM：數學不同，HQC 比較大、比較吃資源 | HQC-1/3/5 的金鑰與密文多大？和 ML-KEM 的數學基礎與取捨差在哪？ | comparisons/hqc-vs-ml-kem、comparisons/hqc-parameter-sets | G5 |
+| 18 | concept | NIST 為什麼選 HQC 當備援 | 為什麼要備援？為什麼是 HQC 而不是其他第四輪候選？標準化到哪了？ | entities/fips-207 | G5 |
+| 19 | misconception | 四個常見誤解 | HQC 要取代 ML-KEM？應該等 HQC 再遷移？故意加錯誤會讓解密常常出錯？碼是公開的，不就不安全？ | concepts/common-misconceptions | G1–G5 |
+| 20 | quiz | 小測驗 | 5 題選擇題，每題對應一個目標，答後顯示解釋 | 各題對應的頁 | G1–G5 |
+| 21 | summary | 五句話記住 HQC | 五個重點＋延伸閱讀（S1、S2、S4、S5、S6） | overview/hqc-overview、sources/ | — |
 
-註：G1–G5 對應 §2.1 的 5 個學習目標。第 7 張的例子（重複碼多數決、漢明距離計算）屬於「教學示例」，必須由 `scripts/examples.py` 算出來並存進 `concepts/error-correcting-codes.md`，標明「示例由腳本計算」，這樣 P4 才能驗證。
+註：G1–G5 對應 §2.1 的 5 個學習目標。第 6 張的例子（重複碼多數決、漢明距離計算）與第 13 張的小數字 HQC 示例屬於「教學示例」，必須由 `scripts/examples.py` 算出來並存進 `concepts/error-correcting-codes.md`、`concepts/hqc-toy-example.md`，標明「示例由腳本計算」，這樣 P4 才能驗證。
+
+2026-11-20 調整（舊編號 → 新編號）：舊 3＋4 合併為新 3；舊 5 簡化為新 4（不列五個演算法）；舊 19「計時攻擊」刪除；新增 13「小數字示例」；誤解頁換掉「PQC 等於量子密碼學？」「HQC 已被攻破？」。
 
 ### 9.3 對應機制
 
@@ -580,9 +587,9 @@ B5 的兩種退回合計最多 3 次。同一次檢查同時有格式錯與內�
 1. 單一檔案 `slides/index.html`，小於 500 KB，不載入任何外部 CSS、JS、字型。
 2. `<html lang="zh-Hant">`；字型用系統字型：`"PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif`。
 3. 16:9 版面，手機寬度自動改為直式捲動。
-4. 導覽：← → 空白鍵換頁；畫面上有上一頁／下一頁按鈕；「7 / 22」頁碼；頂部進度條；網址 `#7` 可直接跳到第 7 張。
-5. 配色：一個主色加中性色；文字對比至少 4.5:1。公開值與秘密值全套用固定兩種顏色（例：公開藍、秘密橘），第 11–13 張特別重要。
-6. 圖：用程式畫的內嵌 SVG。第 6 張 KEM 流程、第 11–13 張演算法流程、第 17 張大小比較長條圖（數字來自 wiki）。
+4. 導覽：← → 空白鍵換頁；畫面上有上一頁／下一頁按鈕；「7 / 21」頁碼；頂部進度條；網址 `#7` 可直接跳到第 7 張。
+5. 配色：一個主色加中性色；文字對比至少 4.5:1。公開值與秘密值全套用固定兩種顏色（例：公開藍、秘密橘），第 10–13 張特別重要。
+6. 圖：用程式畫的內嵌 SVG。第 5 張 KEM 流程、第 10–12 張演算法流程、第 13 張小數字示例、第 17 張大小長條圖（數字來自 wiki）。
 7. 公式用 HTML 的 `<sub>`、`<sup>` 與 `·` 寫，例如 s = x + h·y，不引用 LaTeX 函式庫。
 8. 小測驗在頁面內作答，點選後顯示對錯與解釋。
 9. 每張有隱藏的講者備註 `<aside class="notes">`，按 N 顯示。
@@ -598,7 +605,7 @@ B5 的兩種退回合計最多 3 次。同一次檢查同時有格式錯與內�
 
 ## 10. 執行紀錄與檢查紀錄規格
 
-至少要有三段完整紀錄：一段 ingest（8 份來源）、兩次完整的簡報生成（run-001 用 v1、run-002 用 v2）。紀錄由腳本產生，只能往後加，不能事後修改。
+至少要有三段完整紀錄：一段 ingest（5 份來源）、兩次完整的簡報生成（run-001 用 v1、run-002 用 v2）。紀錄由腳本產生，只能往後加，不能事後修改。
 
 ### 10.1 trace 格式
 
@@ -620,7 +627,7 @@ B5 的兩種退回合計最多 3 次。同一次檢查同時有格式錯與內�
 
 | 紀錄 | 內容 | 位置 |
 | --- | --- | --- |
-| ingest | A1–A4 對 S1–S8 各跑一次（含所有討論輪與 lint 重試） | `runs/ingest/` |
+| ingest | A1–A4 對 S1、S2、S4、S5、S6 各跑一次（含所有討論輪與 lint 重試） | `runs/ingest/` |
 | run-001-v1 | v1 從 B1 跑到 B6 | `runs/run-001-v1/` |
 | run-002-v2 | 依 §7.6 修改後，用同一份問題清單從 B1 跑到 B6；結果是最後發布的版本 | `runs/run-002-v2/` |
 
@@ -727,7 +734,7 @@ REPORT.md 的第 1–6 節一對一對應作業的 6 個繳交項目，助教照
 | 節 | 標題 | 內容 | 對應評分 |
 | --- | --- | --- | --- |
 | 0 | 標頭 | 標題、三個連結（簡報、Wiki、repo） | — |
-| 1 | LLM Wiki 主題與簡介 | 150–250 字：主題、讀者、為什麼選這個主題；wiki 規模（頁數、來源數、討論紀錄數）；S1–S8 來源列表 | 至少 5 篇 |
+| 1 | LLM Wiki 主題與簡介 | 150–250 字：主題、讀者、為什麼選這個主題；wiki 規模（頁數、來源數、討論紀錄數）；5 份來源列表（S1、S2、S4、S5、S6） | 至少 5 篇 |
 | 2 | LLM Wiki 連結與成果 | wiki/index.md 連結；目錄結構；一頁概念頁截圖；一份討論紀錄截圖（含你的回覆）；log.md 節錄 | 先討論後生成 |
 | 3 | 教學 HTML 簡報 | 簡報連結；3 張截圖（封面、演算法流程、小測驗）；教學結構表；投影片 ↔ wiki 對應表（可節錄並連到全表） | 教學結構、明確對應 |
 | 4 | Loop / Graph 設計 | v1 流程圖；精簡節點表；依序回答「哪些步驟重複」「哪些地方檢查或重新生成」「為什麼這樣設計」；v2 流程圖 | 設計合理且說明清楚 |
@@ -753,7 +760,7 @@ REPORT.md 的第 1–6 節一對一對應作業的 6 個繳交項目，助教照
 4. **11/22（日）**：run-001 完成（含 H2）、產生彙整、決定 v2、跑 run-002-v2、發布最後版。
 5. **11/23（一）**：REPORT.md、反思定稿、連結檢查、填標題繳交。
 
-時間不夠時的取捨：先砍 S7、S8（仍有 6 份，超過 5 篇），再把簡報縮到 18 張。run-002 不要砍，它是 9–10 分「調整檢查流程」的證據。
+時間不夠時的取捨：S3、S7、S8 已在 2026-11-20 依使用者要求拿掉，剩 5 份，不能再砍；只能把簡報縮到 18 張。run-002 不要砍，它是 9–10 分「調整檢查流程」的證據。（11/20–11/21 的 ingest 排程改為：S2、S4、S5、S6。）
 
 ### 13.2 已知風險
 
@@ -772,9 +779,9 @@ REPORT.md 的第 1–6 節一對一對應作業的 6 個繳交項目，助教照
 
 **Wiki**
 
-- [ ] R1 `wiki/` 至少 20 頁概念、實體、比較頁，加上 index、log、glossary
+- [ ] R1 `wiki/` 至少 15 頁概念、實體、比較頁，加上 index、log、glossary（2026-11-20 由 20 改為 15，預定頁見 §4.5）
 - [ ] R2 每份來源都有討論紀錄，第 7 節是你的回覆原文，L9 通過
-- [ ] R3 至少 6 份來源完成 ingest（目標 8 份），log.md 有對應紀錄
+- [ ] R3 5 份來源（S1、S2、S4、S5、S6）完成 ingest，log.md 有對應紀錄
 - [ ] 全域 lint L1–L9 全部通過
 
 **簡報**

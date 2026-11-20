@@ -1,9 +1,9 @@
 ---
 title: 術語表
 type: glossary
-sources: [S1]
+sources: [S1, S2]
 spec_version: none
-updated: 2026-11-19
+updated: 2026-11-20
 status: draft
 ---
 
@@ -20,3 +20,9 @@ status: draft
 | 後量子密碼學 | post-quantum cryptography / PQC | 建立在傳統電腦和量子電腦都難解的數學問題上的加密方法。[S1 Q5] | [後量子密碼學](concepts/post-quantum-cryptography.md) |
 | 量子密碼學 | quantum cryptography | 利用量子物理性質來加密的方法，和後量子密碼學是兩回事。[S1 Q12] | [後量子密碼學](concepts/post-quantum-cryptography.md) |
 | 數位簽章 | digital signature | 用來驗證身分的密碼技術。[S1 Q5] | [後量子密碼學](concepts/post-quantum-cryptography.md) |
+| HQC | HQC | NIST 在 2025 年選出的後量子加密演算法，建立在錯誤更正碼上；依 S2（2025-03）的說法，定位是 ML-KEM 的備援（查核日期 2026-11-19）。[S2 摘要、§1] | [HQC 總覽](overview/hqc-overview.md) |
+| ML-KEM | ML-KEM | NIST 在 2024 年定案的一般加密演算法，建立在結構化格上；依 S2（2025-03）的說法，是一般加密的推薦選擇（查核日期 2026-11-19）。[S2 §0、§1] | [HQC 與 ML-KEM 比較](comparisons/hqc-vs-ml-kem.md) |
+| 金鑰封裝機制 | key encapsulation mechanism / KEM | 兩方在公開網路上交換機密資料前，先做的「第一次握手」。[S2 §3] | [金鑰封裝機制](concepts/kem.md) |
+| 錯誤更正碼 | error-correcting code | HQC 所根據的數學概念，已在資訊安全領域用了數十年。[S2 §1] | [HQC 總覽](overview/hqc-overview.md) |
+| 結構化格 | structured lattices | ML-KEM 所根據的數學概念，和 HQC 的錯誤更正碼不同。[S1 Q5][S2 §1] | [HQC 與 ML-KEM 比較](comparisons/hqc-vs-ml-kem.md) |
+| FIPS | FIPS | NIST 正式標準的名稱，例如 ML-KEM 的標準叫 FIPS 203。[S2 §2] | [HQC 的標準化進度](entities/fips-207.md) |

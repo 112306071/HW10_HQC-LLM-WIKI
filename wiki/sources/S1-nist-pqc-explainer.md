@@ -10,7 +10,7 @@ status: draft
 
 ## 書目資料
 
-- NIST，〈What Is Post-Quantum Cryptography?〉，2024-08-13 發布，2026-02-27 更新。
+- NIST，〈What Is Post-Quantum Cryptography?〉，2024-08-13 發布，2026-02-27 更新（日期取自網頁的發布資訊，登記在 raw/sources.yaml；raw 轉檔只保留正文，沒有日期）。
 - 網址：https://www.nist.gov/cybersecurity/what-post-quantum-cryptography （會轉址到 https://www.nist.gov/cybersecurity-and-privacy/what-post-quantum-cryptography ）
 - 取得日期：2026-11-19，存於 `raw/S1-nist-pqc-explainer.md`
 - 討論紀錄：[discussions/01-S1-nist-pqc-explainer.md](../../discussions/01-S1-nist-pqc-explainer.md)
@@ -27,7 +27,7 @@ status: draft
 - 「先收集、後解密」讓今天傳送的加密資料將來也可能曝光。[S1 Q8]
 - 後量子密碼學建立在傳統與量子電腦都難解的數學問題上，用途包括一般加密與數位簽章。[S1 Q5]
 - 後量子密碼學和量子密碼學是兩回事：前者靠數學，後者靠量子物理。[S1 Q12]
-- NIST 從 2016 年開始徵選，收到 69 個候選演算法，2024 年發布前三個標準，並建議立即開始轉換。[S1 Q9、Q11]
+- NIST 從 2016 年開始徵選，共有 69 個候選演算法通過門檻，2024 年發布前三個標準，並建議立即開始轉換。[S1 Q9、Q11]
 
 ## 更新了哪些頁
 

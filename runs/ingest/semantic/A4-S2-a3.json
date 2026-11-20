@@ -1,0 +1,30 @@
+{
+  "checker": "semantic-subagent",
+  "target": "wiki/ (S2 ingest)",
+  "results": [
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/glossary.md: ML-KEM 列「NIST 在 2024 年定案的一般加密主力演算法…」",
+          "problem": "「一般加密主力」是會隨時間改變的定位狀態（S2 原文是 ML-KEM will remain the recommended choice），本句與本頁都沒寫明是 S2（2025-03）的說法，也沒附查核日期；而 comparisons/hqc-vs-ml-kem.md 的「角色」列把同一件事標成「S2，2025-03 的說法，查核日期 2026-11-19」。"
+        },
+        {
+          "where": "wiki/glossary.md: HQC 列「NIST 在 2025 年選出的後量子加密演算法…當 ML-KEM 的備援。」",
+          "problem": "「當 ML-KEM 的備援」是定位狀態，沒有寫明是 S2（2025-03）的說法，也沒附查核日期；glossary 沒有頁首時間說明可以涵蓋。"
+        },
+        {
+          "where": "wiki/index.md: 比較一節「HQC 與 ML-KEM 比較 — 同樣是 KEM，數學基礎不同；ML-KEM 主力、HQC 備援。」",
+          "problem": "「ML-KEM 主力、HQC 備援」寫得像現況，沒有來源時間點與查核日期（同頁實體一節則有寫「2025 年 3 月預估的時程」）。"
+        }
+      ]
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": []
+    }
+  ],
+  "notes": "判定說明：overview/hqc-overview.md、concepts/kem.md、comparisons/hqc-vs-ml-kem.md、entities/fips-207.md、concepts/quantum-threat.md、concepts/post-quantum-cryptography.md 的頁首都有「時間說明／狀態查核」，寫明整頁根據的來源、時間點（S2 2025-03-11 或 S1 2026-02-27 更新版）與查核日期 2026-11-19，本次把它視為涵蓋該頁內的定位與時程句；只有沒有這種頁首說明的 glossary.md 與 index.md 判 L7 FAIL。所有頁面都沒有位元組、位元、2^-x 這類參數數字，spec_version: none 符合規則。L8 已核對：HQC 是第五個演算法、是第四輪唯一選中者、定位是備援；ML-KEM 的標準名稱是 FIPS 203；時程是約一年後出草案、90 天意見期、2027 年定案；KEM 定義是「第一次握手」；術語計數 S1 新增 7 個 + S2 新增 6 個 = glossary 13 列；S1 與 S2 的日期和 raw/sources.yaml 一致。各頁說法沒有互相矛盾。\n\n來源不支持或和原文不符的句子：\n(1) 檔名 wiki/entities/fips-207.md 暗示 HQC 的標準編號是 FIPS 207，但 S1、S2 都沒有提到 HQC 標準的編號（S2 來源頁自己也寫「也沒有提到 HQC 標準的編號」；S2 §2 只列出 FIPS 203/204/205/206）。頁面內文沒有寫 FIPS 207，問題只在檔名。\n(2) wiki/concepts/post-quantum-cryptography.md「NIST 也要求考慮演算法在智慧卡、物聯網小裝置…」：S1 Q9 原文是 NIST has encouraged the world's cryptographers to look at…，是「鼓勵」不是「要求」，語氣比原文強。\n(3) wiki/sources/S1-nist-pqc-explainer.md「NIST 從 2016 年開始徵選，收到 69 個候選演算法…」：S1 Q9 原文是 69 candidate algorithms that cleared the bar NIST had set，是「通過門檻」的 69 個，不是「收到」69 個（post-quantum-cryptography.md 寫「通過 NIST 的門檻」才正確）。\n(4) 下列幾句寫的是編輯決定，引用標記卻掛在 S2，S2 原文並不支持這些內容：post-quantum-cryptography.md「依討論紀錄 02，其他演算法只講到這個結構…[S2 §2]」、entities/fips-207.md「依討論紀錄 02，本 wiki 只講結構…[S2 §2]」、comparisons/hqc-vs-ml-kem.md 頁首「…依討論紀錄 02，不 ingest 提供 ML-KEM 數字的 S8…[S2 §1]」。這些句子不是事實句，建議拿掉 S2 標記，或改用不像來源引用的寫法。\n比喻和來源的矛盾：大致沒有。只有一處小地方：concepts/quantum-threat.md 的比喻寫「一旦做出來，幾小時就能打開」，S1 Q4 原文是 days or even hours，而且是 it's possible；比喻只取了較短的一端，但不算矛盾。"
+}

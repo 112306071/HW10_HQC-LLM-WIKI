@@ -1,0 +1,26 @@
+{
+  "checker": "semantic-subagent",
+  "target": "wiki/ (S2 ingest)",
+  "results": [
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/index.md:「實體」清單「[HQC 的標準化進度](entities/fips-207.md) — HQC 是第五個演算法、2025 年 3 月預估的時程。來源：S2」",
+          "problem": "index.md 沒有頁首時間說明，這句提到「預估的時程」，有來源與時間點，但句中沒有「查核日期 YYYY-MM-DD」（同頁第 19 行的比較條目就有附）。"
+        },
+        {
+          "where": "wiki/index.md:「總覽」清單「[HQC 總覽](overview/hqc-overview.md) — HQC 是什麼、NIST 為什麼在 2025 年 3 月選它當 ML-KEM 的備援。來源：S2」",
+          "problem": "「備援」屬於評分表點名的定位說法；這句有來源 S2 與時間點 2025 年 3 月，但沒有附「查核日期 YYYY-MM-DD」，而 index.md 沒有頁首時間說明可以涵蓋。"
+        }
+      ]
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": []
+    }
+  ],
+  "notes": "L8 檢查摘要：HQC 的定位（ML-KEM 的備援、不取代 ML-KEM）、第五個演算法、第四輪唯一入選、時程（約一年後草案、90 天意見期、2027 年定案）、ML-KEM 的標準名稱 FIPS 203（2024 年定案）、KEM 的定義（第一次握手）在 index、glossary、overview、PQC、kem、fips-207、comparison、S2 摘要頁都一致。術語計數也一致：S1 摘要頁寫新增 7 個，glossary 中 S1 術語正好 7 個（量子電腦、量子位元、密碼學相關量子電腦、先收集後解密、後量子密碼學、量子密碼學、數位簽章）；S2 摘要頁寫新增 6 個，S2 術語正好 6 個（HQC、ML-KEM、KEM、錯誤更正碼、結構化格、FIPS）。所有頁面都沒有位元組、位元或 2^-x 這類參數數字，所以 spec_version: none 不違規。\n\n原始來源不支持或不完全相符的地方（不影響判定）：\n1. 檔名 wiki/entities/fips-207.md（index.md 與多頁的連結也用這個檔名）暗示 HQC 的標準叫 FIPS 207，但 S2 沒有提到 HQC 標準的編號（S2 §2 只提到 FIPS 203/204/205 與草案 FIPS 206）。頁面內文已寫明「標準編號要等 S6 查核」，S2 摘要頁也寫明「沒有提到 HQC 標準的編號」，內文本身沒有錯；只是檔名沒有來源支持。\n2. wiki/glossary.md FIPS 列「NIST 正式標準的名稱，例如 ML-KEM 的標準叫 FIPS 203。[S2 §2]」：S2 沒有替 FIPS 下定義。S2 §2 也提到還是草案的 FIPS 206（\"A draft of the fourth standard ... will be released shortly as FIPS 206\"），所以說 FIPS 是「正式標準的名稱」是概括得稍微太寬。\n3. wiki/concepts/post-quantum-cryptography.md「2025 年 3 月，NIST 選出 HQC 當第五個演算法，它是第四輪候選中唯一被選中的。」與 wiki/entities/fips-207.md「也是第四輪候選中唯一被選中的」：S2 §2 的原文是 \"HQC is the only algorithm to be standardized from NIST's fourth round\"，意思是「唯一要被標準化的」。譯成「唯一被選中」大致相符，只是用字稍有出入。\n比喻和來源矛盾的地方：無（輪胎與備胎、兩種鎖芯、掛鎖寄盒子、萬能鑰匙、偷走保險箱這幾個比喻都沒有和 S1、S2 衝突）。"
+}

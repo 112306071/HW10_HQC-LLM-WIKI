@@ -1,0 +1,34 @@
+{
+  "checker": "semantic-subagent",
+  "target": "wiki/ (S2 ingest)",
+  "results": [
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/concepts/kem.md:## 細節 第 2 點「NIST 另外發布了 KEM 實作建議的草案文件（SP 800-227）…」",
+          "problem": "「草案」是時效狀態，句子雖有查核日期，但沒寫明是 S2（2025-03）當時的說法，讀起來像 2026-11-19 仍是草案的現況（S2 §3 原文本身就帶 2025 年的時間點：意見期到 2025-03-07）；應改成「依 S2（2025-03）當時的說法，SP 800-227 是草案」。"
+        },
+        {
+          "where": "wiki/overview/hqc-overview.md:## 重點「定位：HQC 是備援，不是要取代 ML-KEM；ML-KEM 仍是一般加密的推薦選擇。」",
+          "problem": "「仍是推薦選擇」是會變的狀態，這句與所在段落都沒寫來源時間點與查核日期，只靠頁首的時間說明，讀起來像現況。"
+        },
+        {
+          "where": "wiki/overview/hqc-overview.md:## 常見誤解 第 1 點「…正確：HQC 是備援，ML-KEM 仍是一般加密的推薦選擇。」",
+          "problem": "同上，「仍是推薦選擇」沒標 S2（2025-03）時間點與查核日期。"
+        },
+        {
+          "where": "wiki/comparisons/hqc-vs-ml-kem.md:## 常見誤解「…正確：NIST 說 ML-KEM 仍是一般加密的推薦選擇，HQC 只是備援。」",
+          "problem": "寫了「NIST 說」但沒寫是哪個時間點（S2，2025-03）的說法，也沒附查核日期，「仍是」讀起來像現況。"
+        }
+      ]
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": []
+    }
+  ],
+  "notes": "【L7 補充】沒有任何頁出現位元組、位元、2^-x 之類的參數數字，所以各頁 spec_version: none 合規。整體來說，fips-207.md、comparisons 表格、pqc.md 的 S1 段落時效標示都做得完整；FAIL 只因為上面幾句在句子或所在段落裡沒有時間點，只靠頁首說明。\n【L8 補充】這些都核對過，一致：第五個演算法、第四輪唯一入選、ML-KEM = FIPS 203、三個已定案標準、時程（約一年後出草案、90 天意見期、2027 定案）、S1 與 S2 的版本日期、術語計數（S1 7 個 + S2 6 個 = 術語表 13 列）。有一處小差異：comparisons.md ## 細節「NIST 認為 HQC 雖然比較吃資源…值得當備援」，但 overview.md 與 S2 摘要頁寫的是「審查者認為」（S2 §1 原文：convinced reviewers），建議統一成「審查者」。\n【來源不支持或不符的句子】\n1. wiki/sources/S1-nist-pqc-explainer.md 書目資料「2024-08-13 發布，2026-02-27 更新」，以及 wiki/sources/S2-nist-news-hqc.md 書目資料「2025-03-11 發布，2025-03-20 更新」：raw/S1、raw/S2 都沒有這些日期（raw/S2 只有網址裡的 2025/03），用 raw 沒辦法核對。全 wiki 的時間錨點都靠這兩組日期，建議在 raw 補一份能佐證的檔案，或註明日期出處。\n2. wiki/overview/hqc-overview.md ## 重點「為什麼要備援：…一個出問題不會連帶拖垮另一個」，以及 wiki/comparisons/hqc-vs-ml-kem.md ## 白話解釋「…萬一 ML-KEM 的數學被找到弱點，HQC 不會跟著出事」：S2 只說數學不同「could be important if a weakness were discovered in ML-KEM」、要有 fallback（摘要、§0），沒有保證 HQC 一定不受影響；這兩句講得比原文肯定。overview ## 白話解釋的「數學基礎完全不同」也一樣，原文只說 different math。\n3. wiki/concepts/kem.md ## 重點「用途是保護儲存的資料，以及在公開網路上傳送的資料。[S2 §0]」：S2 §0 這句是在講 HQC 和 ML-KEM 這兩個演算法（Both these algorithms are designed to protect stored information…），不是在定義 KEM 的一般用途。\n4. wiki/concepts/kem.md ## 白話解釋「…不是之後的資料交換本身」與 ## 常見誤解「依 NIST 的說法，…不是交換本身」：S2 §3 只說 KEM 是「a sort of first handshake」，沒有明說「不是交換本身」；這是推論，不宜寫成「依 NIST 的說法」。\n5. wiki/concepts/post-quantum-cryptography.md ## 細節「S1 提到『另有…一般加密演算法在考慮中』，HQC 就是這一類」：S1 Q5 沒有點名 HQC，S2 也沒有把 HQC 對應到 S1 這句話；這是合理的推論，但不是任何一個來源直接寫的。\n6. 檔名 wiki/entities/fips-207.md（術語表的 FIPS 列也連到這頁）：檔名暗示 HQC 的標準編號是 FIPS 207，但 S2 沒提到 HQC 標準的編號，頁面本身也寫「標準編號要等 S6 查核」，檔名和內容不一致。\n【比喻和來源矛盾的地方】無。overview 的備胎比喻（「不會兩個一起壞」）和第 2 點有同樣的過度肯定語氣，但方向和 S2 一致，不算矛盾。"
+}

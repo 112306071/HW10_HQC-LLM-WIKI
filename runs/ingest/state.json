@@ -2,13 +2,14 @@
   "run_id": "ingest",
   "workflow_version": "v1",
   "attempts": {
-    "A4:S1": 3
+    "A4:S1": 3,
+    "A4:S2": 5
   },
   "extra_sources": [],
-  "history_len": 11,
-  "last_node": "A2",
-  "last_result": "DONE",
-  "current_node": "H1",
+  "history_len": 20,
+  "last_node": "A4",
+  "last_result": "PASS",
+  "current_node": "A1",
   "target": "S2",
-  "updated": "2026-11-19T23:44:21+08:00"
+  "updated": "2026-11-20T17:06:49+08:00"
 }

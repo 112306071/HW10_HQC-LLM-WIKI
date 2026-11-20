@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/python scripts/trace.py --run ingest --node H1 --target S2 --result HUMAN_APPROVED --inputs discussions/02-S2-nist-news-hqc.md --outputs discussions/02-S2-nist-news-hqc.md --route-to A3 --reason \"使用者回答 3 題並回覆確認；另要求聚焦 HQC 技術、來源刪到至少 5 份（範圍調整）\")",
+      "Bash(/Users/mikechen/大學作業/hqc-llm-wiki/.venv/bin/python -c \"import json;json.load\\(open\\('/Users/mikechen/大學作業/hqc-llm-wiki/runs/ingest/semantic/A4-S2-a2.json'\\)\\);print\\('ok'\\)\")"
+    ]
+  }
+}

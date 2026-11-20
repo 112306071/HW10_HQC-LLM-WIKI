@@ -1,0 +1,87 @@
+{
+  "run_id": "ingest",
+  "workflow_version": "v1",
+  "node": "A4",
+  "attempt": 4,
+  "timestamp": "2026-11-20T17:00:02+08:00",
+  "target": "wiki/",
+  "results": [
+    {
+      "id": "L1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L6",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L8",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L9",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/index.md:「實體」清單「[HQC 的標準化進度](entities/fips-207.md) — HQC 是第五個演算法、2025 年 3 月預估的時程。來源：S2」",
+          "problem": "index.md 沒有頁首時間說明，這句提到「預估的時程」，有來源與時間點，但句中沒有「查核日期 YYYY-MM-DD」（同頁第 19 行的比較條目就有附）。"
+        },
+        {
+          "where": "wiki/index.md:「總覽」清單「[HQC 總覽](overview/hqc-overview.md) — HQC 是什麼、NIST 為什麼在 2025 年 3 月選它當 ML-KEM 的備援。來源：S2」",
+          "problem": "「備援」屬於評分表點名的定位說法；這句有來源 S2 與時間點 2025 年 3 月，但沒有附「查核日期 YYYY-MM-DD」，而 index.md 沒有頁首時間說明可以涵蓋。"
+        }
+      ],
+      "by": "semantic"
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "A3"
+}

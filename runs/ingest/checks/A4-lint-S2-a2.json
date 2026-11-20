@@ -1,0 +1,95 @@
+{
+  "run_id": "ingest",
+  "workflow_version": "v1",
+  "node": "A4",
+  "attempt": 2,
+  "timestamp": "2026-11-20T16:50:50+08:00",
+  "target": "wiki/",
+  "results": [
+    {
+      "id": "L1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L6",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L8",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L9",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/concepts/kem.md:## 細節 第 2 點「NIST 另外發布了 KEM 實作建議的草案文件（SP 800-227）…」",
+          "problem": "「草案」是時效狀態，句子雖有查核日期，但沒寫明是 S2（2025-03）當時的說法，讀起來像 2026-11-19 仍是草案的現況（S2 §3 原文本身就帶 2025 年的時間點：意見期到 2025-03-07）；應改成「依 S2（2025-03）當時的說法，SP 800-227 是草案」。"
+        },
+        {
+          "where": "wiki/overview/hqc-overview.md:## 重點「定位：HQC 是備援，不是要取代 ML-KEM；ML-KEM 仍是一般加密的推薦選擇。」",
+          "problem": "「仍是推薦選擇」是會變的狀態，這句與所在段落都沒寫來源時間點與查核日期，只靠頁首的時間說明，讀起來像現況。"
+        },
+        {
+          "where": "wiki/overview/hqc-overview.md:## 常見誤解 第 1 點「…正確：HQC 是備援，ML-KEM 仍是一般加密的推薦選擇。」",
+          "problem": "同上，「仍是推薦選擇」沒標 S2（2025-03）時間點與查核日期。"
+        },
+        {
+          "where": "wiki/comparisons/hqc-vs-ml-kem.md:## 常見誤解「…正確：NIST 說 ML-KEM 仍是一般加密的推薦選擇，HQC 只是備援。」",
+          "problem": "寫了「NIST 說」但沒寫是哪個時間點（S2，2025-03）的說法，也沒附查核日期，「仍是」讀起來像現況。"
+        }
+      ],
+      "by": "semantic"
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "A3"
+}

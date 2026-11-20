@@ -1,14 +1,14 @@
 ---
 title: 後量子密碼學（PQC）
 type: concept
-sources: [S1]
-related: [quantum-threat.md, ../sources/S1-nist-pqc-explainer.md]
+sources: [S1, S2]
+related: [quantum-threat.md, ../overview/hqc-overview.md, ../entities/fips-207.md, ../sources/S1-nist-pqc-explainer.md, ../sources/S2-nist-news-hqc.md]
 spec_version: none
-updated: 2026-11-19
+updated: 2026-11-20
 status: draft
 ---
 
-時間說明：本頁關於 NIST 進度的說法都來自 S1（NIST 科普頁，2026-02-27 更新版），查核日期 2026-11-19；之後的進度以其他來源為準。[S1 Q0、Q5]
+時間說明：本頁關於 NIST 進度的說法來自 S1（NIST 科普頁，2026-02-27 更新版）與 S2（NIST 新聞稿，2025-03-11），各句標明出處，查核日期 2026-11-19。[S1 Q0、Q5][S2 §2]
 
 ## 一句話定義
 
@@ -35,13 +35,21 @@ status: draft
 - NIST 在 2016 年啟動後量子密碼學計畫，同年底邀請全世界的密碼學家提交演算法。[S1 Q9]
 - 大約一年後截止時，共有 69 個候選演算法通過 NIST 的門檻。[S1 Q9]
 - 這些候選公開讓專家分析、嘗試破解，經過多輪評估逐步淘汰。[S1 Q9]
-- NIST 也要求考慮演算法在智慧卡、物聯網小裝置這類運算能力有限的設備上能不能用。[S1 Q9]
+- NIST 也鼓勵各國密碼學家檢視候選演算法在智慧卡、物聯網小裝置這類運算能力有限的設備上能不能用。[S1 Q9]
 
 ### S1 提到的演算法數量（只到最初四個）
 
 - S1 寫的是：NIST 最初選出四個要標準化的演算法，其中三個基於「結構化格」（structured lattices），一個基於雜湊函數（hash functions）。[S1 Q5]
 - S1 也提到，當時另有一些用於一般加密、不用格也不用雜湊函數的演算法在考慮中；這是 S1 寫作時的狀態，不是現況（查核日期 2026-11-19）。[S1 Q5]
 - S1 只列出這最初的四個，之後新選出的演算法要由其他來源補上。[S1 Q5]
+
+### HQC：第五個演算法（S2 補充）
+
+- 2025 年 3 月，NIST 選出 HQC 當第五個演算法，它是第四輪候選中唯一被選中的。[S2 §2]
+- 之前的四個裡，有三個已在 2024 年成為正式標準；其中一般加密用的是 ML-KEM（標準名稱 FIPS 203）。[S2 §0、§2]
+- S1 只說「另有不用格、也不用雜湊函數的一般加密演算法在考慮中」；S2 則說 HQC 建立在錯誤更正碼上，當 ML-KEM 的備援。兩份來源都沒有直接說兩者是同一件事。[S1 Q5][S2 §1]
+- 把兩份來源放在一起看，這符合 S1 說的「每種用途都要有不只一個標準演算法」；這是本 wiki 的整理，不是來源原話。[S1 Q5][S2 §0]
+- 其他演算法依使用者決定不展開；HQC 的定位見 [HQC 總覽](../overview/hqc-overview.md)。
 
 ## 常見誤解
 
@@ -51,5 +59,8 @@ status: draft
 ## 相關頁面
 
 - [量子威脅](quantum-threat.md)
+- [HQC 總覽](../overview/hqc-overview.md)
+- [HQC 的標準化進度](../entities/fips-207.md)
 - [S1 來源摘要](../sources/S1-nist-pqc-explainer.md)
+- [S2 來源摘要](../sources/S2-nist-news-hqc.md)
 - [術語表](../glossary.md)
