@@ -1,4 +1,4 @@
-version: v1
+version: v1.1   # 2026-11-20：A3 後加腳本自查 A3S、L7 加定位詞（見 workflow/CHANGELOG.md；v1 快照在 workflow/v1/）
 limits:
   max_attempts_per_check_node: 3   # A4、B3、B5 各自計算；B5 的兩種退回合計
   max_extra_sources_per_run: 2      # B1 → A1 的次數
@@ -9,6 +9,7 @@ nodes:
   A2: {name: 寫討論備忘錄, type: action}
   H1: {name: 使用者確認, type: human_gate}
   A3: {name: 寫入 Wiki, type: action}
+  A3S: {name: 寫入後腳本自查, type: check, checks: [L1, L2, L3, L4, L5, L6, L7, L8, L9], by: script, command: "lint_wiki.py --dry-run", writes_check_json: false}
   A4: {name: Wiki lint, type: check, checks: [L1, L2, L3, L4, L5, L6, L7, L8, L9]}
   B1: {name: 查詢 Wiki, type: action}
   B2: {name: 整理大綱, type: action}
@@ -22,7 +23,9 @@ edges:
   - {from: A2, to: H1}
   - {from: H1, to: A3, when: confirmed}
   - {from: H1, to: A2, when: revise}
-  - {from: A3, to: A4}
+  - {from: A3, to: A3S}
+  - {from: A3S, to: A3, when: fail}
+  - {from: A3S, to: A4, when: pass}
   - {from: A4, to: A3, when: fail}
   - {from: A4, to: A1, when: pass_and_sources_left}
   - {from: A4, to: B1, when: pass_and_no_sources_left}

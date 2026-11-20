@@ -41,6 +41,7 @@ frontmatter 欄位：title、type、sources、related、spec_version、updated�
 
 ## 執行規則（給 Claude Code）
 - Python 一律用 `.venv/bin/python`。
+- A3 寫完先跑 `scripts/lint_wiki.py --target Sx --dry-run`（節點 A3S，v1.1），PASS 才進 A4；不要用 `--attempt` 試跑，那會寫出正式紀錄。
 - 每執行完一個節點就跑 `scripts/trace.py` 寫 trace；trace 與 checks JSON 只由腳本寫入，不可手改。
 - 決定下一步前先讀 `workflow/graph.yaml` 與 `runs/<run_id>/state.json`，依 `when` 條件選邊。
 - 遇到【人工關卡】（H1、H2）一定停下等使用者回覆。

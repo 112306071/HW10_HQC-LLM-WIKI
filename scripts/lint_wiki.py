@@ -26,7 +26,10 @@ EXEMPT_SECTIONS = {"相關頁面", "書目資料", "更新了哪些頁"}
 LINK = re.compile(r"!?\[([^\]]*)\]\(([^)\s]+)\)")
 LOG_HEAD = re.compile(r"^## \[(\d{4}-\d{2}-\d{2} \d{2}:\d{2})\] (ingest|query|lint|conflict|workflow-change|issue) \| (.+)$")
 PARAM_NUM = re.compile(r"\d[\d,\s]*\s*(位元組|bytes?\b|位元\b|bits?\b)|(?<![\d-])2\s*\^\s*[-−]?\s*\d+|(?<![\d-])2[−-]\d{2,3}\b")
-TIMELY = re.compile(r"尚未|預計|草案|即將")
+# v1.1（2026-11-20）：加入定位與狀態詞。S1、S2 ingest 的 L7 失敗都是這類說法，v1 只有語意檢查抓得到（見 workflow/CHANGELOG.md）。
+TIMELY = re.compile(r"尚未|預計|草案|即將|仍是|仍在|預估|制定中|主力|備援|推薦選擇")
+# 時間說明段：含查核日期，且寫明是「說法／預估／時間說明／狀態查核」。放在第一個標題前涵蓋全頁，放在某節開頭涵蓋該節。
+COVER_NOTE = re.compile(r"時間說明|狀態查核|說法|預估")
 CHECK_DATE = re.compile(r"查核日期\s*\d{4}-\d{2}-\d{2}")
 PARAM_NAME = re.compile(r"HQC-[135](?!\d)|hqc-(?:128|192|256)|ML-KEM-(?:512|768|1024)")
 QUANTITY = {"公鑰": "pk", "public key": "pk", "私鑰": "sk", "secret key": "sk",
@@ -243,20 +246,33 @@ def lint(root: Path, expect_source: str | None) -> list[dict]:
 
     # L7 版本與時效
     for p, (fm, body, _) in data.items():
-        if p.name in SPECIAL and p.parent == root / "wiki":
+        is_special = p.name in SPECIAL and p.parent == root / "wiki"
+        if is_special and p.name == "log.md":
             continue
         fm = fm or {}
         has_param = False
+        page_cover = False      # 第一個標題前的時間說明段 → 涵蓋全頁
+        section_cover = False   # 某節開頭的時間說明段 → 涵蓋該節
+        seen_heading = False
         for kind, text, section, line in iter_blocks(body):
             if kind == "heading":
+                seen_heading = True
+                section_cover = False
                 continue
             plain = SOURCE_MARK.sub("", text)
             if PARAM_NUM.search(plain):
                 has_param = True
+            if kind == "para" and CHECK_DATE.search(text) and COVER_NOTE.search(plain):
+                if seen_heading:
+                    section_cover = True
+                else:
+                    page_cover = True
+            if kind == "quote" or page_cover or section_cover:
+                continue  # 比喻不是事實；已被時間說明段涵蓋
             if TIMELY.search(plain) and not CHECK_DATE.search(text):
                 L["L7"].append({"where": f"{rel(root, p)}:{line + off[p]}", "problem": f"時效說法缺查核日期：「{strip_inline(text)[:30]}…」"})
         sv = str(fm.get("spec_version", "none")).strip().lower()
-        if has_param and sv in ("none", "", "null"):
+        if has_param and not is_special and sv in ("none", "", "null"):
             L["L7"].append({"where": rel(root, p), "problem": "含參數數字，但 spec_version 是 none"})
 
     # L8 跨頁一致（腳本部分：參數組 × 量 × 版本 的數值）
@@ -347,6 +363,13 @@ def selftest() -> int:
             print(f"[FAIL] lint_bad 應該抓到 {r['id']} 但沒有")
         else:
             print(f"[ok] lint_bad 抓到 {r['id']}：{r['details'][0]['problem'][:50]}")
+    # v1.1：定位詞要抓到；時間說明段要能涵蓋
+    l7_bad = next(r for r in bad if r["id"] == "L7")
+    if not any("仍是主力" in d["problem"] for d in l7_bad["details"]):
+        ok = False
+        print("[FAIL] lint_bad 應該抓到沒標查核日期的定位說法「仍是主力」")
+    else:
+        print("[ok] lint_bad 抓到 L7 定位說法：仍是主力")
     print("selftest", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 
@@ -358,12 +381,20 @@ def main(argv=None) -> int:
     ap.add_argument("--attempt", type=int)
     ap.add_argument("--semantic", help="子代理的語意檢查 JSON")
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="只檢查腳本部分、印出結果，不寫檢查紀錄（A3 寫完後自查用，v1.1）")
     a = ap.parse_args(argv)
     if a.selftest:
         return selftest()
     if not a.target:
         ap.error("需要 --target")
     expect = a.target if re.match(r"^S\d+$", a.target) else None
+    if a.dry_run:
+        results = lint(ROOT, expect)
+        overall = overall_of(results)
+        print(f"A3 自查（dry-run，不寫紀錄）{a.target}: {overall}")
+        print_summary(results)
+        return 0 if overall == "PASS" else 1
     results = merge_results(lint(ROOT, expect), load_semantic(a.semantic))
     attempt = a.attempt or 1 + len(list((ROOT / "runs" / a.run / "checks").glob(f"A4-lint-{a.target}-a*.json")))
     overall = overall_of(results)

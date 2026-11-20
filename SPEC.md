@@ -5,6 +5,8 @@
 > 本檔由使用者提供的規格書轉存。原文 §7 的 workflow v1 嵌入圖在匯出時遺失，已依 §7.1 節點表與 §7.2 graph.yaml 重畫於 `workflow/graph.md`（見 `wiki/log.md` 的 issue 紀錄）。
 >
 > **2026-11-20 範圍調整**：依使用者在討論紀錄 02 的要求（簡報著重 HQC 技術；對學會 HQC 沒幫助的資料刪掉，至少 5 份），來源由 8 份減為 5 份（S1、S2、S4、S5、S6），簡報由 22 張改為 21 張。改動處：§1.1、§2.1、§2.2、§4.5、§5、§9.1、§9.2、§9.4、§10.2、§12.2、§13。原因與明細見 `discussions/02-S2-nist-news-hqc.md` 第 8 節、`wiki/log.md` 2026-11-20 issue。
+>
+> **2026-11-20 workflow v1.1**：依 S1、S2 ingest 的失敗紀錄，使用者決定在 ingest 中途修改流程：A3 後新增腳本自查節點 A3S，L7 腳本加入定位詞。§7、§8.1 以 `workflow/graph.yaml` 與 `workflow/CHANGELOG.md` 為準；§7.6 的 v2 仍依 run-001 數據決定。
 
 ## 0. 這份規格書怎麼用
 

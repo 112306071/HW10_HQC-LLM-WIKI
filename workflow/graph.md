@@ -1,6 +1,7 @@
-# Workflow v1 流程圖
+# Workflow v1.1 流程圖
 
-12 個節點：8 個動作、3 個自動檢查點（菱形）、2 個人工關卡（紅框）。
+13 個節點：8 個動作、4 個自動檢查點（菱形）、2 個人工關卡（紅框）。
+綠框是 v1.1（2026-11-20）新增或修改的地方，原因見 [CHANGELOG.md](CHANGELOG.md)；v1 原圖見 [v1/graph.md](v1/graph.md)。
 機器可讀定義見 [graph.yaml](graph.yaml)，規格見 [SPEC.md §7](../SPEC.md#7-loop--graph-設計)。
 
 ```mermaid
@@ -10,11 +11,14 @@ flowchart TB
         A2["A2 寫討論備忘錄<br/>discussions/NN-*.md"]
         H1{{"H1 使用者確認<br/>【人工關卡】"}}
         A3["A3 寫入 Wiki<br/>頁面 + index + log + glossary"]
-        A4{"A4 Wiki lint<br/>L1–L9"}
+        A3S{"A3S 寫入後腳本自查<br/>lint --dry-run，不寫紀錄<br/>L7 多抓「主力、備援、仍是」等詞"}
+        A4{"A4 Wiki lint<br/>L1–L9（腳本 + 語意）"}
         A1 --> A2 --> H1
         H1 -- 確認 --> A3
         H1 -- 要修改 --> A2
-        A3 --> A4
+        A3 --> A3S
+        A3S -- 不通過 --> A3
+        A3S -- 通過 --> A4
         A4 -- 不通過<br/>最多 3 次 --> A3
         A4 -- 通過，還有來源 --> A1
     end
@@ -44,13 +48,16 @@ flowchart TB
     classDef human fill:#fde8e8,stroke:#c0392b,stroke-width:2px,color:#000
     classDef check fill:#fff4d6,stroke:#b7791f,color:#000
     class H1,H2 human
+    classDef changed fill:#e3f6e8,stroke:#2f855a,stroke-width:3px,color:#000
     class A4,B3,B5 check
+    class A3S changed
 ```
 
 ## 重試上限
 
 | 檢查點 | 退回 | 上限 | 超過時 |
 | --- | --- | --- | --- |
+| A3S | A3 | 不設上限（不寫紀錄，只是作者自查；每次執行都寫 trace） | — |
 | A4 | A3 | 3 次 | `ESCALATED`，交給使用者決定 |
 | B3 | B2 | 3 次 | 同上 |
 | B5 | B4（格式）或 B2（內容） | 兩種合計 3 次 | 同上 |

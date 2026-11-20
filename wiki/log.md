@@ -102,3 +102,10 @@
 - 檢查紀錄：runs/ingest/checks/A4-lint-S2-a5.json → PASS（使用者同意超過上限後的第 5 次；a1 為不完整試跑，完整 A4 共 4 次，失敗 3 次，全是 L7 語意）
 - 依 notes 小修（不屬 L7/L8）：sources/S2 寫清楚 [S2 §0] 的範圍（含連結列之後 Moody 的談話）；hqc-overview「ML-KEM 是主力」補 [S2 摘要]；post-quantum-cryptography 把兩份來源合併的推論標明「本 wiki 的整理」。
 - 這是 lint 通過後的修改，下一次 A4（S4）會對整個 wiki 重跑 lint。
+
+## [2026-11-20 17:10] workflow-change | v1 → v1.1：A3 後加腳本自查 A3S，L7 腳本加定位詞
+- 依據：S1、S2 ingest 的 A4 失敗幾乎都是 L7 語意（時效、定位說法沒標查核日期），v1 腳本抓不到「主力、備援、仍是」這類詞。使用者看過說明後決定「現在改」。
+- 修改：scripts/lint_wiki.py（L7 詞表、時間說明段涵蓋規則、--dry-run、selftest）、workflow/graph.yaml（v1.1，新增 A3S）、workflow/graph.md（重畫，修改處綠框）、CLAUDE.md、SPEC.md 開頭註記。
+- v1 快照：workflow/v1/（graph.yaml、graph.md、lint_wiki.py.snapshot）。
+- 回頭驗證：S2 a3、a4 語意檢查指出的 5 行，新腳本全部抓到；a2 的 4 處因頁首時間說明而不抓，與 a3 起的語意判定一致。細節見 workflow/CHANGELOG.md。
+- 新規則對目前 wiki 跑 dry-run：PASS。
