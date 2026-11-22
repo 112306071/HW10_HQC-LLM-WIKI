@@ -21,3 +21,15 @@ sources:
     files: [raw/S2-nist-news-hqc.md]
     public: true
     note: 網頁存成 Markdown（scripts/fetch_web.py）。
+  - id: S4
+    title: "Efficient Encryption from Random Quasi-Cyclic Codes"
+    author: Carlos Aguilar Melchor, Olivier Blazy, Jean-Christophe Deneuville, Philippe Gaborit, Gilles Zémor
+    published: 2016-12-16
+    version: arXiv:1612.05572v1（PDF 內標 DRAFT，December 19, 2016）
+    journal_version: IEEE Transactions on Information Theory 64(5), 2018（正式版，未取得）
+    url: https://arxiv.org/abs/1612.05572
+    pdf_url: https://arxiv.org/pdf/1612.05572
+    retrieved: 2026-11-22T18:17:53+08:00
+    files: [raw/S4-aguilar-melchor-qc-codes.pdf, raw/S4-aguilar-melchor-qc-codes.txt]
+    public: false
+    note: PDF 原檔（28 頁）＋ pdftotext -layout 轉出的 .txt；兩者都在 .gitignore（SPEC §5.4 第 4 點），repo 只留這筆書目資料。引用用 PDF 頁碼，例如 [S4 p.14]。

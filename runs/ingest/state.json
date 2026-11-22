@@ -6,10 +6,10 @@
     "A4:S2": 5
   },
   "extra_sources": [],
-  "history_len": 20,
-  "last_node": "A4",
-  "last_result": "PASS",
-  "current_node": "A1",
-  "target": "S2",
-  "updated": "2026-11-20T17:06:49+08:00"
+  "history_len": 22,
+  "last_node": "A2",
+  "last_result": "DONE",
+  "current_node": "H1",
+  "target": "S4",
+  "updated": "2026-11-22T18:20:17+08:00"
 }
