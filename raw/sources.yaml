@@ -33,3 +33,13 @@ sources:
     files: [raw/S4-aguilar-melchor-qc-codes.pdf, raw/S4-aguilar-melchor-qc-codes.txt]
     public: false
     note: PDF 原檔（28 頁）＋ pdftotext -layout 轉出的 .txt；兩者都在 .gitignore（SPEC §5.4 第 4 點），repo 只留這筆書目資料。引用用 PDF 頁碼，例如 [S4 p.14]。
+  - id: S5
+    title: "Hamming Quasi-Cyclic (HQC)（規格書）"
+    author: HQC team（Gaborit、Aguilar-Melchor 等 23 位提交者）
+    published: 2025-08-22
+    version: 2025-08-22 版（封面日期 22/08/2025，51 頁）
+    url: https://www.pqc-hqc.org/doc/hqc_specifications_2025_08_22.pdf
+    retrieved: 2026-11-22T18:40:44+08:00
+    files: [raw/S5-hqc-spec-2025-08-22.pdf, raw/S5-hqc-spec-2025-08-22.txt]
+    public: false
+    note: PDF 原檔＋ pdftotext -layout 轉出的 .txt；兩者都在 .gitignore（SPEC §5.4 第 4 點）。引用用 PDF 頁碼，例如 [S5 p.24]；頁碼與規格書頁尾印的頁碼相同。
