@@ -43,3 +43,13 @@ sources:
     files: [raw/S5-hqc-spec-2025-08-22.pdf, raw/S5-hqc-spec-2025-08-22.txt]
     public: false
     note: PDF 原檔＋ pdftotext -layout 轉出的 .txt；兩者都在 .gitignore（SPEC §5.4 第 4 點）。引用用 PDF 頁碼，例如 [S5 p.24]；頁碼與規格書頁尾印的頁碼相同。
+  - id: S6
+    title: "FIPS 207: HQC-KEM（簡報）"
+    author: Angela Robinson（NIST）
+    published: 2025-09
+    version: fips_207-robinson_2.4.pdf（PDF 建立日期 2025-09-25，23 頁；第 6 屆 NIST PQC 標準化會議）
+    url: https://csrc.nist.gov/csrc/media/presentations/2025/fips-207-hqc-kem/fips_207-robinson_2.4.pdf
+    retrieved: 2026-11-23T00:48:45+08:00
+    files: [raw/S6-nist-fips207-robinson.pdf, raw/S6-nist-fips207-robinson.txt]
+    public: true
+    note: NIST 文件，可進公開 repo。引用用投影片頁碼，例如 [S6 p.8]。同時依 SPEC §5.3 查了 NIST PQC 專案頁（2026-11-23），結果記在 discussions/05 與 wiki/log.md。

@@ -1,0 +1,211 @@
+FIPS 207: HQC-KEM
+   Presented by: Angela Robinson
+Agenda
+• Selecting HQC
+• HQC Overview
+• Plans for converting to FIPS format
+• Changes to HQC Round 4 spec. under consideration
+• Feedback requested
+Selecting HQC
+According to the NIST PQC Round 3 Report
+
+BIKE and HQC
+  • Considered alternates
+  • Both “..would be suitable as a general-purpose KEM that is not based on
+    lattices. NIST may select at most one of these two candidates for
+    standardization at the conclusion of the 4th round”
+  • "Although the bandwidth of HQC exceeds that of BIKE, HQC’s key generation
+    and decapsulation only require a fraction of the kilocycles required by BIKE."
+Performance
+NIST Security Category 1, taken from algorithm specifications
+        BIKE – AVX512
+        HQC AVX2 optimized
+        Classic McEliece AVX
+ML-KEM performance included for comparison
+                     Public key      Private key   Ciphertext size     KeyGen         Encaps         Decaps
+                     size (bytes)      (bytes)        (bytes)        (kilocycles)   (kilocycles)   (kilocycles)
+BIKE                       1,540           2,801             1,572           589              97         1,135
+HQC                        2,249              56             4,497             87           204            362
+mceliece348864f          261,120           6,492                96        35,978              38           128
+Kyber-512                      800            32               768           123            155            289
+Performance
+NIST Security Category 3, taken from algorithm specifications
+        BIKE – AVX512
+        HQC AVX2 optimized
+        Classic McEliece AVX
+
+ML-KEM performance included for comparison
+                        Public key     Private key   Ciphertext size     KeyGen         Encaps         Decaps
+                        size (bytes)     (bytes)        (bytes)        (kilocycles)   (kilocycles)   (kilocycles)
+BIKE                           3,082           418             3,114         1,823            223          3,887
+HQC                            4,522            64             9,042           204            465            755
+mceliece460896f             524,160         13,608               156       117,301              81           264
+Kyber-768                      1,184            32             1,088           213            249            275
+Selecting HQC
+According to the NIST PQC Round 3 Report
+
+BIKE
+  • “BIKE has the most competitive performance among the non-lattice based
+    KEMs”
+  • “The recent, explicit claim of IND-CCA security by the BIKE team is
+    encouraging”
+  • “NIST anticipates that additional time in the fourth round will allow more
+    vetting by the community of BIKE’s security claims”
+Selecting HQC
+According to the NIST PQC Round 3 Report
+
+Classic McEliece
+   • Considered a finalist
+   • “Although it is widely regarded as secure, NIST does not yet anticipate it being
+     widely used because of its large public key size . Thus, there is no urgency to
+     standardize Classic McEliece yet”
+   • “For applications that need a very small ciphertext, SIKE may turn out to be
+     more attractive”
+   • “NIST would like feedback on specific use cases for which Classic McEliece
+     would be a good solution”
+Selecting HQC
+IND-CCA2 Security
+
+BIKE                                  HQC
+• Originally designed to target       • Stable DFR analysis
+  IND-CPA security, later modified    • Decoder used has well-defined
+  to target IND-CCA2 security           minimum distance, thus
+• No closed-form DFR analysis for       concrete error-correction
+  more than 2 rounds of decoding        capability
+• DFR analysis released in 2025       • Closed-form DFR analysis
+  gives more confidence in              supported by experimental data
+  security claims but more time for
+  vetting required
+Selecting HQC
+Classic McEliece considerations
+
+Use cases
+• Already being used:
+   • Mullvad VPN
+   • Rosenpass VPN
+   • Crypto4A - HSMs
+• Long-term keys
+   • Small ciphertext
+   • Fast encaps, decaps
+   • Use Kyber for forward secrecy
+Selecting HQC
+Classic McEliece considerations
+
+Use cases                            Concerns
+• Already being used:                • Large pubic-key size restricts
+   • Mullvad VPN                       some use cases
+   • Rosenpass VPN
+   • Crypto4A - HSMs
+                                     • Skepticism over whether there
+                                       will be wide-spread use
+• Long-term keys
+   • Small ciphertext
+   • Fast encaps, decaps
+   • Use Kyber for forward secrecy
+Selecting HQC
+According to the NIST PQC Round 4 report
+
+Difficult to compare BIKE and HQC               Security concerns with Classic
+performance                                     McEliece
+   • “Generally, when network conditions        • “significant progress in cryptanalysis
+     are ignored or sufficiently good, HQC        techniques that are applicable to
+     results in faster handshakes”                key recovery and the related
+   • “In contrast, when network conditions        problem of distinguishing a Goppa
+     are sufficiently bad, BIKE outperforms       code from a random linear code”
+     HQC”
+   • HQC has a larger public key and a          • “these techniques…somewhat
+     significantly larger ciphertext than         weaken the argument that the long-
+     BIKE                                         term security of Classic McEliece is
+   • HQC is significantly faster for both key     guaranteed by its long history of
+     generation and decapsulation                 cryptanalysis”
+HQC Overview
+Code-based cryptosystem
+• Concatenated Reed-Solomon and duplicated Reed-Muller code
+  • Let 𝐶 denote this concatenated code
+  • Let 𝐶.Encode() denote the process of mapping message 𝑚 ∈ 𝔽𝑘2
+HQC Overview
+Code-based cryptosystem
+• Concatenated Reed-Solomon and duplicated Reed-Muller code
+  • Let 𝐶 denote this concatenated code
+  • Let 𝐶.Encode() denote the process of mapping message 𝑚 ∈ 𝔽𝑘2 to codeword
+                       𝑁1 𝑛2 ∗𝑑
+    𝑐𝑑𝑤𝑅𝑆−𝑑𝑢𝑝𝑅𝑀 ∈ 𝔽2            where
+     • 𝑁1 is the byte-length of the Reed-Solomon codeword produced by 𝑚
+     • 𝑑 ∗ 𝑛2 is the bit-length of the byte-by-byte encoding of the RS codeword induced by the
+       duplicated Reed-Muller encoding
+  • Let 𝐶.Decode() denote the process of mapping codeword 𝑐𝑑𝑤𝑅𝑆−𝑑𝑢𝑝𝑅𝑀 ∈
+     𝑁1 𝑛2 ∗𝑑
+    𝔽2        back to message 𝑚 ∈ 𝔽𝑘2
+HQC Overview
+HQC-PKE.KeyGen
+• Private keys: randomly sampled vectors 𝑥, 𝑦 ∈ 𝔽𝑛2 of weight 𝑤
+• Public keys:
+   • ℎ ∈ 𝔽2 𝑥 /< 𝑥 𝑛 − 1 > random, binary polynomial
+   • 𝑠 =𝑥+ℎ∗𝑦
+HQC Overview
+HQC-PKE.Encrypt
+• Message: 𝑚 ∈ 𝔽𝑘2
+• Ciphertexts:
+   • 𝑐1 = r1 + h ∗ r2
+   • 𝑐2 = 𝐶. Encode 𝑚 + 𝑠 ∗ 𝑟2 + 𝑒, where 𝑟1 , 𝑟2 , 𝑒 are randomly generated
+     vectors of prescribed weights
+HQC-PKE.Decrypt
+• 𝑚 = 𝐶. Decode(c2 − c1 ∗ 𝑦)
+Plans for converting to FIPS format
+• Self-contained algorithmic descriptions
+• Intuitive pseudocode
+   • Goal to describe mathematical steps as intuitively as possible (e.g. matrix-
+     vector multiplication, polynomial multiplication)
+   • May provide references to, or appendices of sample pseudocode of, optimized
+     or constant-time versions of these auxiliary functions
+• Data types
+   • Goal for input and output of functions to be byte arrays whenever possible
+   • Goal to convert byte arrays to algebraic objects within auxiliary functions
+Changes to HQC Round 4 spec under
+consideration
+
+Modification to the FO transform
+• Use of salted transform SFO𝑚  ⊥
+                                  when converting HQC-PKE to HQC-KEM
+• Use of (𝑒𝑘𝐾𝐸𝑀 , 𝑠𝑎𝑙𝑡) in derivation of 𝐾, 𝜃
+• fixes the IND-CCA2 issue that was raised on the pqc-forum
+• improves HQC security properties beyond IND-CCA
+Changes to HQC Round 4 spec under
+consideration
+
+Modification to the keypair format
+• Removal of 𝑥 from secret 𝑑𝑘𝑃𝐾𝐸 key pair (𝑥, 𝑦) as it is not needed
+  during HQC-KEM.Decaps
+• Addition of 𝑠𝑒𝑒𝑑𝐾𝐸𝑀 to 𝑑𝑘𝐾𝐸𝑀 so the keypair can be checked if it is
+  received from a third party
+Changes to HQC Round 4 spec under
+consideration
+
+• Updated fixed-weight random-vector sampler
+• Use of SHA3-512 instead of SHAKE256 for seed expansion during HQC-
+  PKE.KeyGen
+• Reduction in size of shared secret 𝐾 and randomness 𝜃 from 40 bytes
+  to 32 bytes
+• Absorb all bytes of 𝑒𝑘𝐾𝐸𝑀 in the computation of (𝐾, 𝜃)
+Changes to HQC Round 4 spec under
+consideration
+
+Recent work by Glabush et al (Crypto ‘25) proposed change
+• 1 byte confirmation code
+   • Protect against faulty implementations that skip or incorrectly implement the
+     re-encryption step during FO decapsulation
+   • Use the \ell bits that are truncated away when computing 𝑣 to generate 1 byte
+     of confirmation code
+   • See Verifiable Decapsulation: Recognizing Faulty Implementations of Post-
+     Quantum KEMs (https://eprint.iacr.org/2025/450) for more details
+                    https://eprint.iacr.org/2025/450
+Feedback requested
+• Key format question
+   • Seed(s) only
+   • option to store as seed(s) or expanded form
+• 1 byte confirmation code
+• Comments on other proposed changes
+Thank you
+Presentation of Plaque
+     NIST PQC Team to HQC Team
+
