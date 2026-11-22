@@ -13,7 +13,7 @@ slides:
   - {n: 4, type: concept, title: HQC 是 NIST 選出的第五個演算法，當 ML-KEM 的備援, questions: [PQC 是什麼？, HQC 排在哪、扮演什麼角色？], wiki: [concepts/post-quantum-cryptography.md, overview/hqc-overview.md], goals: [G1, G5]}
   - {n: 5, type: concept, title: KEM：在公開網路上安全地交換一把鑰匙, questions: [KEM 做什麼？, 三個函式各做什麼？], wiki: [concepts/kem.md], goals: [G2]}
   - {n: 6, type: example, title: 錯誤更正碼：多傳一點，就能修正錯誤, questions: [什麼是錯誤更正碼？, 漢明距離、漢明重量是什麼？], wiki: [concepts/error-correcting-codes.md], goals: [G3]}
-  - {n: 7, type: concept, title: 核心點子：故意加錯誤，只有懂結構的人修得回來, questions: [為什麼解碼隨機的碼很難？], wiki: [concepts/syndrome-decoding.md, concepts/code-based-cryptography.md], goals: [G3]}
+  - {n: 7, type: concept, title: 核心點子：故意加錯誤，只有握有秘密金鑰的人能把錯誤縮小到修得回來, questions: [為什麼解碼隨機的碼很難？], wiki: [concepts/syndrome-decoding.md, concepts/code-based-cryptography.md], goals: [G3]}
   - {n: 8, type: compare, title: McEliece 把結構藏起來，HQC 乾脆不藏, questions: [HQC 和傳統編碼式密碼的設計差在哪？], wiki: [concepts/code-based-cryptography.md], goals: [G3]}
   - {n: 9, type: concept, title: 準循環：用一個向量代表一整個矩陣, questions: [準循環結構為什麼讓金鑰變小？], wiki: [concepts/quasi-cyclic-codes.md], goals: [G3]}
   - {n: 10, type: process, title: 步驟一：金鑰產生, questions: [x、y、h、s 各是什麼？, 哪些公開、哪些秘密？], wiki: [concepts/hqc-pke.md], goals: [G4]}

@@ -3,13 +3,15 @@
   "workflow_version": "v1",
   "attempts": {
     "A4:S1": 3,
-    "A4:S2": 5
+    "A4:S2": 5,
+    "A3S:S4": 2,
+    "A4:S4": 2
   },
   "extra_sources": [],
-  "history_len": 22,
-  "last_node": "A2",
-  "last_result": "DONE",
-  "current_node": "H1",
+  "history_len": 29,
+  "last_node": "A4",
+  "last_result": "PASS",
+  "current_node": "A1",
   "target": "S4",
-  "updated": "2026-11-22T18:20:17+08:00"
+  "updated": "2026-11-22T18:38:28+08:00"
 }

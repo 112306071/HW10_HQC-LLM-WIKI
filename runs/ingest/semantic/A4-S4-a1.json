@@ -1,0 +1,30 @@
+{
+  "checker": "semantic-subagent",
+  "target": "wiki/ (S4 ingest)",
+  "results": [
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/sources/S4-aguilar-melchor-qc-codes.md:## 可信度與限制 第 3 點「論文的安全性證明建立在一個「社群公認很難」但沒有一般性證明的問題上，論文自己也承認判定版和搜尋版的關係尚無證明。」",
+          "problem": "含「社群公認很難」「尚無證明」這類安全性／研究現況評價，句子與所在段落都沒寫時間點（2016 預印本）和查核日期；本頁唯一的時間說明（「以下是 S4（2016-12 預印本）當時的說法……查核日期 2026-11-22」）放在 ## 重點 之下，不是頁首說明，看不出涵蓋「可信度與限制」一節。"
+        },
+        {
+          "where": "wiki/index.md:## 概念「[伴隨式解碼問題](concepts/syndrome-decoding.md) — HQC 的安全性建立在這個公認很難的解碼問題上。來源：S4」",
+          "problem": "「公認很難」是安全性評價，這行沒寫是 S4（2016）的說法，也沒附查核日期；index 開頭的時間說明只涵蓋「定位、時程或狀態」，並且說查核日期寫在各行，但這一行沒有寫。"
+        },
+        {
+          "where": "wiki/glossary.md:錯誤更正碼 一列「HQC 所根據的數學概念，已在資訊安全領域用了數十年。[S2 §1]」",
+          "problem": "「已用了數十年」屬於「研究／使用了 N 年」這類會隨時間改變的說法；術語表沒有頁首時間說明，這一列也沒寫是 S2（2025-03）的說法和查核日期（同表的 HQC、ML-KEM 兩列都有寫）。"
+        }
+      ]
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": []
+    }
+  ],
+  "notes": "（以下不影響 L7／L8 判定；S4 頁碼依 pdftotext 換頁符號核對：p.4 = 第 121–158 行、p.5 = 159–196、p.11 = 441–483、p.13 = 532–591、p.16 = 682–725、p.21 = 953–1002、p.26 = 1207–1252。）\n1.【說得比原文肯定／和原文不合】解密後「剩下一個小錯誤」：wiki/overview/hqc-overview.md 細節「解密：用秘密金鑰消掉大部分雜訊，剩下「訊息的編碼＋一個小錯誤」…」、wiki/concepts/code-based-cryptography.md 細節「公開的碼：…把剩下的小錯誤修掉」、wiki/sources/S4-aguilar-melchor-qc-codes.md 重點「秘密金鑰是一對很短的向量；…剩下的小錯誤交給公開的碼修掉」。原文 p.4 只說收方得到明文的「noisy version」，而且明說不再要求錯誤在解碼能力之內；p.5 說公開碼要能處理「bit error probability of order 1/3」，p.18 也說因此需要能修「many errors」的低碼率碼。剩下的錯誤大約占三分之一位元，不是「小錯誤」；「消掉大部分雜訊」原文也沒有這種說法。\n2.【比喻和來源矛盾】wiki/concepts/code-based-cryptography.md 比喻「…擦完只剩幾個小錯字，才用得上那本規則…」：依 p.5、p.18，剩下的錯誤約占三分之一位元，要用低碼率、能修很多錯的碼，不是「幾個小錯字」。\n3.【把推論寫成原文說法】wiki/sources/S4-aguilar-melchor-qc-codes.md 可信度與限制「參數、符號名稱、公開碼的選擇都和之後的規格不同…[S4 p.19、p.21]」：S4 只能證明它自己的選擇（BCH 碼⊗重複碼、表 I／II），不能證明「和之後的規格不同」；這需要 S5，S5 還沒 ingest。\n4.【頁碼標錯／不完整】「公認很難」出現在 wiki/overview/hqc-overview.md 細節「安全性：要破解 HQC，至少要能解一個公認很難的解碼問題…[S4 p.1、p.15]」與 wiki/concepts/syndrome-decoding.md 白話解釋「HQC 的安全性就建立在這類問題上：…公認很難的解碼問題 [S4 p.1、p.15]」，但「considered hard by the community」在 p.11（Assumption 1）；p.1 只說「well known problem」。此外 p.15 的定理 1 是歸約到 2-DQCSD 和 3-DQCSD 兩個（判定版）問題，wiki 寫成「一個」問題，是簡化。\n5.【頁碼不完整】「小到可以忽略」出現在 wiki/glossary.md 解密失敗一列「…參數要挑到它小到可以忽略。[S4 p.4、p.16]」與 wiki/overview/hqc-overview.md「…挑參數讓它小到可以忽略 [S4 p.4、p.16]」：p.4 只說「calibrate coding parameters」，p.16 是第五節錯誤分布分析的開頭；「negligible」的依據在 p.13（正確性定義），具體的 pfail < 2^-安全等級在 p.21 的表 I。\n6.【頁碼不完整】wiki/concepts/code-based-cryptography.md 細節「隨機的雙循環碼：負責產生雜訊、提供安全性 [S4 p.4、p.11]」：「guarantees the security」那句接續到 p.5 開頭（第 159 行）；p.4 只寫到「used to generate some noise」。\n7.【頁碼不完整】wiki/concepts/syndrome-decoding.md 重點「一般線性碼的伴隨式解碼問題，在 1978 年被證明是 NP 完全問題 [S4 p.10]」：p.10 只寫引用 [BMvT78]，年份 1978 要看 p.26 的參考文獻。\n8.【推論、不是原文說法】wiki/sources/S4-aguilar-melchor-qc-codes.md「論文約四分之一的篇幅在講另一個版本 RQC…[S4 p.8、p.22]」：「約四分之一」是 wiki 自己估的，原文沒有這種說法；照頁數算，秩度量／RQC 的內容約在 p.8–9、p.12–13 的一部分、p.22–24，大約 4–5 頁（正文共 24 頁）。建議改成不帶比例的說法，或標明是 wiki 的估計。\n9.【輕微推論】wiki/overview/hqc-overview.md「它是把資料「多寫一點」再送出去的方法：只要途中出的錯不太多，收方就能把資料修回原樣 [S4 p.7]」，以及 wiki/concepts/code-based-cryptography.md 白話解釋同一句：p.7 只有線性碼、最小距離「can decode up to δ errors」的定義，「送出去／途中／收方」這種通訊情境是白話補充，不是 p.7 的原文。\n其他 S1、S2 相關句子與原文核對無誤。"
+}

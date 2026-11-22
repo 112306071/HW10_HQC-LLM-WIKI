@@ -557,7 +557,7 @@ B5 的兩種退回合計最多 3 次。同一次檢查同時有格式錯與內�
 | 4 | concept | HQC 是 NIST 選出的第五個演算法，當 ML-KEM 的備援 | PQC 是什麼？HQC 排在哪、扮演什麼角色？ | concepts/post-quantum-cryptography、overview/hqc-overview | G1, G5 |
 | 5 | concept | KEM：在公開網路上安全地交換一把鑰匙 | KEM 做什麼？三個函式各做什麼？ | concepts/kem | G2 |
 | 6 | example | 錯誤更正碼：多傳一點，就能修正錯誤 | 什麼是錯誤更正碼？漢明距離、漢明重量是什麼？ | concepts/error-correcting-codes | G3 |
-| 7 | concept | 核心點子：故意加錯誤，只有懂結構的人修得回來 | 為什麼解碼隨機的碼很難？ | concepts/syndrome-decoding、concepts/code-based-cryptography | G3 |
+| 7 | concept | 核心點子：故意加錯誤，只有握有秘密金鑰的人能把錯誤縮小到修得回來 | 為什麼解碼隨機的碼很難？ | concepts/syndrome-decoding、concepts/code-based-cryptography | G3 |
 | 8 | compare | McEliece 把結構藏起來，HQC 乾脆不藏 | HQC 和傳統編碼式密碼的設計差在哪？ | concepts/code-based-cryptography | G3 |
 | 9 | concept | 準循環：用一個向量代表一整個矩陣 | 準循環結構為什麼讓金鑰變小？ | concepts/quasi-cyclic-codes | G3 |
 | 10 | process | 步驟一：金鑰產生 | x、y、h、s 各是什麼？哪些公開、哪些秘密？ | concepts/hqc-pke | G4 |
@@ -576,6 +576,8 @@ B5 的兩種退回合計最多 3 次。同一次檢查同時有格式錯與內�
 註：G1–G5 對應 §2.1 的 5 個學習目標。第 6 張的例子（重複碼多數決、漢明距離計算）與第 13 張的小數字 HQC 示例屬於「教學示例」，必須由 `scripts/examples.py` 算出來並存進 `concepts/error-correcting-codes.md`、`concepts/hqc-toy-example.md`，標明「示例由腳本計算」，這樣 P4 才能驗證。
 
 2026-11-20 調整（舊編號 → 新編號）：舊 3＋4 合併為新 3；舊 5 簡化為新 4（不列五個演算法）；舊 19「計時攻擊」刪除；新增 13「小數字示例」；誤解頁換掉「PQC 等於量子密碼學？」「HQC 已被攻破？」。
+
+2026-11-22 調整（討論紀錄 03 問題 1）：第 7 張標題原為「只有懂結構的人修得回來」，那是 McEliece 的想法；HQC 的公開碼人人皆知，關鍵是秘密金鑰能把錯誤縮小，故改為現在的標題。
 
 ### 9.3 對應機制
 

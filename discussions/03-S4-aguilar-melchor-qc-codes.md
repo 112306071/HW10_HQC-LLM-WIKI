@@ -1,5 +1,5 @@
 # 討論紀錄 03：S4 Aguilar Melchor 等：Efficient Encryption from Random Quasi-Cyclic Codes
-- 建立時間：2026-11-22 18:25
+- 建立時間：2026-11-22 18:20
 - 來源：S4（raw/S4-aguilar-melchor-qc-codes.pdf、.txt；arXiv:1612.05572v1，2016-12-16；PDF 不進 repo）
 - 引用方式：[S4 p.N] = PDF 第 N 頁（論文頁首印的頁碼與 PDF 頁碼相同）。
 - 版本提醒：這是 2016 年的預印本，是 HQC 的**原始論文**，不是 HQC 規格。參數、符號名稱和公開碼的選擇都和 2025-08-22 規格（S5）不同。依 SPEC §5.2，S4 只用來講概念與設計動機，數字一律以 S5 為準。
@@ -81,5 +81,22 @@
    - (b) 不寫，公開碼一律等 S5，避免讀者混淆新舊版本。
 
 ## 7. 使用者回覆（原文照貼，不可修改）
+第 1 輪（2026-11-22）：
+1a 2a 3b
+
+第 2 輪（2026-11-22，看過第 8 節草稿後）：
+確認
 
 ## 8. 最終決定
+- 寫入：
+  - 重點 1、2 → `concepts/code-based-cryptography.md`（McEliece 藏結構 vs HQC 不藏結構、兩個碼各管一件事）。
+  - 重點 4 → `concepts/syndrome-decoding.md`（伴隨式解碼問題、安全性的一句話說法與限制）。
+  - 重點 5 → `concepts/quasi-cyclic-codes.md`（一個向量代表整個矩陣、金鑰變小；「公認很難」的限制）。
+  - 重點 3、6（只寫「解密可能失敗、論文挑參數讓失敗率極小」）、7 → `overview/hqc-overview.md` 新增核心想法一段；頁首時間說明改為 S2＋S4。
+  - `sources/S4-aguilar-melchor-qc-codes.md` 來源摘要；`glossary.md` 新增編碼式密碼、McEliece 密碼系統、伴隨式、伴隨式解碼問題、準循環碼、解密失敗。
+- 不寫入：第 4 節列的各項；重點 6 的「BCH ⊗ 重複碼」（Q3）。
+- 因討論而改變的地方：
+  - Q1 (a)：簡報第 7 張標題改為「核心點子：故意加錯誤，只有握有秘密金鑰的人能把錯誤縮小到修得回來」；SPEC §9.2 與 `workflow/questions.yaml` 同步修改。「改錯字規則＋去墨水劑」的比喻寫進 `concepts/code-based-cryptography.md` 的白話解釋（比喻區塊）。
+  - Q2 (a)：安全性只寫一句「要破解 HQC，至少要能解一個公認很難的解碼問題」，並寫明限制（公認很難 ≠ 證明不可能）；不寫 IND-CPA 遊戲。
+  - Q3 (b)：不寫 2016 年版的公開碼，公開碼一律等 S5。第 6 張的重複碼例子仍是一般的教學示例（scripts/examples.py），不說成「HQC 用過的碼」。
+- 確認時間：2026-11-22 18:22

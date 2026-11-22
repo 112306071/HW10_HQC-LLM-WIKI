@@ -1,9 +1,9 @@
 ---
 title: 術語表
 type: glossary
-sources: [S1, S2]
+sources: [S1, S2, S4]
 spec_version: none
-updated: 2026-11-20
+updated: 2026-11-22
 status: draft
 ---
 
@@ -23,6 +23,12 @@ status: draft
 | HQC | HQC | NIST 在 2025 年選出的後量子加密演算法，建立在錯誤更正碼上；依 S2（2025-03）的說法，定位是 ML-KEM 的備援（查核日期 2026-11-19）。[S2 摘要、§1] | [HQC 總覽](overview/hqc-overview.md) |
 | ML-KEM | ML-KEM | NIST 在 2024 年定案的一般加密演算法，建立在結構化格上；依 S2（2025-03）的說法，是一般加密的推薦選擇（查核日期 2026-11-19）。[S2 §0、§1] | [HQC 與 ML-KEM 比較](comparisons/hqc-vs-ml-kem.md) |
 | 金鑰封裝機制 | key encapsulation mechanism / KEM | 兩方在公開網路上交換機密資料前，先做的「第一次握手」。[S2 §3] | [金鑰封裝機制](concepts/kem.md) |
-| 錯誤更正碼 | error-correcting code | HQC 所根據的數學概念，已在資訊安全領域用了數十年。[S2 §1] | [HQC 總覽](overview/hqc-overview.md) |
+| 錯誤更正碼 | error-correcting code | HQC 所根據的數學概念；依 S2（2025-03）的說法，已在資訊安全領域用了數十年（查核日期 2026-11-19）。[S2 §1] | [HQC 總覽](overview/hqc-overview.md) |
 | 結構化格 | structured lattices | ML-KEM 所根據的數學概念，和 HQC 的錯誤更正碼不同。[S1 Q5][S2 §1] | [HQC 與 ML-KEM 比較](comparisons/hqc-vs-ml-kem.md) |
 | FIPS | FIPS | NIST 正式標準的名稱，例如 ML-KEM 的標準叫 FIPS 203。[S2 §2] | [HQC 的標準化進度](entities/fips-207.md) |
+| 編碼式密碼 | code-based cryptography | 建立在錯誤更正碼上的密碼：故意加錯誤，沒有秘密的人很難把錯誤去掉。[S4 p.2、p.4] | [編碼式密碼](concepts/code-based-cryptography.md) |
+| McEliece 密碼系統 | McEliece cryptosystem | 1978 年提出的第一個編碼式密碼，把一個好解碼的碼藏起來當秘密。[S4 p.2] | [編碼式密碼](concepts/code-based-cryptography.md) |
+| 伴隨式 | syndrome | 拿一串資料去乘上碼的「檢查矩陣」所得到的檢查結果。[S4 p.7] | [伴隨式解碼問題](concepts/syndrome-decoding.md) |
+| 伴隨式解碼問題 | syndrome decoding problem / SD | 已知檢查矩陣和伴隨式，要找出只有少數位置是 1 的錯誤向量；HQC 的安全性建立在它的準循環版本上。[S4 p.10、p.15] | [伴隨式解碼問題](concepts/syndrome-decoding.md) |
+| 準循環碼 | quasi-cyclic code | 矩陣由「每列往右轉一格」的循環矩陣組成，只要幾個向量就能描述，金鑰因此變小。[S4 p.6、p.7、p.11] | [準循環碼](concepts/quasi-cyclic-codes.md) |
+| 解密失敗 | decryption failure | HQC 解密後剩下的錯誤太多、公開的碼修不回來的情形；參數要挑到它小到可以忽略。[S4 p.4、p.13、p.21] | [HQC 總覽](overview/hqc-overview.md) |

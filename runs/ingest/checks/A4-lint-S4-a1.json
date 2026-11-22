@@ -1,0 +1,91 @@
+{
+  "run_id": "ingest",
+  "workflow_version": "v1.1",
+  "node": "A4",
+  "attempt": 1,
+  "timestamp": "2026-11-22T18:31:15+08:00",
+  "target": "wiki/",
+  "results": [
+    {
+      "id": "L1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L6",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L8",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L9",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/sources/S4-aguilar-melchor-qc-codes.md:## 可信度與限制 第 3 點「論文的安全性證明建立在一個「社群公認很難」但沒有一般性證明的問題上，論文自己也承認判定版和搜尋版的關係尚無證明。」",
+          "problem": "含「社群公認很難」「尚無證明」這類安全性／研究現況評價，句子與所在段落都沒寫時間點（2016 預印本）和查核日期；本頁唯一的時間說明（「以下是 S4（2016-12 預印本）當時的說法……查核日期 2026-11-22」）放在 ## 重點 之下，不是頁首說明，看不出涵蓋「可信度與限制」一節。"
+        },
+        {
+          "where": "wiki/index.md:## 概念「[伴隨式解碼問題](concepts/syndrome-decoding.md) — HQC 的安全性建立在這個公認很難的解碼問題上。來源：S4」",
+          "problem": "「公認很難」是安全性評價，這行沒寫是 S4（2016）的說法，也沒附查核日期；index 開頭的時間說明只涵蓋「定位、時程或狀態」，並且說查核日期寫在各行，但這一行沒有寫。"
+        },
+        {
+          "where": "wiki/glossary.md:錯誤更正碼 一列「HQC 所根據的數學概念，已在資訊安全領域用了數十年。[S2 §1]」",
+          "problem": "「已用了數十年」屬於「研究／使用了 N 年」這類會隨時間改變的說法；術語表沒有頁首時間說明，這一列也沒寫是 S2（2025-03）的說法和查核日期（同表的 HQC、ML-KEM 兩列都有寫）。"
+        }
+      ],
+      "by": "semantic"
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "A3"
+}

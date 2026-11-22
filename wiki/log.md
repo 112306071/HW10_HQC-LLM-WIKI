@@ -109,3 +109,36 @@
 - v1 快照：workflow/v1/（graph.yaml、graph.md、lint_wiki.py.snapshot）。
 - 回頭驗證：S2 a3、a4 語意檢查指出的 5 行，新腳本全部抓到；a2 的 4 處因頁首時間說明而不抓，與 a3 起的語意判定一致。細節見 workflow/CHANGELOG.md。
 - 新規則對目前 wiki 跑 dry-run：PASS。
+
+## [2026-11-22 18:23] issue | 簡報第 7 張標題修改（討論紀錄 03 問題 1）
+- 原標題「核心點子：故意加錯誤，只有懂結構的人修得回來」描述的是 McEliece；HQC 的公開碼人人皆知，關鍵是秘密金鑰能把錯誤縮小。
+- 使用者選 (a)，改為「核心點子：故意加錯誤，只有握有秘密金鑰的人能把錯誤縮小到修得回來」。修改 SPEC.md §9.2、workflow/questions.yaml。
+- 另：討論紀錄 03 的「建立時間」原寫 18:25，與 trace（A2 於 18:20 完成）不符，更正為 18:20。
+
+## [2026-11-22 18:26] ingest | S4 Aguilar Melchor 等：Efficient Encryption from Random Quasi-Cyclic Codes
+- 討論紀錄：discussions/03-S4-aguilar-melchor-qc-codes.md（使用者確認 2026-11-22 18:22；問題 1a、2a、3b）
+- 新增：sources/S4-aguilar-melchor-qc-codes.md, concepts/code-based-cryptography.md, concepts/syndrome-decoding.md, concepts/quasi-cyclic-codes.md
+- 修改：overview/hqc-overview.md（HQC 怎麼運作的核心想法）、glossary.md（新增 6 個術語）、index.md
+- 不寫：RQC、證明與公式細節、2016 年參數表、2016 年版公開碼 BCH＋重複碼（問題 3b，等 S5）、IND-CPA 遊戲（問題 2a）
+- 時效：新頁都在頁首加時間說明（S4 為 2016-12 預印本，查核日期 2026-11-22），沒等 lint 抓。
+
+## [2026-11-22 18:32] lint | S4 ingest 後 lint 第 1 次不通過，修正
+- 檢查紀錄：runs/ingest/checks/A4-lint-S4-a1.json → FAIL（腳本 L1–L9 全 PASS；A3S 自查也是第 1 次就 PASS）
+- L7 語意 3 處：sources/S4 的時間說明放在〈重點〉下、涵蓋不到〈可信度與限制〉；index.md 伴隨式一行「公認很難」沒標 S4 時間點與查核日期；glossary.md 錯誤更正碼一列「用了數十年」沒標 S2 時間點與查核日期（S2 時期就有，當時未被指出）。
+- 依 v1.1 的做法，先對全 wiki 掃「小錯、公認、小到可以忽略、四分之一、多寫一點、大部分雜訊、至今、研究超過、數十年、最好的攻擊」再修，不只修被點名處。
+- 修正（L7）：sources/S4 的時間說明移到頁首並涵蓋全頁；限制一節那句再補時間點與查核日期；index、glossary 兩行補來源時間點與查核日期。
+- 依檢查員 notes 修正內容錯誤（不屬 L7/L8，但比 L7 重要）：
+  - 「解密後剩下一個小錯誤」與原文不符：S4 p.5、p.18 說剩下的錯誤約占三分之一位元，所以要用能修很多錯的碼。overview、code-based-cryptography、sources/S4 三頁改寫；比喻「擦完只剩幾個小錯字」改成「擦完還有不少錯字，但規則本來就很會改錯」。
+  - 「公認很難」頁碼改為 p.11；「一個問題」改為「一類問題」（證明用到兩種長度的版本）。
+  - 「小到可以忽略」補 p.13、p.21；雙循環碼「提供安全」補 p.5；NP 完全的年份補 p.26。
+  - sources/S4「參數、符號和之後的規格不同」是 S4 無法支持的比較，改成「本 wiki 不採用論文的參數表與公開碼，現行做法等 S5 查核」；「約四分之一篇幅講 RQC」是自行估計，改成不帶比例。
+  - 錯誤更正碼的白話說明改成貼近 S4 p.7 定義（碼字之間差得夠遠，錯少數位置仍認得出來），拿掉原文沒有的「途中／收方」情境。
+
+## [2026-11-22 18:39] lint | S4 lint 第 2 次通過；依檢查員備註小修
+- 檢查紀錄：runs/ingest/checks/A4-lint-S4-a2.json → PASS（A3S 兩次都第 1 次就 PASS；A4 共 2 次，失敗 1 次，L7 語意 3 處）
+- 依 notes 小修（不屬 L7/L8）：
+  - overview、code-based-cryptography 頁首拿掉「現行規格（2025-08-22 版）」：這個版本號來自本 wiki 規則，已 ingest 的來源不支持。
+  - 「公認很難」的說明分開寫：一般線性碼研究超過 50 年；HQC 用的準循環版本，論文只說社群認為很難。overview、syndrome-decoding 的安全性句改寫為「至少要能解準循環碼的解碼問題（判定版）」，並指向限制說明。
+  - 頁碼與措辭：秘密金鑰補 p.4；「兩種長度」改「兩種大小」；「讓攻擊失效」改「變得沒有效率」（原文 inefficient）；參數表頁碼改 p.18–p.22；失敗率補「簡化假設、模擬佐證」（p.18）。
+  - syndrome-decoding、quasi-cyclic-codes 頁首時間說明改成「這類評價」，涵蓋範圍更明確。
+- 這是 lint 通過後的修改，下一次 A4（S5）會對整個 wiki 重跑。
