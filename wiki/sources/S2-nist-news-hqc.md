@@ -4,7 +4,7 @@ type: source
 sources: [S2]
 related: [../overview/hqc-overview.md, ../concepts/kem.md, ../entities/fips-207.md, ../comparisons/hqc-vs-ml-kem.md, ../concepts/post-quantum-cryptography.md]
 spec_version: none
-updated: 2026-11-20
+updated: 2026-11-23
 status: draft
 ---
 
@@ -41,7 +41,7 @@ status: draft
 ## 可信度與限制
 
 - 這是 NIST 官方新聞稿，對「選了誰、為什麼、定位是什麼」的說法可信度高；但它是新聞稿，沒有任何演算法細節或數字大小。[S2 §1]
-- 時程是 2025 年 3 月的預估，不是現況；實際狀態要等 S6 ingest 時查核（查核日期 2026-11-19）。[S2 摘要、§2]
+- 時程是 2025 年 3 月的預估，不是現況；2026-11-23 的查核結果見 [HQC 的標準化進度](../entities/fips-207.md)（查核日期 2026-11-23）。[S2 摘要、§2]
 - 「HQC 比較冗長、比較吃資源」只是定性的說法，沒有給數字；具體大小要看 S5。[S2 §1]
 - 沒有點名 FIPS 204、205 裡的演算法，也沒有提到 HQC 標準的編號。[S2 §2]
 - 「量子電腦能很快篩選大量可能的解」和 S1 一樣是科普式的簡化說法。[S2 §1]

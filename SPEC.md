@@ -568,7 +568,7 @@ B5 的兩種退回合計最多 3 次。同一次檢查同時有格式錯與內�
 | 15 | concept | 從加密到 KEM：多一道「重新加密檢查」 | Fujisaki-Okamoto 轉換在做什麼？ | concepts/hqc-kem-fo-transform | G2, G4 |
 | 16 | concept | 解碼失敗率：小到可以忽略 | 解碼失敗率是什麼？為什麼要小於 2^-128？ | concepts/decryption-failure-rate | G4 |
 | 17 | compare | HQC vs ML-KEM：數學不同，HQC 比較大、比較吃資源 | HQC-1/3/5 的金鑰與密文多大？和 ML-KEM 的數學基礎與取捨差在哪？ | comparisons/hqc-vs-ml-kem、comparisons/hqc-parameter-sets | G5 |
-| 18 | concept | NIST 為什麼選 HQC 當備援 | 為什麼要備援？為什麼是 HQC 而不是其他第四輪候選？標準化到哪了？ | entities/fips-207 | G5 |
+| 18 | concept | NIST 為什麼選 HQC 當備援 | 為什麼要備援？NIST 為什麼選 HQC、代價是什麼（不點名其他候選）？標準化到哪了？ | entities/fips-207 | G5 |
 | 19 | misconception | 四個常見誤解 | HQC 要取代 ML-KEM？應該等 HQC 再遷移？故意加錯誤會讓解密常常出錯？碼是公開的，不就不安全？ | concepts/common-misconceptions | G1–G5 |
 | 20 | quiz | 小測驗 | 5 題選擇題，每題對應一個目標，答後顯示解釋 | 各題對應的頁 | G1–G5 |
 | 21 | summary | 五句話記住 HQC | 五個重點＋延伸閱讀（S1、S2、S4、S5、S6） | overview/hqc-overview、sources/ | — |
@@ -578,6 +578,8 @@ B5 的兩種退回合計最多 3 次。同一次檢查同時有格式錯與內�
 2026-11-20 調整（舊編號 → 新編號）：舊 3＋4 合併為新 3；舊 5 簡化為新 4（不列五個演算法）；舊 19「計時攻擊」刪除；新增 13「小數字示例」；誤解頁換掉「PQC 等於量子密碼學？」「HQC 已被攻破？」。
 
 2026-11-22 調整（討論紀錄 03 問題 1）：第 7 張標題原為「只有懂結構的人修得回來」，那是 McEliece 的想法；HQC 的公開碼人人皆知，關鍵是秘密金鑰能把錯誤縮小，故改為現在的標題。
+
+2026-11-23 調整（討論紀錄 05 問題 1d）：第 18 張不點名 BIKE、Classic McEliece，只講 HQC 被選中的理由與代價（注意：「金鑰產生與解封裝快」是和另一個候選相比，不是和 ML-KEM 比）；其他候選只寫在 wiki 的 entities/fips-207。
 
 ### 9.3 對應機制
 

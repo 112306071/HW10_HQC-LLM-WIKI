@@ -1,0 +1,35 @@
+{
+  "checker": "semantic-subagent",
+  "target": "wiki/ (S6 ingest)",
+  "results": [
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/entities/fips-207.md: frontmatter spec_version: none（內文「另有一個「一位元組確認碼」的提案…」）",
+          "problem": "本頁含位元組數字（1 位元組確認碼），且內文引用 HQC 規格 2025-08-22 版的修改紀錄，但 frontmatter 的 spec_version 仍是 none；同內容的 sources/S6 與 hqc-kem-fo-transform 都標 2025-08-22。"
+        },
+        {
+          "where": "wiki/glossary.md: FIPS 207 列「NIST 為 HQC 準備的正式標準名稱，2025 年 9 月的簡報標題是…」",
+          "problem": "「為 HQC 準備」是尚未定案的狀態說法，術語表沒有頁首時間說明涵蓋，這一列也沒有附查核日期（同表 BIKE、Classic McEliece 兩列都有附）。"
+        }
+      ]
+    },
+    {
+      "id": "L8",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/index.md: 總覽、概念、比較各行的「來源：」",
+          "problem": "index 的來源清單沒跟著 S6 更新：HQC 總覽寫 S2, S4, S5（frontmatter 為 S2, S4, S5, S6）、編碼式密碼寫 S4（frontmatter 為 S4, S5, S6）、從 PKE 到 KEM 寫 S5（frontmatter 為 S5, S6）、HQC 參數組寫 S5（frontmatter 為 S5, S6）。"
+        },
+        {
+          "where": "wiki/sources/S2-nist-news-hqc.md: frontmatter updated: 2026-11-20；「可信度與限制」第 2 點「…2026-11-23 的查核結果見 HQC 的標準化進度（查核日期 2026-11-23）」",
+          "problem": "這頁已加入 2026-11-23 查核的內容，但 updated 仍是 2026-11-20；S6 來源摘要的「更新了哪些頁」也沒有列出這頁。"
+        }
+      ]
+    }
+  ],
+  "notes": "（1）來源支持度與比較對象：entities/fips-207.md「理由二：HQC 的金鑰產生和解封裝都快很多。[S6 p.3、p.11]」「代價：HQC 的公鑰比較大，密文大得更多。」以及 sources/S6 重點第 2 點「金鑰產生與解封裝快。代價是公鑰與密文比較大」都省略了比較對象。S6 p.3 原文是「HQC’s key generation and decapsulation only require a fraction of the kilocycles required by BIKE」，p.11 是「HQC has a larger public key and a significantly larger ciphertext than BIKE」「HQC is significantly faster for both key generation and decapsulation」，兩處都是和 BIKE 比，不是和 ML-KEM 比。少了比較對象，讀者可能以為 HQC 比 ML-KEM 快，這和 S2 §1、S5 p.47 的說法相反（HQC 需要更多運算資源、實作效率較差）。另外，p.11 同時說網路狀況夠差時「BIKE outperforms HQC」，wiki 沒有提。（2）entities/fips-207.md「Classic McEliece 的公鑰非常大，限制了用途。[S6 p.10]」和 glossary 的 Classic McEliece 列「這限制了它的用途」，說得比原文更肯定：S6 p.10 原文是「restricts some use cases」，而且 p.9–p.10 列了它已經被採用的場合（Mullvad VPN 等）。（3）glossary 的 BIKE 列「另一個用錯誤更正碼的第四輪候選…[S6 p.8]」頁碼不完整：「第四輪」出自 S6 p.3（「at the conclusion of the 4th round」），p.8 沒有。S6 也沒有明說 BIKE 用錯誤更正碼，這是從 p.8 的「rounds of decoding」「DFR」推論出來的；fips-207.md「另外兩個也用錯誤更正碼的候選」[S6 p.8、p.11] 也是同樣情況。glossary「Classic McEliece：以 McEliece 為基礎的候選 [S6 p.10]」同樣是從名稱推論，S6 p.10 原文沒有這樣寫。（4）comparisons/hqc-parameter-sets.md 衝突一節第 1 點把「（舊版規格的數字）」寫成 [S6 p.4] 的內容，但 S6 p.4 只說「taken from algorithm specifications」；「舊版」是 wiki 的推論（下一點有說明推論理由），比 sources/S6 的「應是較早的規格版本」說得更肯定。同節第 3 點「私鑰差最多，是因為 S5 的預設格式把公開金鑰等資料也存進私鑰」：S5 p.22、p.29 只說明了預設格式包含哪些資料，沒有和 S6 的 56 位元組做比較，所以這個因果解釋是推論。（5）entities/fips-207.md 頁首「S6 是 2025-09 的會議簡報 …[S6 p.1]」、sources/S6 頁首「S6（2025 年 9 月會議簡報）…[S6 p.1]」：S6 第 1 張只有標題和講者，沒有日期；2025-09 來自 raw/sources.yaml（PDF 建立日期 2025-09-25），頁碼不支持這個日期。（6）hqc-kem-fo-transform.md 確認碼一句「讓人能發現偷懶跳過或做錯…」：S6 p.20 原文是「Protect against faulty implementations that skip or incorrectly implement the re-encryption step」，「偷懶」是加上去的動機描述，屬於輕微。另外，這個提案出自 Glabush et al.（Crypto ’25），NIST 是在徵求意見，wiki 沒寫錯，但也沒寫出提案人。（7）sources/S6「HQC 的運作概要和 S5 一致」：S6 p.15 的 c2 沒有 S5 p.24 的 Truncate(·, ℓ)，S6 p.14 的私鑰也還是 (x, y)，而 S5 已經從 dkKEM 移除 x。在「概要」層級說一致可以接受。（8）已核對無誤的部分：S6 p.17–p.19 列的修改（加鹽 SFO、(ek, salt) 放入 K/θ、移除 x、加入 seedKEM、新的取樣器、SHA3-512、K/θ 由 40 改為 32 位元組、吸收整個 ekKEM）都在 S5 p.2 的 2025/08/22 修改紀錄裡；S6 p.4 的等級 1 數字 2,249／56／4,497 抄寫正確；專案頁快照的說法（只寫 HQC 於 2025-03-11 被選中，沒有列出 FIPS 207）正確；glossary 新增 3 個術語的計數相符（共 33 列 = 7+6+6+11+3）。（9）待辦說法：sources/S1「這些名稱要由其他來源補」（RSA）。S1、S2、S4、S5、S6 的原文都沒有出現 RSA，S6 又是使用者指定範圍內的最後一份來源，所以這個待辦已經不可能由現有來源補上，建議改寫。此項不列入 L8。（10）示例數字：scripts/examples.py --toy 與預設輸出都和 hqc-toy-example.md、error-correcting-codes.md 逐字一致，--selftest PASS。（11）比喻和來源矛盾的地方：無。"
+}

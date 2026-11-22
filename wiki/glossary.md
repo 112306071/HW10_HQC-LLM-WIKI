@@ -1,7 +1,7 @@
 ---
 title: 術語表
 type: glossary
-sources: [S1, S2, S4, S5]
+sources: [S1, S2, S4, S5, S6]
 spec_version: none
 updated: 2026-11-23
 status: draft
@@ -43,3 +43,6 @@ status: draft
 | 隱式拒絕 | implicit rejection | 密文檢查不通過時不報錯，改給一把由秘密值算出的假金鑰。[S5 p.28] | [從 PKE 到 KEM](concepts/hqc-kem-fo-transform.md) |
 | 解碼失敗率 | decoding failure rate / DFR | 解密後剩下的錯誤太多、公開碼修不回來的機率；HQC 把它壓到和安全等級相當。[S5 p.29、p.32] | [解碼失敗率](concepts/decryption-failure-rate.md) |
 | HQC-1／HQC-3／HQC-5 | HQC-1 / HQC-3 / HQC-5 | HQC 規格 2025-08-22 版的三組參數，對應 NIST 安全等級 1、3、5；舊名 hqc-128／192／256（S5 的表 2 可看出對應，但沒有明文說明）。[S5 p.15、p.16、p.29] | [HQC 參數組](comparisons/hqc-parameter-sets.md) |
+| FIPS 207 | FIPS 207 | NIST 為 HQC 準備的標準名稱；依 S6（2025-09）的說法，簡報標題是「FIPS 207: HQC-KEM」，當時還沒定案（查核日期 2026-11-23）。[S6 p.1、p.16、p.17、書目資料] | [HQC 的標準化進度](entities/fips-207.md) |
+| BIKE | BIKE | 和 HQC 一樣不靠格的候選；S6 引用第 3 輪報告說，NIST 最多只會從兩者中選一個。依 S6（2025-09）的說法，它的安全分析還需要時間檢驗（查核日期 2026-11-23）。[S6 p.3、p.8] | [HQC 的標準化進度](entities/fips-207.md) |
+| Classic McEliece | Classic McEliece | 第 3 輪的決選演算法之一，公鑰非常大；依 S6（2025-09）的說法，這限制了部分用途（查核日期 2026-11-23）。[S6 p.7、p.10] | [HQC 的標準化進度](entities/fips-207.md) |

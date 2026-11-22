@@ -24,7 +24,7 @@ slides:
   - {n: 15, type: concept, title: 從加密到 KEM：多一道「重新加密檢查」, questions: [Fujisaki-Okamoto 轉換在做什麼？], wiki: [concepts/hqc-kem-fo-transform.md], goals: [G2, G4]}
   - {n: 16, type: concept, title: 解碼失敗率：小到可以忽略, questions: [解碼失敗率是什麼？, 為什麼要小於 2^-128？], wiki: [concepts/decryption-failure-rate.md], goals: [G4]}
   - {n: 17, type: compare, title: HQC vs ML-KEM：數學不同，HQC 比較大、比較吃資源, questions: [HQC-1/3/5 的金鑰與密文多大？, 和 ML-KEM 的數學基礎與取捨差在哪？], wiki: [comparisons/hqc-vs-ml-kem.md, comparisons/hqc-parameter-sets.md], goals: [G5]}
-  - {n: 18, type: concept, title: NIST 為什麼選 HQC 當備援, questions: [為什麼要備援？, 為什麼是 HQC 而不是其他第四輪候選？, 標準化到哪了？], wiki: [entities/fips-207.md], goals: [G5]}
+  - {n: 18, type: concept, title: NIST 為什麼選 HQC 當備援, questions: [為什麼要備援？, NIST 為什麼選 HQC？代價是什麼？（不點名其他候選）, 標準化到哪了？], wiki: [entities/fips-207.md], goals: [G5]}
   - {n: 19, type: misconception, title: 四個常見誤解, questions: [HQC 要取代 ML-KEM？, 應該等 HQC 再遷移？, 故意加錯誤會讓解密常常出錯？, 碼是公開的，不就不安全？], wiki: [concepts/common-misconceptions.md], goals: [G1, G2, G3, G4, G5]}
   - {n: 20, type: quiz, title: 小測驗, questions: [5 題選擇題，每題對應一個目標，答後顯示解釋], wiki: [], goals: [G1, G2, G3, G4, G5]}
   - {n: 21, type: summary, title: 五句話記住 HQC, questions: [五個重點, 延伸閱讀 S1、S2、S4、S5、S6], wiki: [overview/hqc-overview.md], goals: []}

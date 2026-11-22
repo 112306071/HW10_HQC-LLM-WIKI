@@ -176,3 +176,35 @@
 - S5 統計：A3S 3 次，失敗 1 次（L2 缺來源標記 13 處）；A4 3 次，失敗 2 次，全是 L7 語意（研究現況評價缺查核日期）＋1 次 L8（過時的「等 S5」待辦說法）。
 - 依 notes 小修（不屬 L7/L8）：hqc-pke、syndrome-decoding 補 S5 p.43；hqc-pke「搜尋版」標明是 wiki 的說明；concatenated-rm-rs 改為規格書原話「HQC-PKE 的加密率低」，總覽頁「能修很多錯」只引 S4 p.18；syndrome-decoding「長期研究的共識」改「研究社群的看法」；sources/S5 拿掉無出處的「不是 NIST 正式標準」，改指向 fips-207；解碼失敗率頁的硬幣換算標明是 wiki 的說明，並說 2^-128 是 HQC-1 的上限；FO 頁補上 2024-10-30 版只放公鑰前 32 位元組的變動；code-based-cryptography 的「很短向量」改引 S5 p.7（原引 S4 p.8 講的是秩度量）；kem 的用詞差異補引 S5 p.12。
 - 使用者提議「語意分塊、markdown 註記讓每句導向來源段落」：分析後判斷它能處理「來源對不上」類錯誤（頁碼、推論寫成原文），對 L7 時效標註幫助不大；建議先不中途改 workflow、列為 v2 候選，等使用者決定（輕量版：raw 依頁／段切塊編號，lint 檢查句中數字出現在被引用的那一頁）。
+
+## [2026-11-23 00:57] ingest | S6 NIST：FIPS 207: HQC-KEM 簡報
+- 討論紀錄：discussions/05-S6-nist-fips207-robinson.md（使用者確認 2026-11-23 00:53；第 1 輪回 1a 2b 3a 並質疑內容對民眾的幫助，第 2 輪依建議改為 1d 2a 3a）
+- 新增：sources/S6-nist-fips207-robinson.md；raw/S6-status-nist-pqc-page-2026-11-23.md（SPEC §5.3 的狀態查核快照，登記為 S6-status）
+- 改寫：entities/fips-207.md（標準名稱 FIPS 207、選 HQC 的理由與代價、狀態查核；BIKE、Classic McEliece 只在細節各一句）
+- 修改：concepts/hqc-kem-fo-transform.md（確認碼提案，只進 wiki）、comparisons/hqc-parameter-sets.md（衝突紀錄）、concepts/code-based-cryptography.md（Goppa 碼分析進展）、overview/hqc-overview.md、sources/S2（拿掉「等 S6」）、glossary.md（新增 3 個術語）、index.md
+- SPEC §9.2、workflow/questions.yaml：第 18 張改為不點名其他候選（問題 1d）。
+- 解決 S2 時留下的檔名問題：S6 p.1 的標題就是「FIPS 207: HQC-KEM」，fips-207.md 檔名有來源支持；頁面標題改為「HQC 的標準化進度（FIPS 207）」。
+
+## [2026-11-23 00:57] conflict | HQC 大小數字：S6 與 S5 不同
+- S6 p.4（NIST 2025-09 簡報，註明取自演算法規格）：等級 1 的 HQC 公鑰 2,249、私鑰 56、密文 4,497 位元組。
+- S5 p.29（HQC 規格 2025-08-22 版）：HQC-1 公鑰 2,241、私鑰 2,321（壓縮格式 32）、密文 4,433 位元組。
+- 採用 S5。理由：CLAUDE.md 規定以 2025-08-22 版為準；S6 列為「考慮中」的修改（金鑰格式、FO 等）S5 都已採用，S6 的表應是較早的規格版本；私鑰差異來自 S5 的金鑰格式。兩種數字都記在 comparisons/hqc-parameter-sets.md 與 sources/S6。
+- 時效查核：NIST PQC 專案頁（2026-11-23 00:49）只寫 HQC 於 2025-03-11 被選中，沒列 FIPS 207 草案；猜測的草案網址回 404，只作旁證。wiki 寫成「專案頁未列出」，不寫成「確定沒有發布」。
+
+## [2026-11-23 01:06] lint | S6 ingest 後 lint 第 1 次不通過，修正
+- 檢查紀錄：runs/ingest/checks/A4-lint-S6-a1.json → FAIL（腳本全 PASS）
+- L7 語意 2 處：fips-207 的 spec_version 仍是 none；glossary 的 FIPS 207 列是未定案的狀態說法卻沒有查核日期。
+- L8 語意 2 處：index 有 4 行的「來源」沒跟著 S6 更新；sources/S2 內容改了但 updated 沒改、也沒列進 S6 的更新清單。
+- 先全 wiki 掃「快很多、限制了用途、舊版規格、私鑰差最多、偷懶、也用錯誤更正碼、以 McEliece 為基礎、2025 年 9 月、RSA」，並用小腳本比對 index 每行「來源」和各頁 frontmatter，全部一致後才送檢。
+- 修正（L7/L8）：fips-207 改 spec_version 2025-08-22；glossary FIPS 207 列補 S6 時間點與查核日期；index 4 行來源；sources/S1、S2 的 updated 與 S6 更新清單。
+- 依 notes 修正內容：
+  - 重要：「金鑰產生、解封裝快很多」「公鑰、密文較大」原文是和 BIKE 比，wiki 漏了比較對象，可能讓人以為 HQC 比 ML-KEM 快（和 S2、S5 相反）。fips-207、sources/S6 補上「和 BIKE 相比」，並補一句和 ML-KEM 相比 HQC 較大、較慢（S5 p.47）；SPEC 第 18 張的備註也加上提醒。
+  - 「限制了用途」改「限制了部分用途」（原文 some use cases）；glossary BIKE、Classic McEliece 兩列拿掉來源沒說的「用錯誤更正碼」「以 McEliece 為基礎」，改寫成 S6 p.3、p.7 的說法。
+  - 參數組頁「舊版規格的數字」與私鑰差異原因標明是本 wiki 的推斷。
+  - 「2025 年 9 月」改引 [S6 書目資料]（投影片本身沒印日期），並在 sources/S6 說明此引用方式。
+  - 確認碼一句拿掉「偷懶」；sources/S1 的 RSA 待辦改為「五份來源都沒有點名 RSA，不寫」。
+
+## [2026-11-23 01:11] lint | S6 lint 第 2 次通過；依檢查員備註小修；5 份來源 ingest 完成
+- 檢查紀錄：runs/ingest/checks/A4-lint-S6-a2.json → PASS（A3S 3 次，擋下 1 次；A4 2 次，失敗 1 次）
+- 依 notes 小修：sources/S6「編碼式候選」改「不靠格的候選」、c1/c2 只引 p.15、衝突段標明是推斷；glossary FIPS 207 列補 p.16、p.17，BIKE 列標明「最多選一個」是 S6 引用第 3 輪報告的說法；post-quantum-cryptography 與 sources/S1 的「要由其他來源補上」改指向已由 S2 補上的段落。
+- 5 份來源（S1、S2、S4、S5、S6）全部 ingest 完成；全 wiki 腳本自查 PASS。v1.1 的實際效果已補進 workflow/CHANGELOG.md。

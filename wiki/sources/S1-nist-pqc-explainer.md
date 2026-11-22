@@ -4,7 +4,7 @@ type: source
 sources: [S1]
 related: [../concepts/quantum-threat.md, ../concepts/post-quantum-cryptography.md]
 spec_version: none
-updated: 2026-11-19
+updated: 2026-11-23
 status: draft
 ---
 
@@ -38,7 +38,7 @@ status: draft
 ## 可信度與限制
 
 - 這是 NIST 官方寫給一般大眾的科普頁，可信度高，但刻意簡化，沒有任何演算法細節。[S1 Q0]
-- 講量子威脅時沒有點名 RSA 或「公鑰加密」，只說「依賴大數分解的加密」；這些名稱要由其他來源補。[S1 Q4]
+- 講量子威脅時沒有點名 RSA 或「公鑰加密」，只說「依賴大數分解的加密」；本 wiki 的五份來源都沒有點名 RSA，所以 wiki 不寫這個名稱。[S1 Q4]
 - Q12 提到橢圓曲線，但只是當作「PQC 用到的數學可以很古老」的例子，不是在說哪種加密會被量子電腦破解；wiki 不採用這個例子（見討論紀錄 01 第 4 節）。[S1 Q12]
 - 「量子電腦能同時篩選所有可能的因數」是 NIST 的科普說法，不是量子演算法的精確描述。[S1 Q4]
-- 演算法數量只寫到「最初選出的四個」，之後新增的演算法要看其他來源。[S1 Q5]
+- 演算法數量只寫到「最初選出的四個」，之後新增的 HQC 由 S2 補上，見 [後量子密碼學](../concepts/post-quantum-cryptography.md)。[S1 Q5]

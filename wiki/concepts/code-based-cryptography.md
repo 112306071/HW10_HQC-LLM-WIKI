@@ -1,8 +1,8 @@
 ---
 title: 編碼式密碼：McEliece 藏結構，HQC 不藏
 type: concept
-sources: [S4, S5]
-related: [../overview/hqc-overview.md, syndrome-decoding.md, quasi-cyclic-codes.md, ../sources/S4-aguilar-melchor-qc-codes.md]
+sources: [S4, S5, S6]
+related: [../overview/hqc-overview.md, ../sources/S6-nist-fips207-robinson.md, syndrome-decoding.md, quasi-cyclic-codes.md, ../sources/S4-aguilar-melchor-qc-codes.md]
 spec_version: none
 updated: 2026-11-23
 status: draft
@@ -31,6 +31,7 @@ status: draft
 - 第一個編碼式密碼是 McEliece 在 1978 年提出的，做法是把一個好解碼的碼藏起來，當成只有主人知道的捷徑（陷門）。[S4 p.2]
 - 原版 McEliece（用 Goppa 碼）在論文寫作時仍被認為安全；但換用其他碼的許多變體，都被攻擊者在電腦算得完的時間（多項式時間）內找出藏起來的結構而攻破。[S4 p.2]
 - 論文形容「藏起來的結構可能被挖出來」這件事，像一把懸在頭上的達摩克利斯之劍。[S4 p.2]
+- 2025 年 9 月 NIST 引用第 4 輪報告說，針對 Goppa 碼的分析有顯著進展，「多少削弱」了 Classic McEliece「研究很久所以安全」的論點（查核日期 2026-11-23）。[S6 p.11、書目資料]
 - HQC 不藏任何結構：用一個公開、好解碼的碼負責解密，一個隨機的碼負責安全。[S4 p.4、p.5]
 - HQC 的安全性和解密能力都不靠把解密用的碼藏起來。[S4 p.14]
 
@@ -58,4 +59,5 @@ status: draft
 - [伴隨式解碼問題](syndrome-decoding.md)
 - [準循環碼](quasi-cyclic-codes.md)
 - [S4 來源摘要](../sources/S4-aguilar-melchor-qc-codes.md)
+- [S6 來源摘要](../sources/S6-nist-fips207-robinson.md)
 - [術語表](../glossary.md)

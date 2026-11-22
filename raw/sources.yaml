@@ -53,3 +53,12 @@ sources:
     files: [raw/S6-nist-fips207-robinson.pdf, raw/S6-nist-fips207-robinson.txt]
     public: true
     note: NIST 文件，可進公開 repo。引用用投影片頁碼，例如 [S6 p.8]。同時依 SPEC §5.3 查了 NIST PQC 專案頁（2026-11-23），結果記在 discussions/05 與 wiki/log.md。
+  - id: S6-status
+    part_of: S6
+    title: "NIST PQC 專案頁快照（FIPS 207 狀態查核）"
+    author: NIST
+    url: https://csrc.nist.gov/Projects/post-quantum-cryptography/post-quantum-cryptography-standardization
+    retrieved: 2026-11-23T00:49:00+08:00
+    files: [raw/S6-status-nist-pqc-page-2026-11-23.md]
+    public: true
+    note: SPEC §5.3 要求 ingest S6 時查核 FIPS 207 現況；經討論紀錄 05 問題 3a 同意寫入 wiki。wiki 引用寫成 [S6 專案頁查核]（標記屬於 S6）。

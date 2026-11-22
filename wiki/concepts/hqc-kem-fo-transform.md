@@ -1,8 +1,8 @@
 ---
 title: 從 PKE 到 KEM：多一道「重新加密檢查」
 type: concept
-sources: [S5]
-related: [kem.md, hqc-pke.md, decryption-failure-rate.md, ../overview/hqc-overview.md, ../sources/S5-hqc-spec-2025-08-22.md]
+sources: [S5, S6]
+related: [kem.md, ../entities/fips-207.md, ../sources/S6-nist-fips207-robinson.md, hqc-pke.md, decryption-failure-rate.md, ../overview/hqc-overview.md, ../sources/S5-hqc-spec-2025-08-22.md]
 spec_version: 2025-08-22
 updated: 2026-11-23
 status: draft
@@ -41,6 +41,7 @@ HQC-KEM 的三個函式（HQC 規格 2025-08-22 版）：[S5 p.26–p.28]
 - 規格書證明 HQC-KEM 在這個轉換下達到 IND-CCA2 安全；證明是在隨機預言機模型下（把雜湊函數當成理想的隨機函數），並假設相關的解碼問題很難、HQC-PKE 的解碼失敗率夠小。[S5 p.40、p.43、p.44]
 - 2022-10-01 版起，加密用的隨機值 θ 就已納入 salt 和公開金鑰；2024-10-30 版改成只放公開金鑰的前 32 位元組；2025-08-22 版改用加鹽的 FO 轉換（SFO），計算 K 和 θ 時放入完整的公開金鑰與 salt。[S5 p.2、p.3]
 - 2023-04-30 版開始採用隱式拒絕。[S5 p.3]
+- 提案（2025-09，NIST 徵求意見中，查核日期 2026-11-23）：加一個 1 位元組的「確認碼」，用加密時被截掉的那幾個位元產生，讓人能發現跳過或做錯「重新加密檢查」的實作；這個提案不在 HQC 規格 2025-08-22 版裡。[S6 p.20、p.21][S5 p.2]
 
 ## 常見誤解
 
@@ -53,3 +54,5 @@ HQC-KEM 的三個函式（HQC 規格 2025-08-22 版）：[S5 p.26–p.28]
 - [解碼失敗率](decryption-failure-rate.md)
 - [HQC 總覽](../overview/hqc-overview.md)
 - [S5 來源摘要](../sources/S5-hqc-spec-2025-08-22.md)
+- [HQC 的標準化進度](../entities/fips-207.md)
+- [S6 來源摘要](../sources/S6-nist-fips207-robinson.md)

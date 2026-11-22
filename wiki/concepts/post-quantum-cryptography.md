@@ -4,7 +4,7 @@ type: concept
 sources: [S1, S2]
 related: [quantum-threat.md, ../overview/hqc-overview.md, ../entities/fips-207.md, ../sources/S1-nist-pqc-explainer.md, ../sources/S2-nist-news-hqc.md]
 spec_version: none
-updated: 2026-11-20
+updated: 2026-11-23
 status: draft
 ---
 
@@ -41,7 +41,7 @@ status: draft
 
 - S1 寫的是：NIST 最初選出四個要標準化的演算法，其中三個基於「結構化格」（structured lattices），一個基於雜湊函數（hash functions）。[S1 Q5]
 - S1 也提到，當時另有一些用於一般加密、不用格也不用雜湊函數的演算法在考慮中；這是 S1 寫作時的狀態，不是現況（查核日期 2026-11-19）。[S1 Q5]
-- S1 只列出這最初的四個，之後新選出的演算法要由其他來源補上。[S1 Q5]
+- S1 只列出這最初的四個；之後選出的第五個 HQC，見下一節（S2）。[S1 Q5]
 
 ### HQC：第五個演算法（S2 補充）
 

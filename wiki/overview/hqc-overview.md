@@ -1,7 +1,7 @@
 ---
 title: HQC 總覽
 type: overview
-sources: [S2, S4, S5]
+sources: [S2, S4, S5, S6]
 related: [../concepts/kem.md, ../concepts/hqc-pke.md, ../concepts/hqc-kem-fo-transform.md, ../concepts/decryption-failure-rate.md, ../comparisons/hqc-parameter-sets.md, ../sources/S5-hqc-spec-2025-08-22.md, ../concepts/code-based-cryptography.md, ../concepts/syndrome-decoding.md, ../concepts/quasi-cyclic-codes.md, ../sources/S4-aguilar-melchor-qc-codes.md, ../comparisons/hqc-vs-ml-kem.md, ../entities/fips-207.md, ../concepts/post-quantum-cryptography.md, ../sources/S2-nist-news-hqc.md]
 spec_version: 2025-08-22
 updated: 2026-11-23
@@ -54,7 +54,7 @@ NIST 已經選了 ML-KEM 當一般加密的主力，用來對抗未來的量子�
 
 - HQC 和 ML-KEM 都屬於金鑰封裝機制（KEM），見 [金鑰封裝機制](../concepts/kem.md)。[S2 §3]
 - 兩者的詳細比較見 [HQC 與 ML-KEM 比較](../comparisons/hqc-vs-ml-kem.md)。[S2 §1]
-- HQC 是 NIST 選出的第五個後量子演算法；標準化的時程見 [HQC 的標準化進度](../entities/fips-207.md)。[S2 §2]
+- HQC 是 NIST 選出的第五個後量子演算法；NIST 在 2025 年 9 月已把它的標準稱為 FIPS 207，時程與現況見 [HQC 的標準化進度](../entities/fips-207.md)（查核日期 2026-11-23）。[S2 §2][S6 p.1、書目資料]
 
 ## 常見誤解
 

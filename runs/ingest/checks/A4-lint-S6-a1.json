@@ -1,0 +1,96 @@
+{
+  "run_id": "ingest",
+  "workflow_version": "v1.1",
+  "node": "A4",
+  "attempt": 1,
+  "timestamp": "2026-11-23T01:05:14+08:00",
+  "target": "wiki/",
+  "results": [
+    {
+      "id": "L1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L6",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L8",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L9",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/entities/fips-207.md: frontmatter spec_version: none（內文「另有一個「一位元組確認碼」的提案…」）",
+          "problem": "本頁含位元組數字（1 位元組確認碼），且內文引用 HQC 規格 2025-08-22 版的修改紀錄，但 frontmatter 的 spec_version 仍是 none；同內容的 sources/S6 與 hqc-kem-fo-transform 都標 2025-08-22。"
+        },
+        {
+          "where": "wiki/glossary.md: FIPS 207 列「NIST 為 HQC 準備的正式標準名稱，2025 年 9 月的簡報標題是…」",
+          "problem": "「為 HQC 準備」是尚未定案的狀態說法，術語表沒有頁首時間說明涵蓋，這一列也沒有附查核日期（同表 BIKE、Classic McEliece 兩列都有附）。"
+        }
+      ],
+      "by": "semantic"
+    },
+    {
+      "id": "L8",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/index.md: 總覽、概念、比較各行的「來源：」",
+          "problem": "index 的來源清單沒跟著 S6 更新：HQC 總覽寫 S2, S4, S5（frontmatter 為 S2, S4, S5, S6）、編碼式密碼寫 S4（frontmatter 為 S4, S5, S6）、從 PKE 到 KEM 寫 S5（frontmatter 為 S5, S6）、HQC 參數組寫 S5（frontmatter 為 S5, S6）。"
+        },
+        {
+          "where": "wiki/sources/S2-nist-news-hqc.md: frontmatter updated: 2026-11-20；「可信度與限制」第 2 點「…2026-11-23 的查核結果見 HQC 的標準化進度（查核日期 2026-11-23）」",
+          "problem": "這頁已加入 2026-11-23 查核的內容，但 updated 仍是 2026-11-20；S6 來源摘要的「更新了哪些頁」也沒有列出這頁。"
+        }
+      ],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "A3"
+}

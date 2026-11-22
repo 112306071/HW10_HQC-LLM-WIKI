@@ -1,8 +1,8 @@
 ---
 title: HQC 參數組：HQC-1、HQC-3、HQC-5
 type: comparison
-sources: [S5]
-related: [hqc-vs-ml-kem.md, ../concepts/decryption-failure-rate.md, ../concepts/concatenated-rm-rs.md, ../concepts/hqc-pke.md, ../sources/S5-hqc-spec-2025-08-22.md]
+sources: [S5, S6]
+related: [hqc-vs-ml-kem.md, ../sources/S6-nist-fips207-robinson.md, ../concepts/decryption-failure-rate.md, ../concepts/concatenated-rm-rs.md, ../concepts/hqc-pke.md, ../sources/S5-hqc-spec-2025-08-22.md]
 spec_version: 2025-08-22
 updated: 2026-11-23
 status: draft
@@ -47,6 +47,12 @@ HQC 有三組參數 HQC-1、HQC-3、HQC-5，分別對應 NIST 安全等級 1、3
 - 公鑰大小 = 種子（32 B）＋ s（n 位元）；密文大小 = u（n 位元）＋ v（n1·n2 位元）＋ salt（16 B）。[S5 p.29]
 - 舊名稱：S5 §3.3 的乘法說明仍寫 HQC-128、HQC-192、HQC-256；同一節的表 2 用 HQC-1、HQC-3、HQC-5 列出相同的做法，可見兩組名稱相對應，但規格書沒有明文說明。[S5 p.15、p.16]
 
+### 衝突：S6 的較早數字
+
+- 衝突：NIST 2025 年 9 月的簡報（S6）列了一張效能表，寫等級 1 的 HQC 公鑰 2,249、私鑰 56、密文 4,497 位元組；S6 註明表格取自演算法規格。[S6 p.4]
+- 本頁採用 S5 的數字。理由：CLAUDE.md 規定以 2025-08-22 版為準；而且 S6 說表格取自演算法規格，它列為「考慮中」的修改（例如金鑰格式）S5 都已採用，本 wiki 因此判斷 S6 的表是較早的規格版本（這是推斷，兩份來源都沒有明說）。[S6 p.4、p.18][S5 p.2]
+- 私鑰差最多：S5 的預設格式把公開金鑰等資料也存進私鑰，壓縮格式只存種子；本 wiki 推斷這是差異的原因。[S5 p.22、p.29]
+
 ## 常見誤解
 
 - 誤解：「HQC-5 比 HQC-1 好，所以一律用 HQC-5。」正確：HQC-5 的安全等級較高，但公鑰和密文都是 HQC-1 的三倍左右；要依需求選擇。[S5 p.29]
@@ -58,3 +64,4 @@ HQC 有三組參數 HQC-1、HQC-3、HQC-5，分別對應 NIST 安全等級 1、3
 - [公開碼：Reed-Muller＋Reed-Solomon](../concepts/concatenated-rm-rs.md)
 - [HQC-PKE](../concepts/hqc-pke.md)
 - [S5 來源摘要](../sources/S5-hqc-spec-2025-08-22.md)
+- [S6 來源摘要](../sources/S6-nist-fips207-robinson.md)
