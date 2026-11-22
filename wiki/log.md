@@ -142,3 +142,37 @@
   - 頁碼與措辭：秘密金鑰補 p.4；「兩種長度」改「兩種大小」；「讓攻擊失效」改「變得沒有效率」（原文 inefficient）；參數表頁碼改 p.18–p.22；失敗率補「簡化假設、模擬佐證」（p.18）。
   - syndrome-decoding、quasi-cyclic-codes 頁首時間說明改成「這類評價」，涵蓋範圍更明確。
 - 這是 lint 通過後的修改，下一次 A4（S5）會對整個 wiki 重跑。
+
+## [2026-11-23 00:17] ingest | S5 HQC 規格書 2025-08-22 版
+- 討論紀錄：discussions/04-S5-hqc-spec-2025-08-22.md（使用者確認 2026-11-22 18:46；問題 1a、2a、3a）
+- 新增：sources/S5-hqc-spec-2025-08-22.md, concepts/error-correcting-codes.md, concepts/hqc-pke.md, concepts/hqc-toy-example.md, concepts/concatenated-rm-rs.md, concepts/hqc-kem-fo-transform.md, concepts/decryption-failure-rate.md, comparisons/hqc-parameter-sets.md
+- 修改：concepts/kem.md（三個函式、用詞差異）、overview/hqc-overview.md（運作方式改以 2025-08-22 版為主，S4 降為由來）、comparisons/hqc-vs-ml-kem.md（HQC 大小、S5 自列限制；仍不收 ML-KEM 數字）、concepts/syndrome-decoding.md、concepts/quasi-cyclic-codes.md、glossary.md（新增 11 個術語）、index.md
+- scripts/examples.py：新增 --toy（問題 1a），長度 13、重複碼的教學簡化版 HQC，示範一次成功、一次失敗；selftest 檢查剩下的錯誤等於 x·r2 + r1·y + e、成功與失敗結果。第 6 張的重複碼示例也一併寫進 error-correcting-codes。
+- 用詞差異（不是事實衝突）：S5 p.6 把 KEM 寫成 Key Exchange Mechanism；S2 與 S5 的函式名稱都是封裝。wiki 用「金鑰封裝機制」，兩種寫法都記在 kem.md 與 sources/S5。
+- 舊名稱：S5 實作章節仍用 HQC-128/192/256，沒有明說等於 HQC-1/3/5；wiki 依安全等級對照並標明是 wiki 的整理。SPEC §5.2 提到的舊大小 2,249 位元組不在 S5，不寫。
+- 寫作時自行發現並修正：hqc-pke 的比喻原寫「擦掉大部分墨水、只剩少數污點」，和 S4 a1 已指出的「剩下的錯誤不少」矛盾，改成「擦到規則對付得了的程度，其實還有不少污點」。
+
+## [2026-11-23 00:21] lint | S5 寫入後腳本自查（A3S）第 1 次不通過，修正
+- A3S（v1.1 新增的節點）擋下 L2 共 13 處缺來源標記：參數表的 6 列資料、表格前說明 1 行、FO 頁編號清單 2 項與函式清單引言 1 行、PKE 頁三步驟中的 2 項、錯誤更正碼頁 1 段。
+- 補上 [S5 p.N] 或 [示例由腳本計算] 後 A3S 第 2 次 PASS，再進 A4。A3S 不寫 checks JSON，次數記在 trace。
+
+## [2026-11-23 00:30] lint | S5 ingest 後 lint 第 1 次不通過，修正
+- 檢查紀錄：runs/ingest/checks/A4-lint-S5-a1.json → FAIL（腳本 L1–L9 全 PASS）
+- L7 語意 3 處：syndrome-decoding 新增的 S5 評價沒有 S5 的查核日期（頁首時間說明只涵蓋 S4）；error-correcting-codes 寫了 HQC-1 向量長度但 spec_version 是 none；glossary 的 Reed-Muller 列沒標規格版本。
+- L8 語意 1 處：code-based-cryptography 頁首仍寫「現行規格的做法要等 S5 補上」，和已寫入的 hqc-pke 矛盾。
+- 先全 wiki 掃「等 S5、S5 補上、S5 查核、2020-10-01、用完即丟、量不出來、驗證假設、只有 IND-CPA、只能擋住」再修：
+  - L7/L8：syndrome-decoding 頁首加 S5 的時間點與查核日期 2026-11-23；error-correcting-codes 改 spec_version 2025-08-22；glossary RM、RS 兩列標版本；code-based-cryptography 頁首改指向 hqc-pke；sources/S4 的「等 S5 查核」改為「以 S5 為準」。
+  - notes：RM＋RS 是 2020-05-04 版引入、2020-10-01 版才移除舊碼（concatenated-rm-rs、sources/S5）；hqc-pke 誤解一節分清搜尋版與判定版；IND-CCA2 補上「隨機預言機模型、解碼問題難、失敗率夠小」三個前提；「只能擋住只看密文的攻擊者」改成 IND-CPA 的設定說明；「用模擬驗證」改「佐證」、拿掉「量不出來」；公開碼頁拿掉 S5 沒說的「沒有 y 就無法降雜訊」，「能修很多錯」改引 S4 p.18；r1、r2、e「用完即丟」改成「由 θ 產生、不放進密文」；截斷那句補 p.46。
+  - concatenated-rm-rs 不再點名 BCH＋重複碼（維持討論紀錄 03 的 3b，只在 sources/S5 的修改紀錄提）。
+
+## [2026-11-23 00:38] lint | S5 lint 第 2 次不通過，修正（下一次是第 3 次，達重試上限）
+- 檢查紀錄：runs/ingest/checks/A4-lint-S5-a2.json → FAIL（腳本全 PASS；L8 PASS）
+- L7 語意 4 處，全是「研究現況／安全性評價」缺查核日期：hqc-vs-ml-kem 的「使用數十年」（上一輪改頁首時把它的涵蓋範圍縮掉了）、hqc-pke 的「沒有證明兩版一樣難」、sources/S5 的限制一行、hqc-parameter-sets 的「已知最好的攻擊」。
+- 根本原因：S5 頁面沒有頁首時間說明。這次不再逐句補，改成每個以 S5 為主的頁（hqc-pke、hqc-toy-example、concatenated-rm-rs、hqc-kem-fo-transform、decryption-failure-rate、error-correcting-codes、hqc-parameter-sets、sources/S5）都加同一段頁首時間說明，涵蓋全頁的評價說法；hqc-vs-ml-kem 的頁首把「使用數十年」放回涵蓋範圍。
+- 依 notes 修正：「公認很難」改為「研究社群認為很難」（S4 p.11、S5 p.10 的原文是 considered hard by the community）；S4 失敗率改為「簡化假設下估算」；隨機預言機模型補 S5 p.43；重複 3／5 次補 S5 p.21；salt 與公開金鑰納入 θ 是 2022-10-01 版、2025-08-22 版才放進 K；舊名 HQC-128/192/256 的出處改為 S5 §3.3 與表 2（p.15–p.16）；code-based-cryptography、sources/S4 的 updated 改 2026-11-23，並列進 sources/S5 的更新頁；quasi-cyclic-codes 頁首註明也用 S5；index 的 concatenated-rm-rs 來源補 S4。
+
+## [2026-11-23 00:48] lint | S5 lint 第 3 次通過；依檢查員備註小修
+- 檢查紀錄：runs/ingest/checks/A4-lint-S5-a3.json → PASS（在重試上限內）
+- S5 統計：A3S 3 次，失敗 1 次（L2 缺來源標記 13 處）；A4 3 次，失敗 2 次，全是 L7 語意（研究現況評價缺查核日期）＋1 次 L8（過時的「等 S5」待辦說法）。
+- 依 notes 小修（不屬 L7/L8）：hqc-pke、syndrome-decoding 補 S5 p.43；hqc-pke「搜尋版」標明是 wiki 的說明；concatenated-rm-rs 改為規格書原話「HQC-PKE 的加密率低」，總覽頁「能修很多錯」只引 S4 p.18；syndrome-decoding「長期研究的共識」改「研究社群的看法」；sources/S5 拿掉無出處的「不是 NIST 正式標準」，改指向 fips-207；解碼失敗率頁的硬幣換算標明是 wiki 的說明，並說 2^-128 是 HQC-1 的上限；FO 頁補上 2024-10-30 版只放公鑰前 32 位元組的變動；code-based-cryptography 的「很短向量」改引 S5 p.7（原引 S4 p.8 講的是秩度量）；kem 的用詞差異補引 S5 p.12。
+- 使用者提議「語意分塊、markdown 註記讓每句導向來源段落」：分析後判斷它能處理「來源對不上」類錯誤（頁碼、推論寫成原文），對 L7 時效標註幫助不大；決定先不中途改 workflow，列為 v2 候選（輕量版：raw 依頁／段切塊編號，lint 檢查句中數字出現在被引用的那一頁）。

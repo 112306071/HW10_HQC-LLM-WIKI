@@ -1,14 +1,14 @@
 ---
 title: HQC 總覽
 type: overview
-sources: [S2, S4]
-related: [../concepts/kem.md, ../concepts/code-based-cryptography.md, ../concepts/syndrome-decoding.md, ../concepts/quasi-cyclic-codes.md, ../sources/S4-aguilar-melchor-qc-codes.md, ../comparisons/hqc-vs-ml-kem.md, ../entities/fips-207.md, ../concepts/post-quantum-cryptography.md, ../sources/S2-nist-news-hqc.md]
-spec_version: none
-updated: 2026-11-22
+sources: [S2, S4, S5]
+related: [../concepts/kem.md, ../concepts/hqc-pke.md, ../concepts/hqc-kem-fo-transform.md, ../concepts/decryption-failure-rate.md, ../comparisons/hqc-parameter-sets.md, ../sources/S5-hqc-spec-2025-08-22.md, ../concepts/code-based-cryptography.md, ../concepts/syndrome-decoding.md, ../concepts/quasi-cyclic-codes.md, ../sources/S4-aguilar-melchor-qc-codes.md, ../comparisons/hqc-vs-ml-kem.md, ../entities/fips-207.md, ../concepts/post-quantum-cryptography.md, ../sources/S2-nist-news-hqc.md]
+spec_version: 2025-08-22
+updated: 2026-11-23
 status: draft
 ---
 
-時間說明：本頁根據 S2（NIST 新聞稿，2025-03-11）與 S4（HQC 原始論文，2016-12 預印本），定位與評價都是各來源當時的說法；HQC 現行規格的細節要等 S5 補上，查核日期 2026-11-19（S2 部分）、2026-11-22（S4 部分）。[S2 摘要][S4 p.1]
+時間說明：本頁根據 S2（NIST 新聞稿，2025-03-11）、S4（HQC 原始論文，2016-12 預印本）與 S5（HQC 規格 2025-08-22 版）；定位與評價都是各來源當時的說法，查核日期 2026-11-19（S2 部分）、2026-11-22（S4 部分）、2026-11-23（S5 部分）。[S2 摘要][S4 p.1][S5 p.1]
 
 ## 一句話定義
 
@@ -33,18 +33,22 @@ NIST 已經選了 ML-KEM 當一般加密的主力，用來對抗未來的量子�
 
 ## 細節
 
-### HQC 怎麼運作（S4 論文的核心想法，2016 版）
+### HQC 怎麼運作（HQC 規格 2025-08-22 版）
 
-- HQC 用兩個碼：一個公開、好解碼的碼負責解密，一個隨機的碼負責製造雜訊、提供安全，所以不需要藏任何結構；詳見 [編碼式密碼](../concepts/code-based-cryptography.md)。[S4 p.4、p.5]
-- 秘密金鑰是一對「很短」的向量，也就是大部分位置是 0、只有少數位置是 1。[S4 p.4、p.8、p.14]
-- 加密：先用公開的碼把訊息編碼，再用公鑰和另一組很短的隨機向量把它蓋住，外加一個很短的錯誤向量。[S4 p.4、p.14]
-- 解密：用秘密金鑰把雜訊降到公開的碼修得回來的程度，剩下「訊息的編碼＋一些錯誤」，再用公開的碼把錯誤修掉。[S4 p.4、p.14]
-- 剩下的錯誤其實不少（2016 論文版約為三分之一的位元），所以公開的碼要選一次只帶少量資料、但能修很多錯的碼。[S4 p.5、p.18]
-- 剩下的錯誤如果太多，就會解密失敗；論文在簡化假設下估算失敗機率（並用模擬佐證），挑參數讓它小到可以忽略。[S4 p.4、p.13、p.18、p.21]
-- 安全性：論文證明，要破解 HQC，至少要能解準循環碼的解碼問題（判定版）；這類問題社群公認很難，但不是數學上證明不可能，限制見 [伴隨式解碼問題](../concepts/syndrome-decoding.md)。[S4 p.11、p.12、p.15]
-- 金鑰能變小，是因為用了準循環結構；詳見 [準循環碼](../concepts/quasi-cyclic-codes.md)。[S4 p.7、p.11]
-- 取捨：一次能加密的資料不多，但金鑰交換只需要送一把短的對稱金鑰，所以夠用。[S4 p.3、p.18]
-- 這裡的步驟用的是 2016 年論文的說法；現行規格的步驟、符號與參數要等 S5。[S4 p.1]
+- HQC 用兩個碼：一個公開、好解碼的碼負責解密，一個隨機的雙循環碼負責製造雜訊、提供安全，所以不需要藏任何結構；詳見 [編碼式密碼](../concepts/code-based-cryptography.md)。[S5 p.6、p.22][S4 p.4、p.5]
+- 金鑰產生：秘密是兩個很短的向量 x、y（大部分位置是 0、只有少數位置是 1）；公開 h 與 s = x + h·y。[S5 p.7、p.23]
+- 加密：挑很短的 r1、r2、e，送出 u = r1 + h·r2 與 v = 訊息的編碼 + (s·r2 + e)。[S5 p.24]
+- 解密：算 v − u·y，剩下「訊息的編碼＋一些錯誤」，再用公開的碼把錯誤修掉；步驟與變數表見 [HQC-PKE](../concepts/hqc-pke.md)，小數字示例見 [用小數字走一遍 HQC](../concepts/hqc-toy-example.md)。[S5 p.22、p.25]
+- 剩下的錯誤其實不少，所以公開的碼選「一次只帶少量資料、但能修很多錯」的 Reed-Muller＋Reed-Solomon 串接碼。[S5 p.17][S4 p.5、p.18]
+- 實際使用的 HQC-KEM 再多一道「重新加密檢查」，對不上就給假金鑰；見 [從 PKE 到 KEM](../concepts/hqc-kem-fo-transform.md)。[S5 p.26、p.28]
+- 解碼失敗的機率壓到和安全等級相當，例如 HQC-1（舊名 hqc-128）小於 2^-128；見 [解碼失敗率](../concepts/decryption-failure-rate.md)。[S5 p.29、p.32]
+- 安全性：要破解 HQC，至少要能解準循環碼的解碼問題（判定版）；研究社群認為這類問題很難，但不是數學上證明不可能，限制見 [伴隨式解碼問題](../concepts/syndrome-decoding.md)。[S4 p.11、p.12、p.15][S5 p.6、p.40]
+- 大小：HQC-1 的公鑰 2,241 位元組、密文 4,433 位元組，等級越高越大；見 [HQC 參數組](../comparisons/hqc-parameter-sets.md)。[S5 p.29]
+- 取捨：一次能加密的資料不多，但金鑰交換只需要送一把短的金鑰，所以夠用。[S5 p.47][S4 p.3、p.18]
+
+### 設計的由來（S4，2016）
+
+- 這套設計最早出自 2016 年的原始論文；論文的流程相同，但符號、公開碼與參數都和 2025-08-22 版不同，本 wiki 一律用 2025-08-22 版。[S4 p.1、p.14][S5 p.3、p.6]
 
 ### 其他頁面
 
@@ -68,3 +72,8 @@ NIST 已經選了 ML-KEM 當一般加密的主力，用來對抗未來的量子�
 - [伴隨式解碼問題](../concepts/syndrome-decoding.md)
 - [準循環碼](../concepts/quasi-cyclic-codes.md)
 - [S4 來源摘要](../sources/S4-aguilar-melchor-qc-codes.md)
+- [HQC-PKE](../concepts/hqc-pke.md)
+- [從 PKE 到 KEM](../concepts/hqc-kem-fo-transform.md)
+- [解碼失敗率](../concepts/decryption-failure-rate.md)
+- [HQC 參數組](../comparisons/hqc-parameter-sets.md)
+- [S5 來源摘要](../sources/S5-hqc-spec-2025-08-22.md)

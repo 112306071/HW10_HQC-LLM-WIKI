@@ -1,0 +1,35 @@
+{
+  "checker": "semantic-subagent",
+  "target": "wiki/ (S5 ingest)",
+  "results": [
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/concepts/syndrome-decoding.md:頁首「時間說明：本頁根據 S4……」＋細節「規格書把「安全性歸約到理解透徹的 QCSD 問題」列為優點……」與「2025-08-22 版實際用的是加上奇偶性與截斷條件的變形問題……規格書說，截掉的位元很少時，對安全性的影響可以忽略」",
+          "problem": "這兩句是 S5 對安全性與研究現況的評價（「理解透徹」「影響可以忽略」），但頁首時間說明只涵蓋 S4（查核日期 2026-11-22），句子本身也沒有 S5 的查核日期。"
+        },
+        {
+          "where": "wiki/concepts/error-correcting-codes.md:frontmatter spec_version: none；細節「在 HQC 裡，「很短的向量」就是漢明重量很小的向量，例如依 HQC 規格 2025-08-22 版，HQC-1 的秘密向量長一萬七千多位……」",
+          "problem": "頁面含參數的位元數（HQC-1 向量長約 17,669 位元、權重幾十），frontmatter 的 spec_version 卻是 none。"
+        },
+        {
+          "where": "wiki/glossary.md:「Reed-Muller 碼」列「HQC 公開碼的內層碼，每個位元再重複 3 或 5 次。[S5 p.17]」",
+          "problem": "這句有參數數字（重複 3 或 5 次），但沒有標規格版本；術語表沒有頁首版本說明，spec_version 也是 none。"
+        }
+      ]
+    },
+    {
+      "id": "L8",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/concepts/code-based-cryptography.md:頁首「時間說明：……HQC 現行規格的做法要等 S5 補上，查核日期 2026-11-22。」",
+          "problem": "S5 已經 ingest，總覽、hqc-pke、S5 來源摘要都已寫入 2025-08-22 版的做法，這頁卻仍說「要等 S5 補上」，和其他頁對 S5 狀態的說法矛盾（這頁也不在 S5 摘要的「更新了哪些頁」清單裡）。"
+        }
+      ]
+    }
+  ],
+  "notes": "1. wiki/concepts/concatenated-rm-rs.md 細節「2020-10-01 版起採用這個組合，取代原本的 BCH＋重複碼，因為新的解碼器嚴格更好，也讓公鑰變小。[S5 p.3]」：依 S5 p.3，RMRS 是 2020-05-04 版引入的（「讓公鑰變小」也出自那一條）；2020-10-01 版做的是移除 BCH-Repetition 變體。所以「2020-10-01 起採用」日期不精確，而且把兩個版本的理由合成一句。S5 來源摘要裡 2020-10-01 那一條本身是對的。\n2. wiki/concepts/hqc-pke.md 常見誤解「從 s 和 h 找回很短的 x、y，正是 HQC 安全性所依賴的準循環伴隨式解碼問題。[S5 p.6、p.40]」：S5 p.40 的證明依賴的是判定版 2-DQCSD-P（分辨 s 和亂數）；找回 x、y 是搜尋版。S5 p.47 也承認結構化碼沒有搜尋版到判定版的歸約，所以這句混淆了兩個版本，說得比原文肯定。\n3. wiki/concepts/hqc-kem-fo-transform.md 細節「規格書證明 HQC-KEM 在這個轉換下達到 IND-CCA2 安全」與 wiki/concepts/syndrome-decoding.md「HQC-KEM 經 FO 轉換達到 IND-CCA2」：S5 p.43–p.44 的結論有前提：在 random oracle model 下，並以 2-DQCSD-P、3-DQCSD-PT 難解為前提，給出一個優勢上界。wiki 省略了這些前提，讀起來比原文肯定。\n4. wiki/concepts/hqc-kem-fo-transform.md 白話「HQC-PKE 只能擋住「只看密文」的攻擊者（IND-CPA）。[S5 p.6]」與 wiki/concepts/hqc-pke.md「HQC-PKE 本身只有 IND-CPA 安全」：S5 p.6 只說 HQC-PKE 是 IND-CPA 安全，沒有說「只有」。另外 IND-CPA 的攻擊者手上有公鑰，也能自選明文（S5 p.11–p.12 Figure 1），「只看密文」是 wiki 的簡化。\n5. wiki/concepts/decryption-failure-rate.md 常見誤解「這麼小的機率量不出來；它是在簡化假設下算出的上界，再用模擬驗證假設合理。[S5 p.32]」：S5 p.32 只說模擬 support／back up 這個假設，沒有提到「量不出來」；「驗證」也比原文的「佐證」肯定。同頁細節第 2 點用的「佐證」才是對的。\n6. wiki/concepts/concatenated-rm-rs.md 白話「HQC 的安全性不靠它保密，而是靠『沒有秘密 y 就無法把雜訊降下來』[S5 p.6、p.22、p.47]」：S5 說安全性建立在 QCSD 問題上，「沒有 y 就無法降雜訊」是 wiki 的白話推論。同頁重點「公開碼是一次只帶少量資料、但能修很多錯的碼 [S5 p.22、p.47]」：S5 p.47 只說加密率低，p.22 只說能修 Δ 個錯；「能修很多錯」的說法出自 S4 p.18，被引用的 S5 頁面沒有這句。\n7. wiki/concepts/hqc-pke.md 重點表「r1、r2、e｜寄件人用完即丟 [S5 p.24]」：S5 p.24 沒有這樣說。在 HQC-KEM 裡，這三個向量由 θ 決定，收件人解封裝時會重算（S5 p.27–p.28），所以「用完即丟」是 wiki 的推論。\n8. 頁碼：wiki/concepts/syndrome-decoding.md「規格書說，截掉的位元很少時，對安全性的影響可以忽略。[S5 p.11、p.40]」，這個說法在 p.11 與 p.46，p.40 沒有；p.40 只支持前半句的問題名稱（2-DQCSD-P、3-DQCSD-PT）。\n9. 過時的待辦說法：wiki/sources/S4-aguilar-melchor-qc-codes.md 可信度與限制「現行規格的做法與數字等 S5 查核」，S5 已經 ingest（與 L8 code-based 那一條同類）。wiki/concepts/quasi-cyclic-codes.md 頁首寫「本頁根據 S4」，但細節已經加了 S5 的句子；那句不是評價句，不影響 L7，但頁首說明不完整。\n10. 已核對、無問題的部分：hqc-toy-example.md 與 error-correcting-codes.md 的示例數字和 scripts/examples.py --toy、預設輸出逐字一致，--selftest PASS。參數與大小（n、ω、ωr=ωe、n1×n2、k、DFR、公鑰 2,241／4,514／7,237、私鑰 2,321／4,602／7,333、壓縮 32、密文 4,433／8,978／14,421、K 32）都和 S5 p.29 Table 5、Table 6 一致。RS 的 k=16／24／32 與 δ=15／16／29 和 p.18 Table 3 一致；RM [128,8,64] 重複 3／5 次（長 384／640）和 p.17 一致。23 位提交者、51 頁正確；術語表 S5 新增 11 個術語，計數正確。比喻：沒有發現和來源矛盾的地方。"
+}

@@ -1,14 +1,14 @@
 ---
 title: HQC 與 ML-KEM 比較
 type: comparison
-sources: [S2]
-related: [../overview/hqc-overview.md, ../concepts/kem.md, ../entities/fips-207.md, ../sources/S2-nist-news-hqc.md]
-spec_version: none
-updated: 2026-11-20
+sources: [S2, S5]
+related: [hqc-parameter-sets.md, ../sources/S5-hqc-spec-2025-08-22.md, ../overview/hqc-overview.md, ../concepts/kem.md, ../entities/fips-207.md, ../sources/S2-nist-news-hqc.md]
+spec_version: 2025-08-22
+updated: 2026-11-23
 status: draft
 ---
 
-時間說明：本頁目前只根據 S2（NIST 新聞稿，2025-03-11）；HQC 金鑰與密文的大小要等 S5 補上，查核日期 2026-11-19。[S2 §1]
+時間說明：本頁的定位、時程與「錯誤更正碼已使用數十年」等說法來自 S2（NIST 新聞稿，2025-03-11），查核日期 2026-11-19；HQC 的大小與優缺點依 HQC 規格 2025-08-22 版（S5），查核日期 2026-11-23。[S2 §1][S5 p.29、p.47]
 
 依使用者決定，本頁不收 ML-KEM 的大小數字。
 
@@ -30,11 +30,17 @@ NIST 刻意挑一個數學不同的演算法當備援，這樣萬一 ML-KEM 被�
 | --- | --- | --- |
 | 角色（S2，2025-03 的說法，查核日期 2026-11-19） | 備援，不取代 ML-KEM [S2 §0] | 一般加密的推薦選擇 [S2 §0] |
 | 數學基礎 | 錯誤更正碼，已在資訊安全領域使用數十年 [S2 §1] | 結構化格 [S2 §1] |
-| 運算資源 | 比較冗長，需要更多運算資源 [S2 §1] | 比 HQC 精簡 [S2 §1] |
+| 運算資源 | 比較冗長，需要更多運算資源 [S2 §1]；規格書也說實作效率比 ML-KEM 差 [S5 p.47] | 比 HQC 精簡 [S2 §1] |
+| 大小 | 比 ML-KEM 大 [S5 p.47]；HQC-1 公鑰 2,241 位元組、密文 4,433 位元組（HQC 規格 2025-08-22 版）[S5 p.29] | 本 wiki 不收數字 |
 | 標準化 | 2025 年 3 月被選中，預計 2027 年定案（查核日期 2026-11-19）[S2 摘要、§2] | 2024 年定案，標準名稱 FIPS 203 [S2 §0、§2] |
 | 類型 | 金鑰封裝機制（KEM）[S2 §3] | 金鑰封裝機制（KEM）[S2 §3] |
 
 ## 細節
+
+- HQC 規格書自己列的限制：和 ML-KEM 等格密碼 KEM 相比，HQC 的密文、金鑰比較大，實作效率也比較差。[S5 p.47]
+- 規格書也提到，格密碼的結構化問題有「搜尋版到判定版」的歸約，結構化的碼則沒有。[S5 p.47]
+- 2025-08-22 版的 HQC 有幾項設計刻意對齊 FIPS 203（ML-KEM 的標準）。[S5 p.2][S2 §2]
+- HQC 三組參數的完整大小見 [HQC 參數組](hqc-parameter-sets.md)。[S5 p.29]
 
 - 審查者認為 HQC 雖然比較吃資源，但運作乾淨、安全，所以值得當備援。[S2 §1]
 - 兩者的用途相同：保護儲存的資料，以及在公開網路上傳送的資料。[S2 §0]
@@ -49,3 +55,5 @@ NIST 刻意挑一個數學不同的演算法當備援，這樣萬一 ML-KEM 被�
 - [金鑰封裝機制（KEM）](../concepts/kem.md)
 - [HQC 的標準化進度](../entities/fips-207.md)
 - [S2 來源摘要](../sources/S2-nist-news-hqc.md)
+- [HQC 參數組](hqc-parameter-sets.md)
+- [S5 來源摘要](../sources/S5-hqc-spec-2025-08-22.md)

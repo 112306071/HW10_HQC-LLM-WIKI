@@ -1,0 +1,34 @@
+{
+  "checker": "semantic-subagent",
+  "target": "wiki/ (S5 ingest)",
+  "results": [
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/comparisons/hqc-vs-ml-kem.md:重點表「數學基礎」列「錯誤更正碼，已在資訊安全領域使用數十年 [S2 §1]」",
+          "problem": "「使用了數十年」屬於研究／使用年數的時效說法，句中沒有來源時間點與查核日期；本次改寫後的頁首時間說明只涵蓋「定位與時程說法」(S2) 和「大小與優缺點」(S5)，不再涵蓋這句（舊版頁首寫「本頁目前只根據 S2…查核日期 2026-11-19」涵蓋全頁），而 glossary 與 error-correcting-codes 的同一句都有「依 S2（2025-03）的說法…（查核日期 2026-11-19）」。"
+        },
+        {
+          "where": "wiki/concepts/hqc-pke.md:常見誤解第 2 點「誤解：「公開金鑰裡的 s 就是秘密 x 加上一點東西…」正確：…規格書也承認，結構化的碼沒有證明兩個版本一樣難」",
+          "problem": "「沒有證明兩個版本一樣難」是研究現況的說法（可能隨研究改變），本頁沒有頁首時間說明，這句也沒有附查核日期（syndrome-decoding 的同一說法靠頁首時間說明附了 2026-11-23）。"
+        },
+        {
+          "where": "wiki/sources/S5-hqc-spec-2025-08-22.md:重點「規格書自己列的限制：加密率低；結構化的碼沒有搜尋版到判定版的歸約；和 ML-KEM 相比，密文、金鑰比較大，實作效率也比較差。」",
+          "problem": "這句包含研究現況（沒有歸約）與和 ML-KEM 比較效率的評價，全頁沒有任何查核日期；S1、S2、S4 的來源摘要頁都在重點或頁首寫了「…當時的說法，查核日期 …」，S5 頁缺少。"
+        },
+        {
+          "where": "wiki/comparisons/hqc-parameter-sets.md:細節「參數的挑法：讓已知最好的攻擊所需的工作量超過安全參數；量子攻擊的安全性以「安全位元數除以 2」估算。」",
+          "problem": "「已知最好的攻擊」是會隨研究改變的安全性說法；頁首只寫「本頁所有數字都依 HQC 規格 2025-08-22 版（S5）」，全頁沒有查核日期。"
+        }
+      ]
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": []
+    }
+  ],
+  "notes": "（不影響 L7/L8 判定）\n1. wiki/concepts/decryption-failure-rate.md 細節「2016 年的原始論文就已精確分析失敗率，並依此挑參數。[S4 p.4、p.18]」：S4 p.4 原文是 “With the reasonable assumption, backed up by simulations, that the weight of e behaves in a way that is close to a binomial distribution, we manage a precise estimation of a decoding failure”，「精確分析」省略了簡化假設，比原文更肯定；也和 code-based-cryptography 細節與 S4 來源摘要的「論文在簡化假設下估算失敗機率（並用模擬佐證）」說法不一致。\n2. wiki/concepts/hqc-kem-fo-transform.md 細節「規格書證明 HQC-KEM…證明是在隨機預言機模型下…[S5 p.40、p.44]」，以及 syndrome-decoding.md 細節「這是 2016 年加密版的證明…在隨機預言機模型下…[S5 p.40、p.44]」：「random-oracle model」這句在 S5 p.43（6.2.2 節末），p.44 是 Theorem 6.3；頁碼應加上 p.43。\n3. wiki/concepts/hqc-kem-fo-transform.md 細節「2025-08-22 版把轉換改成「加鹽」的版本，並把公開金鑰一起放進 K 和 θ 的計算。[S5 p.2]」：字面上符合 S5 p.2，但 S5 p.3（2022/10/01）已寫 θ 的計算加入 salt 與 ekKEM，p.2（2024/10/30）也提到只放公鑰前 32 位元組；2025-08-22 版是改成 salted SFO 轉換並把整個 ekKEM 與 salt 放進 K 和 θ 的計算。現在的寫法容易讓人以為 2025 年才第一次放入公開金鑰。\n4. wiki/concepts/concatenated-rm-rs.md 細節「HQC-1 用重複 3 次的內層碼，HQC-3 與 HQC-5 用重複 5 次。[S5 p.29]」：直接依據是 S5 p.21 的 Table 4（Multiplicity 3/5/5）；p.29 的 Table 5 只從 n2 = 384/640/640 間接看得出來。建議補 p.21。\n5. wiki/comparisons/hqc-parameter-sets.md、wiki/sources/S5-hqc-spec-2025-08-22.md、glossary「S5 的實作章節仍出現 HQC-128、HQC-192、HQC-256 [S5 p.15]」：p.15 屬於第 3 章 Specifications 的 3.3 Vector multiplication，不是第 5 章 Performance（實作效能）；而且 p.15 說 HQC-128/HQC-192 用 3-Karatsuba、HQC-256 用 5-Karatsuba，p.16 的 Table 2 對 HQC-1/HQC-3/HQC-5 寫的是同樣的對應，已隱含兩組名稱相同。「沒有明說」仍成立，但「實作章節」的描述不精確。\n6. wiki/overview/hqc-overview.md 細節「安全性：…這類問題社群公認很難…[S4 p.11、p.12、p.15][S5 p.6、p.40]」：S4 p.11 與 S5 p.10 的原文是 “considered hard by the community”，「公認」比原文更肯定（syndrome-decoding 白話解釋也同時出現「社群公認很難」和「論文只說社群認為很難」兩種寫法）；S5 這句在 p.10，不在 p.6 或 p.40。\n7. wiki/concepts/decryption-failure-rate.md 細節「這樣算出的失敗率只會是真實值的上界（只會高估，不會低估）」：S5 p.32 原文是模擬 “back up our assumption that our computations … can only be upper bounds”，原文說的是模擬支持這個假設，wiki 寫成確定的事實，語氣較原文肯定。重點「HQC-KEM 的安全性證明要求 HQC-PKE 的解碼失敗率夠小 [S5 p.44]」是從 Theorem 6.3 的 (qRO+qD)·δ 項推論出來的，原文沒有「要求」這個字，屬於合理推論。\n8. 簿記：本次 S5 ingest 也改了 wiki/concepts/code-based-cryptography.md 的頁首時間說明和 wiki/sources/S4-aguilar-melchor-qc-codes.md 的可信度與限制第 2 點（git diff 可以看到），但兩頁的 updated 仍是 2026-11-22，S5 來源摘要的「更新了哪些頁」也沒有列這兩頁。另外 quasi-cyclic-codes.md 的 frontmatter 已改成 sources [S4, S5]，內文也加了 S5 的句子，但頁首時間說明仍寫「本頁根據 S4」。\n9. wiki/index.md 的「公開碼：Reed-Muller＋Reed-Solomon」一行寫「來源：S5」，但該頁 frontmatter 是 sources [S5, S4]，內文也引用 [S4 p.18]。\n10. wiki/concepts/quasi-cyclic-codes.md 重點「雙循環碼在密碼學裡已用了將近 10 年（論文 2016 年的說法）」：已標明是 2016 年的說法，沒有錯；S5 p.9 現在寫 “more than 15 years”，可以考慮補上 S5 的說法。\n11. wiki/concepts/hqc-toy-example.md 白話解釋第 3 段寫「剩下的錯誤 = x·r2 + r1·y + e」，到下一段才說明 0/1 世界裡減法等於加法；和 hqc-pke 的「x·r2 − r1·y + e」並不矛盾，只是說明順序可能讓讀者困惑。\n示例數字：hqc-toy-example 與 error-correcting-codes 的所有 [示例由腳本計算] 數字，都和 `scripts/examples.py --toy`、`scripts/examples.py` 的輸出逐字相同，`--selftest` 結果為 PASS。參數表（n、ω、ωr=ωe、n1、n2、k、DFR、ekKEM／dkKEM／cKEM／K 的位元組數）都和 S5 p.29 的 Table 5、Table 6 一致；RS 參數（16/24/32、δ=15/16/29）和 p.17–p.18 一致；版本修改紀錄的日期和 p.2–p.4 一致；術語計數（S1 7 個、S2 6 個、S4 6 個、S5 11 個）和 glossary 一致。\n比喻：沒有發現和來源矛盾的比喻。"
+}

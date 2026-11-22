@@ -1,0 +1,96 @@
+{
+  "run_id": "ingest",
+  "workflow_version": "v1.1",
+  "node": "A4",
+  "attempt": 1,
+  "timestamp": "2026-11-23T00:29:16+08:00",
+  "target": "wiki/",
+  "results": [
+    {
+      "id": "L1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L6",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L8",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L9",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/concepts/syndrome-decoding.md:頁首「時間說明：本頁根據 S4……」＋細節「規格書把「安全性歸約到理解透徹的 QCSD 問題」列為優點……」與「2025-08-22 版實際用的是加上奇偶性與截斷條件的變形問題……規格書說，截掉的位元很少時，對安全性的影響可以忽略」",
+          "problem": "這兩句是 S5 對安全性與研究現況的評價（「理解透徹」「影響可以忽略」），但頁首時間說明只涵蓋 S4（查核日期 2026-11-22），句子本身也沒有 S5 的查核日期。"
+        },
+        {
+          "where": "wiki/concepts/error-correcting-codes.md:frontmatter spec_version: none；細節「在 HQC 裡，「很短的向量」就是漢明重量很小的向量，例如依 HQC 規格 2025-08-22 版，HQC-1 的秘密向量長一萬七千多位……」",
+          "problem": "頁面含參數的位元數（HQC-1 向量長約 17,669 位元、權重幾十），frontmatter 的 spec_version 卻是 none。"
+        },
+        {
+          "where": "wiki/glossary.md:「Reed-Muller 碼」列「HQC 公開碼的內層碼，每個位元再重複 3 或 5 次。[S5 p.17]」",
+          "problem": "這句有參數數字（重複 3 或 5 次），但沒有標規格版本；術語表沒有頁首版本說明，spec_version 也是 none。"
+        }
+      ],
+      "by": "semantic"
+    },
+    {
+      "id": "L8",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/concepts/code-based-cryptography.md:頁首「時間說明：……HQC 現行規格的做法要等 S5 補上，查核日期 2026-11-22。」",
+          "problem": "S5 已經 ingest，總覽、hqc-pke、S5 來源摘要都已寫入 2025-08-22 版的做法，這頁卻仍說「要等 S5 補上」，和其他頁對 S5 狀態的說法矛盾（這頁也不在 S5 摘要的「更新了哪些頁」清單裡）。"
+        }
+      ],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "A3"
+}

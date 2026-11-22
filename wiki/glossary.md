@@ -1,9 +1,9 @@
 ---
 title: 術語表
 type: glossary
-sources: [S1, S2, S4]
+sources: [S1, S2, S4, S5]
 spec_version: none
-updated: 2026-11-22
+updated: 2026-11-23
 status: draft
 ---
 
@@ -32,3 +32,14 @@ status: draft
 | 伴隨式解碼問題 | syndrome decoding problem / SD | 已知檢查矩陣和伴隨式，要找出只有少數位置是 1 的錯誤向量；HQC 的安全性建立在它的準循環版本上。[S4 p.10、p.15] | [伴隨式解碼問題](concepts/syndrome-decoding.md) |
 | 準循環碼 | quasi-cyclic code | 矩陣由「每列往右轉一格」的循環矩陣組成，只要幾個向量就能描述，金鑰因此變小。[S4 p.6、p.7、p.11] | [準循環碼](concepts/quasi-cyclic-codes.md) |
 | 解密失敗 | decryption failure | HQC 解密後剩下的錯誤太多、公開的碼修不回來的情形；參數要挑到它小到可以忽略。[S4 p.4、p.13、p.21] | [HQC 總覽](overview/hqc-overview.md) |
+| 漢明重量 | Hamming weight | 一串 0/1 裡有幾個 1；HQC 說的「很短的向量」就是漢明重量很小的向量。[S5 p.7] | [錯誤更正碼](concepts/error-correcting-codes.md) |
+| 最小距離 | minimum distance | 一個碼裡任兩個碼字至少差幾個位置；差得越多，能修的錯越多。[S5 p.8] | [錯誤更正碼](concepts/error-correcting-codes.md) |
+| 串接碼 | concatenated code | 外層碼包一次、每一塊再用內層碼包一次的兩層碼。[S5 p.17] | [公開碼](concepts/concatenated-rm-rs.md) |
+| Reed-Muller 碼 | Reed-Muller code | HQC 公開碼的內層碼，每個位元再重複 3 或 5 次（HQC 規格 2025-08-22 版）。[S5 p.17] | [公開碼](concepts/concatenated-rm-rs.md) |
+| Reed-Solomon 碼 | Reed-Solomon code | HQC 公開碼的外層碼，以位元組為單位修錯（HQC 規格 2025-08-22 版）。[S5 p.17] | [公開碼](concepts/concatenated-rm-rs.md) |
+| HQC-PKE | HQC-PKE | HQC 的加密版：金鑰產生、加密、解密三個步驟，是 HQC-KEM 的底層。[S5 p.6、p.23] | [HQC-PKE](concepts/hqc-pke.md) |
+| HQC-KEM | HQC-KEM | HQC 的金鑰封裝版，由 HQC-PKE 經 FO 轉換做成，是實際使用的版本。[S5 p.6、p.26] | [從 PKE 到 KEM](concepts/hqc-kem-fo-transform.md) |
+| Fujisaki-Okamoto 轉換 | Fujisaki-Okamoto transform / FO | 把加密版包成更安全的金鑰封裝版的方法，核心是「重新加密檢查」。[S5 p.26、p.28] | [從 PKE 到 KEM](concepts/hqc-kem-fo-transform.md) |
+| 隱式拒絕 | implicit rejection | 密文檢查不通過時不報錯，改給一把由秘密值算出的假金鑰。[S5 p.28] | [從 PKE 到 KEM](concepts/hqc-kem-fo-transform.md) |
+| 解碼失敗率 | decoding failure rate / DFR | 解密後剩下的錯誤太多、公開碼修不回來的機率；HQC 把它壓到和安全等級相當。[S5 p.29、p.32] | [解碼失敗率](concepts/decryption-failure-rate.md) |
+| HQC-1／HQC-3／HQC-5 | HQC-1 / HQC-3 / HQC-5 | HQC 規格 2025-08-22 版的三組參數，對應 NIST 安全等級 1、3、5；舊名 hqc-128／192／256（S5 的表 2 可看出對應，但沒有明文說明）。[S5 p.15、p.16、p.29] | [HQC 參數組](comparisons/hqc-parameter-sets.md) |

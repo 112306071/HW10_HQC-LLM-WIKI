@@ -1,14 +1,14 @@
 ---
 title: 準循環碼：用一個向量代表一整個矩陣
 type: concept
-sources: [S4]
-related: [code-based-cryptography.md, syndrome-decoding.md, ../overview/hqc-overview.md, ../sources/S4-aguilar-melchor-qc-codes.md]
+sources: [S4, S5]
+related: [code-based-cryptography.md, hqc-pke.md, ../sources/S5-hqc-spec-2025-08-22.md, syndrome-decoding.md, ../overview/hqc-overview.md, ../sources/S4-aguilar-melchor-qc-codes.md]
 spec_version: none
-updated: 2026-11-22
+updated: 2026-11-23
 status: draft
 ---
 
-時間說明：本頁根據 S4（HQC 的原始論文，arXiv 2016-12 預印本）。「用了將近 10 年」「社群認為很難」「攻擊影響很小」這類對研究現況與安全性的評價，都是論文 2016 年當時的說法，不代表現況，查核日期 2026-11-22。[S4 p.1、p.11]
+時間說明：本頁根據 S4（HQC 的原始論文，arXiv 2016-12 預印本），並以 S5（HQC 規格 2025-08-22 版）補充。「用了將近 10 年」「社群認為很難」「攻擊影響很小」這類對研究現況與安全性的評價，都是論文 2016 年當時的說法，不代表現況，查核日期 2026-11-22。[S4 p.1、p.11]
 
 ## 一句話定義
 
@@ -36,6 +36,7 @@ status: draft
 - 準循環碼在編碼理論中已研究很久，但一直找不到一般的快速解碼法；論文認為這支持「解碼隨機準循環碼很難」的假設。[S4 p.5]
 - 準循環碼的解碼沒有一般性的難度證明。論文說社群認為它很難：已知利用循環結構的攻擊，對實際難度影響很小，最好的攻擊和一般的碼差不多。[S4 p.11]
 - 有些攻擊專門利用這種結構；論文刻意挑選特殊的長度，讓這類攻擊變得沒有效率。[S4 p.21]
+- HQC 規格 2025-08-22 版沿用這個做法：向量長度取「原始質數」，並明說 HQC 用準循環碼是為了縮短金鑰。[S5 p.8、p.11]
 - 兩個向量相乘的規則像多項式相乘，只是超過長度的部分會繞回前面；這也可以寫成「一個向量乘上另一個向量的循環矩陣」。[S4 p.6]
 
 ## 常見誤解
@@ -49,4 +50,5 @@ status: draft
 - [伴隨式解碼問題](syndrome-decoding.md)
 - [HQC 總覽](../overview/hqc-overview.md)
 - [S4 來源摘要](../sources/S4-aguilar-melchor-qc-codes.md)
+- [S5 來源摘要](../sources/S5-hqc-spec-2025-08-22.md)
 - [術語表](../glossary.md)

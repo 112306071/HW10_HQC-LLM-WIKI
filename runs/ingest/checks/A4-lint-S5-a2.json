@@ -1,0 +1,95 @@
+{
+  "run_id": "ingest",
+  "workflow_version": "v1.1",
+  "node": "A4",
+  "attempt": 2,
+  "timestamp": "2026-11-23T00:37:14+08:00",
+  "target": "wiki/",
+  "results": [
+    {
+      "id": "L1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L6",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L8",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L9",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "L7",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "wiki/comparisons/hqc-vs-ml-kem.md:重點表「數學基礎」列「錯誤更正碼，已在資訊安全領域使用數十年 [S2 §1]」",
+          "problem": "「使用了數十年」屬於研究／使用年數的時效說法，句中沒有來源時間點與查核日期；本次改寫後的頁首時間說明只涵蓋「定位與時程說法」(S2) 和「大小與優缺點」(S5)，不再涵蓋這句（舊版頁首寫「本頁目前只根據 S2…查核日期 2026-11-19」涵蓋全頁），而 glossary 與 error-correcting-codes 的同一句都有「依 S2（2025-03）的說法…（查核日期 2026-11-19）」。"
+        },
+        {
+          "where": "wiki/concepts/hqc-pke.md:常見誤解第 2 點「誤解：「公開金鑰裡的 s 就是秘密 x 加上一點東西…」正確：…規格書也承認，結構化的碼沒有證明兩個版本一樣難」",
+          "problem": "「沒有證明兩個版本一樣難」是研究現況的說法（可能隨研究改變），本頁沒有頁首時間說明，這句也沒有附查核日期（syndrome-decoding 的同一說法靠頁首時間說明附了 2026-11-23）。"
+        },
+        {
+          "where": "wiki/sources/S5-hqc-spec-2025-08-22.md:重點「規格書自己列的限制：加密率低；結構化的碼沒有搜尋版到判定版的歸約；和 ML-KEM 相比，密文、金鑰比較大，實作效率也比較差。」",
+          "problem": "這句包含研究現況（沒有歸約）與和 ML-KEM 比較效率的評價，全頁沒有任何查核日期；S1、S2、S4 的來源摘要頁都在重點或頁首寫了「…當時的說法，查核日期 …」，S5 頁缺少。"
+        },
+        {
+          "where": "wiki/comparisons/hqc-parameter-sets.md:細節「參數的挑法：讓已知最好的攻擊所需的工作量超過安全參數；量子攻擊的安全性以「安全位元數除以 2」估算。」",
+          "problem": "「已知最好的攻擊」是會隨研究改變的安全性說法；頁首只寫「本頁所有數字都依 HQC 規格 2025-08-22 版（S5）」，全頁沒有查核日期。"
+        }
+      ],
+      "by": "semantic"
+    },
+    {
+      "id": "L8",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "A3"
+}

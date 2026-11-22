@@ -1,14 +1,14 @@
 ---
 title: 金鑰封裝機制（KEM）
 type: concept
-sources: [S2]
-related: [../overview/hqc-overview.md, ../comparisons/hqc-vs-ml-kem.md, ../sources/S2-nist-news-hqc.md]
+sources: [S2, S5]
+related: [hqc-kem-fo-transform.md, hqc-pke.md, ../sources/S5-hqc-spec-2025-08-22.md, ../overview/hqc-overview.md, ../comparisons/hqc-vs-ml-kem.md, ../sources/S2-nist-news-hqc.md]
 spec_version: none
-updated: 2026-11-20
+updated: 2026-11-23
 status: draft
 ---
 
-時間說明：本頁目前只根據 S2（NIST 新聞稿，2025-03-11）；KEM 的三個函式（金鑰產生、封裝、解封裝）要等 S5 補上，查核日期 2026-11-19。[S2 §3]
+時間說明：本頁的定位說法來自 S2（NIST 新聞稿，2025-03-11），查核日期 2026-11-19；三個函式依 HQC 規格 2025-08-22 版（S5）。[S2 §3][S5 p.26]
 
 ## 一句話定義
 
@@ -28,6 +28,15 @@ KEM 用在公開網路上。NIST 把它形容成：兩方要交換機密資料�
 
 ## 細節
 
+### HQC-KEM 的三個函式（HQC 規格 2025-08-22 版）
+
+- 金鑰產生（Keygen）：做出一把公開的封裝金鑰和一把秘密的解封裝金鑰。[S5 p.26]
+- 封裝（Encaps）：寄件人只用對方的公開金鑰，就同時得到一把共享金鑰 K 和一份密文，把密文送出去。[S5 p.27]
+- 解封裝（Decaps）：收件人用秘密金鑰從密文算回同一把 K；HQC 在這一步會做「重新加密檢查」，見 [從 PKE 到 KEM](hqc-kem-fo-transform.md)。[S5 p.28]
+- 用詞差異：S5 第 6 頁把 KEM 寫成「Key Exchange Mechanism」（金鑰交換機制），但它的函式是封裝與解封裝，S2 與 S5 第 12 頁也都寫 key encapsulation mechanism；本 wiki 用「金鑰封裝機制」。[S5 p.6、p.12、p.26][S2 §3]
+
+### 其他
+
 - 一般加密的主力 ML-KEM 和備援 HQC 都是 KEM。[S2 摘要、§3]
 - 依 S2（2025-03）當時的說法，NIST 另有一份 KEM 實作建議的草案文件（SP 800-227），說明 KEM 的定義、性質與安全用法；它現在的狀態本 wiki 沒有查，也不展開（查核日期 2026-11-19）。[S2 §3]
 
@@ -40,4 +49,7 @@ KEM 用在公開網路上。NIST 把它形容成：兩方要交換機密資料�
 - [HQC 總覽](../overview/hqc-overview.md)
 - [HQC 與 ML-KEM 比較](../comparisons/hqc-vs-ml-kem.md)
 - [S2 來源摘要](../sources/S2-nist-news-hqc.md)
+- [從 PKE 到 KEM：FO 轉換](hqc-kem-fo-transform.md)
+- [HQC-PKE](hqc-pke.md)
+- [S5 來源摘要](../sources/S5-hqc-spec-2025-08-22.md)
 - [術語表](../glossary.md)
