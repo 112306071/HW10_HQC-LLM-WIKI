@@ -73,7 +73,8 @@ def last_unsupported(run: dict) -> str:
     n = 0
     for r in last["results"]:
         if r["id"] == "P4":
-            n += sum(1 for d in r["details"] if "UNSUPPORTED" in d.get("problem", ""))
+            # 只看判定開頭（「UNSUPPORTED：…」），避免把說明文字裡的「不算 UNSUPPORTED」算進去
+            n += sum(1 for d in r["details"] if d.get("problem", "").lstrip().startswith("UNSUPPORTED"))
     return str(n)
 
 

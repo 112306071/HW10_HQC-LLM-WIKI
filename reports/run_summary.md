@@ -1,6 +1,6 @@
 # 執行紀錄彙整
 
-由 `scripts/summarize_runs.py` 產生，2026-11-23T14:31:15+08:00。資料來源：`runs/*/trace.jsonl`、`runs/*/checks/*.json`。
+由 `scripts/summarize_runs.py` 產生，2026-11-23T14:31:46+08:00。資料來源：`runs/*/trace.jsonl`、`runs/*/checks/*.json`。
 
 ## 1. 節點統計
 
@@ -71,7 +71,7 @@
 | 總步數 | 19 | 8 |
 | B3 失敗次數 | 3 | 1 |
 | B5 失敗次數 | 2 | 0 |
-| 最後一版 P4 UNSUPPORTED 數 | 1 | 0 |
+| 最後一版 P4 UNSUPPORTED 數 | 0 | 0 |
 | H2 要求修改次數 | 0 | 0 |
 | 總耗時（第一步到最後一步） | 1 小時 54 分 | 16 分 |
 
