@@ -1,0 +1,59 @@
+{
+  "run_id": "run-002-v2",
+  "workflow_version": "v2",
+  "node": "B3",
+  "attempt": 2,
+  "timestamp": "2026-11-23T14:24:29+08:00",
+  "target": "runs/run-002-v2/outline-v2.md",
+  "results": [
+    {
+      "id": "O1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    },
+    {
+      "id": "O6",
+      "status": "PASS",
+      "details": [
+        {
+          "where": "slide-03 第 4 點「換加密常要 10–20 年，所以現在就要開始」",
+          "problem": "PARTIAL：對照 concepts/quantum-threat.md#兩個時間放在一起看：為什麼現在就要換。wiki 的結論有兩個前提（新演算法要 10–20 年才能普及＋量子電腦何時出現沒有人能預測），而且「立即開始轉換」是歸屬給 NIST 的建議（「NIST 因此說…並建議組織立即開始轉換」）。大綱只留一個前提，並把 NIST 的建議寫成大綱自己的結論；同張的圖示與講者備註也沒有補上「NIST 建議」或「何時出現無法預測」。建議改為「換加密常要 10–20 年，量子電腦何時出現又沒人知道，NIST 建議現在就開始」或在圖示補上。"
+        }
+      ],
+      "by": "semantic"
+    }
+  ],
+  "overall": "PASS",
+  "route_to": "B4"
+}

@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HQC 是什麼？</title>
+<style>
+:root { --main:#1f5fa8; --pub:#1f5fa8; --pub-bg:#e3edf9; --sec:#b5530b; --sec-bg:#fbe9dc; --err:#b3261e; --err-bg:#f9dedc;
+  --ok:#1b7a3a; --ink:#1d2330; --muted:#566070; --line:#c9d1dc; --bg:#eef1f5; --card:#fff; --soft:#f5f7fa; }
+* { box-sizing:border-box; }
+html, body { margin:0; height:100%; background:var(--bg); color:var(--ink);
+  font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif; }
+#progress-track { position:fixed; top:0; left:0; right:0; height:5px; background:#d5dbe4; z-index:10; }
+#progress { height:100%; width:0; background:var(--main); transition:width .2s; }
+.deck { position:fixed; left:50%; top:50%; width:1280px; height:720px; transform-origin:center; }
+section.slide { position:absolute; inset:0; padding:44px 64px 60px; background:var(--card); display:none; overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,.08); }
+section.slide.active { display:block; }
+h1 { font-size:50px; line-height:1.25; margin:120px 0 28px; color:var(--main); }
+h2 { font-size:33px; line-height:1.3; margin:0 0 22px; padding-bottom:12px; border-bottom:3px solid var(--main); }
+.kicker { font-size:18px; color:var(--muted); margin:0 0 6px; letter-spacing:.05em; }
+.cols { display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start; }
+.cols.wide-fig { grid-template-columns:5fr 6fr; }
+ul.pts { margin:0; padding-left:1.1em; }
+ul.pts li { font-size:23px; line-height:1.45; margin:0 0 14px; overflow-wrap:anywhere; }
+.term { background:var(--soft); border-left:5px solid var(--main); padding:10px 14px; font-size:18px; line-height:1.5; margin:4px 0 12px; }
+.analogy { background:#fff8e1; border-left:5px solid #d9a400; padding:10px 14px; font-size:18px; line-height:1.5; margin-top:8px; }
+.analogy b { color:#7a5a00; }
+.small { font-size:16px; color:var(--muted); line-height:1.5; }
+.pub { color:var(--pub); font-weight:bold; } .sec { color:var(--sec); font-weight:bold; }
+figure { margin:0; } figure svg { width:100%; height:auto; display:block; }
+figcaption { font-size:15px; color:var(--muted); margin-top:6px; line-height:1.45; }
+svg text { font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif; }
+footer.src { position:absolute; left:64px; right:220px; bottom:18px; font-size:14px; color:var(--muted); }
+footer.src a { color:var(--main); margin-right:12px; }
+aside.notes { display:none; }
+body.show-notes section.slide.active aside.notes { display:block; position:absolute; right:16px; bottom:56px; width:440px;
+  background:#fffbe6; border:1px solid #e6d27a; padding:10px 14px; font-size:15px; line-height:1.5; z-index:5; }
+nav.ctrl { position:fixed; right:16px; bottom:12px; display:flex; gap:8px; align-items:center; z-index:10; }
+nav.ctrl button { font-size:16px; padding:5px 14px; border:1px solid var(--line); background:#fff; border-radius:6px; cursor:pointer; }
+#counter { font-size:15px; color:var(--muted); min-width:60px; text-align:center; }
+.cards { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.card { border:1px solid var(--line); border-radius:10px; padding:14px 18px; }
+.card .no { color:var(--err); font-size:19px; font-weight:bold; margin:0 0 6px; }
+.card .yes { color:var(--ok); font-size:19px; margin:0; line-height:1.45; }
+.card .src-hint { font-size:14px; color:var(--muted); margin-top:6px; }
+.quiz { display:grid; grid-template-columns:1fr 1fr; gap:10px 28px; }
+.quiz-q { border:1px solid var(--line); border-radius:10px; padding:10px 14px; }
+.quiz-q p { margin:0 0 8px; font-size:18px; line-height:1.4; }
+button.opt { font-size:15px; margin:0 6px 6px 0; padding:5px 10px; border:1px solid var(--line); border-radius:6px; background:#fff; cursor:pointer; }
+button.opt:hover { background:var(--soft); }
+.feedback { font-size:15px; margin-top:4px; line-height:1.45; } .feedback.correct { color:var(--ok); } .feedback.wrong { color:var(--err); }
+.reading { margin-top:18px; font-size:17px; line-height:1.7; }
+.reading a { color:var(--main); }
+@media (max-width:700px) {
+  html, body { height:auto; }
+  .deck { position:static; width:auto; height:auto; transform:none !important; }
+  section.slide { position:relative; display:block; margin:0 0 12px; padding:22px 16px 20px; box-shadow:none; }
+  h1 { font-size:30px; margin:20px 0 16px; } h2 { font-size:22px; }
+  .cols, .cols.wide-fig, .cards, .quiz { grid-template-columns:1fr; gap:16px; }
+  ul.pts li { font-size:17px; margin-bottom:8px; }
+  .term, .analogy { font-size:15px; }
+  footer.src { position:static; margin-top:16px; font-size:13px; line-height:1.6; }
+  nav.ctrl, #progress-track { display:none; }
+}
+@media print {
+  html, body { height:auto; background:#fff; }
+  nav.ctrl, #progress-track { display:none; }
+  .deck { position:static; width:1280px; height:auto; transform:none !important; }
+  section.slide { position:relative; display:block; height:720px; page-break-after:always; box-shadow:none; }
+}
+</style>
+</head>
+<body>
+<div id="progress-track"><div id="progress"></div></div>
+<main class="deck">
+
+<!-- 01 -->
+<section class="slide" data-slide="01" data-type="cover" data-wiki="overview/hqc-overview.md">
+  <p class="kicker nonfact">後量子密碼入門簡報</p>
+  <h1>HQC 是什麼？<br>用「故意加入的錯誤」保護量子時代的金鑰</h1>
+  <div class="cols">
+    <ul class="pts"><li>NIST 在 2025 年選出的後量子加密方法，當 ML-KEM 的備援</li></ul>
+    <figure>
+      <svg viewBox="0 0 520 150" role="img" aria-label="一串 0 與 1，其中三格被標成錯誤，用秘密鑰匙處理後恢復正確">
+        <g font-size="20" text-anchor="middle">
+          <g id="row1">
+            <rect x="10" y="10" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="28" y="35">1</text>
+            <rect x="50" y="10" width="36" height="36" fill="#f9dedc" stroke="#b3261e"/><text x="68" y="35" fill="#b3261e">1</text>
+            <rect x="90" y="10" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="108" y="35">1</text>
+            <rect x="130" y="10" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="148" y="35">0</text>
+            <rect x="170" y="10" width="36" height="36" fill="#f9dedc" stroke="#b3261e"/><text x="188" y="35" fill="#b3261e">1</text>
+            <rect x="210" y="10" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="228" y="35">0</text>
+            <rect x="250" y="10" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="268" y="35">1</text>
+            <rect x="290" y="10" width="36" height="36" fill="#f9dedc" stroke="#b3261e"/><text x="308" y="35" fill="#b3261e">0</text>
+          </g>
+          <text x="420" y="35" font-size="17" fill="#b3261e">故意加入的錯誤</text>
+          <path d="M168 58 v28" stroke="#b5530b" stroke-width="3" marker-end="url(#ah1)"/>
+          <text x="250" y="80" font-size="16" fill="#b5530b">用秘密鑰匙處理</text>
+          <g>
+            <rect x="10" y="96" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="28" y="121">1</text>
+            <rect x="50" y="96" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="68" y="121">0</text>
+            <rect x="90" y="96" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="108" y="121">1</text>
+            <rect x="130" y="96" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="148" y="121">0</text>
+            <rect x="170" y="96" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="188" y="121">0</text>
+            <rect x="210" y="96" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="228" y="121">0</text>
+            <rect x="250" y="96" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="268" y="121">1</text>
+            <rect x="290" y="96" width="36" height="36" fill="#fff" stroke="#8a94a6"/><text x="308" y="121">1</text>
+          </g>
+          <text x="420" y="121" font-size="17" fill="#1b7a3a">還原成正確資料</text>
+        </g>
+        <defs><marker id="ah1" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8z" fill="#b5530b"/></marker></defs>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/overview/hqc-overview.md">HQC 總覽 →</a></footer>
+  <aside class="notes">今天要講的是一種「故意把資料弄錯」的加密方法。聽起來很怪，看完就知道為什麼可行。</aside>
+</section>
+
+<!-- 02 -->
+<section class="slide" data-slide="02" data-type="objectives" data-wiki="overview/hqc-overview.md concepts/kem.md concepts/code-based-cryptography.md concepts/hqc-pke.md">
+  <h2>看完這份簡報，你會懂 4 件事</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>為什麼量子電腦逼我們現在就換加密</li>
+      <li>KEM：在公開網路上交換一把鑰匙的方法</li>
+      <li>HQC 怎麼用「故意加錯誤」完成金鑰產生、加密、解密</li>
+      <li>HQC 和 ML-KEM 差在哪、為什麼選它當備援</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 480 360" role="img" aria-label="路線圖：為什麼、基礎、怎麼運作、好壞與現況、小測驗">
+        <g font-size="19">
+          <rect x="40" y="10" width="400" height="52" rx="10" fill="#e3edf9"/><text x="60" y="43">① 為什麼要換加密</text>
+          <rect x="40" y="80" width="400" height="52" rx="10" fill="#e3edf9"/><text x="60" y="113">② 基礎：KEM、錯誤更正碼</text>
+          <rect x="40" y="150" width="400" height="52" rx="10" fill="#fbe9dc"/><text x="60" y="183">③ HQC 怎麼運作（重點）</text>
+          <rect x="40" y="220" width="400" height="52" rx="10" fill="#e3edf9"/><text x="60" y="253">④ 好壞與現況</text>
+          <rect x="40" y="290" width="400" height="52" rx="10" fill="#e6f4ea"/><text x="60" y="323">⑤ 誤解與小測驗</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/overview/hqc-overview.md">HQC 總覽 →</a><a href="../../wiki/concepts/kem.md">KEM →</a><a href="../../wiki/concepts/code-based-cryptography.md">編碼式密碼 →</a><a href="../../wiki/concepts/hqc-pke.md">HQC-PKE →</a></footer>
+  <aside class="notes">四點對應五個學習目標：第 3 點同時涵蓋 G3（故意加錯誤）與 G4（三個步驟）。</aside>
+</section>
+
+<!-- 03 -->
+<section class="slide" data-slide="03" data-type="motivation" data-wiki="concepts/quantum-threat.md">
+  <h2>夠強的量子電腦可能解開今天許多加密，而且資料現在就可能被偷存</h2>
+  <div class="cols">
+    <div>
+      <div class="term"><b>量子電腦</b>：NIST 的科普說法是，它能「同時篩選」所有可能的因數，所以拆大數快得多。</div>
+      <ul class="pts">
+        <li>今天很多加密，靠「大數很難拆回兩個質數」</li>
+        <li>傳統電腦估計要數十億年；量子電腦可能幾天甚至幾小時</li>
+        <li>先收集、後解密：資料今天被偷存，將來再解開</li>
+        <li>換加密常要 10–20 年，所以現在就要開始</li>
+      </ul>
+    </div>
+    <figure>
+      <svg viewBox="0 0 500 380" role="img" aria-label="時間軸：今天資料被偷存，將來量子電腦解開；換加密需要 10 到 20 年">
+        <defs><marker id="ah3" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#566070"/></marker></defs>
+        <line x1="20" y1="150" x2="470" y2="150" stroke="#566070" stroke-width="3" marker-end="url(#ah3)"/>
+        <text x="470" y="180" font-size="16" text-anchor="end" fill="#566070">時間</text>
+        <circle cx="80" cy="150" r="9" fill="#b3261e"/>
+        <text x="80" y="40" font-size="19" text-anchor="middle" font-weight="bold">今天</text>
+        <rect x="35" y="55" width="90" height="70" rx="8" fill="#e3edf9" stroke="#1f5fa8"/>
+        <text x="80" y="88" font-size="16" text-anchor="middle">上鎖的</text><text x="80" y="110" font-size="16" text-anchor="middle">保險箱</text>
+        <text x="80" y="200" font-size="17" text-anchor="middle" fill="#b3261e">被偷走、存起來</text>
+        <circle cx="380" cy="150" r="9" fill="#b3261e"/>
+        <text x="380" y="40" font-size="19" text-anchor="middle" font-weight="bold">將來</text>
+        <rect x="330" y="55" width="100" height="70" rx="8" fill="#f9dedc" stroke="#b3261e"/>
+        <text x="380" y="88" font-size="16" text-anchor="middle">量子電腦</text><text x="380" y="110" font-size="16" text-anchor="middle">打開它</text>
+        <text x="380" y="200" font-size="17" text-anchor="middle" fill="#b3261e">秘密曝光</text>
+        <rect x="80" y="260" width="300" height="40" rx="8" fill="#e6f4ea" stroke="#1b7a3a"/>
+        <text x="230" y="286" font-size="17" text-anchor="middle">換新加密：常要 10–20 年</text>
+        <text x="230" y="340" font-size="17" text-anchor="middle" fill="#566070">量子電腦何時出現，沒有人能預測</text>
+      </svg>
+      <figcaption>比喻：小偷先把上鎖的保險箱整個偷走，等哪天有了萬能鑰匙再打開。</figcaption>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/quantum-threat.md">量子威脅 →</a>　時間估計依 S1（2026-02-27 更新版），查核日期 2026-11-19</footer>
+  <aside class="notes">量子電腦能「同時篩選」所有可能的因數，所以拆大數快得多。時間估計是 S1（2026-02-27 更新版）的說法。重點是「先收集、後解密」：就算量子電腦還沒出現，今天的資料也已經有風險。</aside>
+</section>
+
+<!-- 04 -->
+<section class="slide" data-slide="04" data-type="concept" data-wiki="concepts/post-quantum-cryptography.md overview/hqc-overview.md">
+  <h2>HQC 是 NIST 選出的第五個演算法，當 ML-KEM 的備援</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>後量子密碼：連量子電腦也難解的新數學鎖</li>
+      <li>NIST 是負責挑選、發布加密標準的機構</li>
+      <li>NIST 2024 年定了主力 ML-KEM，2025 年再選 HQC</li>
+      <li>HQC 的數學和 ML-KEM 不同，所以適合當備援</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 480 330" role="img" aria-label="比喻：ML-KEM 是車上的輪胎，HQC 是不同材料做的備胎">
+        <rect x="30" y="80" width="300" height="110" rx="30" fill="#e3edf9" stroke="#1f5fa8" stroke-width="2"/>
+        <text x="180" y="142" font-size="20" text-anchor="middle">一般加密這台車</text>
+        <circle cx="90" cy="200" r="34" fill="#1f5fa8"/><circle cx="270" cy="200" r="34" fill="#1f5fa8"/>
+        <text x="180" y="268" font-size="18" text-anchor="middle" fill="#1f5fa8" font-weight="bold">輪胎＝ML-KEM（2024，主力）</text>
+        <circle cx="410" cy="140" r="40" fill="#fbe9dc" stroke="#b5530b" stroke-width="6" stroke-dasharray="8 5"/>
+        <text x="410" y="146" font-size="18" text-anchor="middle" fill="#b5530b" font-weight="bold">HQC</text>
+        <text x="410" y="210" font-size="16" text-anchor="middle" fill="#b5530b">備胎（2025）</text>
+        <text x="410" y="232" font-size="16" text-anchor="middle" fill="#b5530b">不同材料</text>
+        <text x="240" y="315" font-size="16" text-anchor="middle" fill="#566070">輪胎材料出問題時，還有備胎可換</text>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/post-quantum-cryptography.md">後量子密碼學 →</a><a href="../../wiki/overview/hqc-overview.md">HQC 總覽 →</a>　定位依 S2（2025-03），查核日期 2026-11-19</footer>
+  <aside class="notes">依 S2（2025-03）的說法，HQC 是備援，不是要取代 ML-KEM。後量子密碼靠數學，和靠量子物理的「量子密碼學」是兩回事。</aside>
+</section>
+
+<!-- 05 -->
+<section class="slide" data-slide="05" data-type="concept" data-wiki="concepts/kem.md">
+  <h2>KEM：在公開網路上安全地交換一把鑰匙</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>KEM：上網交換機密之前，先「握手」換一把鑰匙</li>
+      <li>先做出公開的鎖（<span class="pub">公鑰</span>）和秘密的鑰匙（<span class="sec">私鑰</span>）</li>
+      <li>用對方的公鑰鎖住新鑰匙；送出的盒子叫<span class="pub">密文</span></li>
+      <li>對方用私鑰打開密文，雙方拿到同一把鑰匙</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 500 360" role="img" aria-label="KEM 流程：A 寄出打開的掛鎖（公鑰），B 鎖上裝有新鑰匙的盒子（密文）寄回，A 用私鑰打開，雙方拿到同一把鑰匙">
+        <defs><marker id="ah5" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#566070"/></marker></defs>
+        <rect x="10" y="10" width="90" height="300" rx="10" fill="#f5f7fa" stroke="#c9d1dc"/>
+        <text x="55" y="42" font-size="22" text-anchor="middle" font-weight="bold">A</text>
+        <rect x="400" y="10" width="90" height="300" rx="10" fill="#f5f7fa" stroke="#c9d1dc"/>
+        <text x="445" y="42" font-size="22" text-anchor="middle" font-weight="bold">B</text>
+        <text x="250" y="30" font-size="15" text-anchor="middle" fill="#566070">中間是誰都看得到的網路</text>
+        <line x1="105" y1="90" x2="395" y2="90" stroke="#566070" stroke-width="2" marker-end="url(#ah5)"/>
+        <rect x="180" y="58" width="140" height="26" rx="6" fill="#e3edf9" stroke="#1f5fa8"/>
+        <text x="250" y="77" font-size="15" text-anchor="middle" fill="#1f5fa8">① 打開的掛鎖＝公鑰</text>
+        <line x1="395" y1="170" x2="105" y2="170" stroke="#566070" stroke-width="2" marker-end="url(#ah5)"/>
+        <rect x="160" y="138" width="180" height="26" rx="6" fill="#e3edf9" stroke="#1f5fa8"/>
+        <text x="250" y="157" font-size="15" text-anchor="middle" fill="#1f5fa8">② 鎖好的盒子＝密文</text>
+        <text x="445" y="135" font-size="14" text-anchor="middle">放入新鑰匙</text>
+        <rect x="18" y="205" width="74" height="40" rx="6" fill="#fbe9dc" stroke="#b5530b"/>
+        <text x="55" y="223" font-size="13" text-anchor="middle" fill="#b5530b">③ 用私鑰</text>
+        <text x="55" y="239" font-size="13" text-anchor="middle" fill="#b5530b">打開</text>
+        <rect x="120" y="270" width="260" height="34" rx="8" fill="#e6f4ea" stroke="#1b7a3a"/>
+        <text x="250" y="293" font-size="16" text-anchor="middle" fill="#1b7a3a">雙方都有同一把新鑰匙</text>
+        <text x="250" y="345" font-size="14" text-anchor="middle" fill="#566070">藍色＝公開，橘色＝秘密</text>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/kem.md">金鑰封裝機制（KEM）→</a>　函式依 HQC 規格 2025-08-22 版</footer>
+  <aside class="notes">KEM 全名是金鑰封裝機制。它本身不加密訊息，只負責讓雙方拿到同一把鑰匙。</aside>
+</section>
+
+<!-- 06 -->
+<section class="slide" data-slide="06" data-type="example" data-wiki="concepts/error-correcting-codes.md">
+  <h2>錯誤更正碼：多傳一點，就能修正錯誤</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>錯誤更正碼：先多寫一點（編碼），錯幾位也認得回</li>
+      <li>例：10 的每個位元（0 或 1）寫 3 次，成為 111000</li>
+      <li>錯 1 位，多數決仍解回 10；同組錯 2 位就解錯</li>
+      <li>漢明重量＝有幾個 1；漢明距離＝幾個位置不同</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 500 360" role="img" aria-label="重複碼示例：111000 錯第 4 位成 111100，多數決解回 10；錯兩位成 001000，解成 00">
+        <g font-size="20" text-anchor="middle">
+          <text x="10" y="30" text-anchor="start" font-size="17">編碼：10 → 111 000</text>
+          <text x="10" y="80" text-anchor="start" font-size="17" fill="#1b7a3a">錯 1 位：</text>
+          <g transform="translate(110,55)">
+            <rect x="0" width="34" height="34" fill="#fff" stroke="#8a94a6"/><text x="17" y="24">1</text>
+            <rect x="36" width="34" height="34" fill="#fff" stroke="#8a94a6"/><text x="53" y="24">1</text>
+            <rect x="72" width="34" height="34" fill="#fff" stroke="#8a94a6"/><text x="89" y="24">1</text>
+            <rect x="120" width="34" height="34" fill="#f9dedc" stroke="#b3261e"/><text x="137" y="24" fill="#b3261e">1</text>
+            <rect x="156" width="34" height="34" fill="#fff" stroke="#8a94a6"/><text x="173" y="24">0</text>
+            <rect x="192" width="34" height="34" fill="#fff" stroke="#8a94a6"/><text x="209" y="24">0</text>
+          </g>
+          <text x="140" y="120" font-size="16" fill="#566070">多數決 → 1</text>
+          <text x="275" y="120" font-size="16" fill="#566070">多數決 → 0</text>
+          <text x="420" y="80" font-size="18" fill="#1b7a3a">解回 10 ✓</text>
+          <text x="10" y="200" text-anchor="start" font-size="17" fill="#b3261e">錯 2 位：</text>
+          <g transform="translate(110,175)">
+            <rect x="0" width="34" height="34" fill="#f9dedc" stroke="#b3261e"/><text x="17" y="24" fill="#b3261e">0</text>
+            <rect x="36" width="34" height="34" fill="#f9dedc" stroke="#b3261e"/><text x="53" y="24" fill="#b3261e">0</text>
+            <rect x="72" width="34" height="34" fill="#fff" stroke="#8a94a6"/><text x="89" y="24">1</text>
+            <rect x="120" width="34" height="34" fill="#fff" stroke="#8a94a6"/><text x="137" y="24">0</text>
+            <rect x="156" width="34" height="34" fill="#fff" stroke="#8a94a6"/><text x="173" y="24">0</text>
+            <rect x="192" width="34" height="34" fill="#fff" stroke="#8a94a6"/><text x="209" y="24">0</text>
+          </g>
+          <text x="140" y="240" font-size="16" fill="#566070">多數決 → 0</text>
+          <text x="420" y="200" font-size="18" fill="#b3261e">解成 00 ✗</text>
+          <text x="10" y="300" text-anchor="start" font-size="17">漢明重量：10110 有 3 個 1 → 重量 3</text>
+          <text x="10" y="335" text-anchor="start" font-size="17">漢明距離：10110 和 11100 → 距離 2</text>
+        </g>
+      </svg>
+      <figcaption>示例由 scripts/examples.py 計算。比喻：吵雜的電話裡把每個數字講三遍。</figcaption>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/error-correcting-codes.md">錯誤更正碼 →</a></footer>
+  <aside class="notes">像在吵雜的電話裡把每個數字講三遍。示例數字由 scripts/examples.py 算出。</aside>
+</section>
+
+<!-- 07 -->
+<section class="slide" data-slide="07" data-type="concept" data-wiki="concepts/code-based-cryptography.md concepts/syndrome-decoding.md">
+  <h2>核心點子：故意加錯誤，只有握有秘密金鑰的人能把錯誤縮小到修得回來</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>編碼式密碼：故意加錯誤，把訊息藏在雜訊裡</li>
+      <li>有秘密的人能把錯誤擦少，剩下的交給錯誤更正碼修</li>
+      <li>沒秘密的人要猜錯在哪，組合多到試不完</li>
+      <li>這種猜錯題的一般形式研究 50 多年仍無快解</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 500 300" role="img" aria-label="比喻：有去墨水劑的人能把墨水擦到只剩少數污點再修好；沒有的人只能面對整片墨水">
+        <rect x="10" y="10" width="230" height="200" rx="10" fill="#fff" stroke="#c9d1dc"/>
+        <text x="125" y="38" font-size="17" text-anchor="middle" fill="#b5530b" font-weight="bold">有秘密（去墨水劑）</text>
+        <rect x="30" y="55" width="190" height="90" fill="#fff" stroke="#8a94a6"/>
+        <circle cx="70" cy="85" r="7" fill="#333"/><circle cx="150" cy="120" r="7" fill="#333"/><circle cx="190" cy="80" r="6" fill="#333"/>
+        <circle cx="110" cy="70" r="6" fill="#333"/><circle cx="95" cy="130" r="6" fill="#333"/><circle cx="200" cy="125" r="6" fill="#333"/><circle cx="130" cy="100" r="5" fill="#333"/>
+        <text x="125" y="175" font-size="15" text-anchor="middle">剩下的污點其實不算少</text>
+        <text x="125" y="198" font-size="15" text-anchor="middle" fill="#1b7a3a">→ 但錯誤更正碼很會改錯 ✓</text>
+        <rect x="260" y="10" width="230" height="200" rx="10" fill="#fff" stroke="#c9d1dc"/>
+        <text x="375" y="38" font-size="17" text-anchor="middle" fill="#566070" font-weight="bold">沒有秘密</text>
+        <rect x="280" y="55" width="190" height="90" fill="#333" opacity=".85"/>
+        <text x="375" y="175" font-size="15" text-anchor="middle">整片墨水</text>
+        <text x="375" y="198" font-size="15" text-anchor="middle" fill="#b3261e">→ 不知從何修起 ✗</text>
+        <text x="250" y="250" font-size="16" text-anchor="middle" fill="#566070">HQC 用的形式，研究社群認為很難，</text>
+        <text x="250" y="274" font-size="16" text-anchor="middle" fill="#566070">但這不是數學證明</text>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/code-based-cryptography.md">編碼式密碼 →</a><a href="../../wiki/concepts/syndrome-decoding.md">伴隨式解碼問題 →</a>　研究現況依 S4（2016），查核日期 2026-11-22</footer>
+  <aside class="notes">「50 多年」是一般線性碼的解碼問題（2016 年論文的說法）；HQC 用的準循環版本，論文只說研究社群認為很難，不是證明。</aside>
+</section>
+
+<!-- 08 -->
+<section class="slide" data-slide="08" data-type="compare" data-wiki="concepts/code-based-cryptography.md">
+  <h2>McEliece 把結構藏起來，HQC 乾脆不藏</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>最早的 McEliece 密碼（1978）：把好解的碼藏起來</li>
+      <li>風險：藏起來的結構可能被挖出，許多變體被破</li>
+      <li>HQC 不藏：修錯用的錯誤更正碼人人皆知，叫<span class="pub">公開碼</span></li>
+      <li>秘密是兩個「很短」的<span class="sec">向量</span>：一長串 0 與 1，只少數是 1</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 500 330" role="img" aria-label="對照：McEliece 把解碼說明書鎖在抽屜；HQC 把說明書攤開，秘密是兩張只有幾個記號的紙條">
+        <rect x="10" y="10" width="230" height="300" rx="10" fill="#f5f7fa" stroke="#c9d1dc"/>
+        <text x="125" y="40" font-size="19" text-anchor="middle" font-weight="bold">McEliece</text>
+        <rect x="55" y="70" width="140" height="110" rx="6" fill="#fbe9dc" stroke="#b5530b" stroke-width="2"/>
+        <text x="125" y="115" font-size="16" text-anchor="middle" fill="#b5530b">鎖起來的</text>
+        <text x="125" y="138" font-size="16" text-anchor="middle" fill="#b5530b">解碼說明書</text>
+        <text x="125" y="220" font-size="15" text-anchor="middle">秘密＝藏起來的碼</text>
+        <text x="125" y="250" font-size="15" text-anchor="middle" fill="#b3261e">風險：結構被挖出</text>
+        <rect x="260" y="10" width="230" height="300" rx="10" fill="#f5f7fa" stroke="#c9d1dc"/>
+        <text x="375" y="40" font-size="19" text-anchor="middle" font-weight="bold">HQC</text>
+        <rect x="290" y="62" width="170" height="60" rx="6" fill="#e3edf9" stroke="#1f5fa8" stroke-width="2"/>
+        <text x="375" y="98" font-size="16" text-anchor="middle" fill="#1f5fa8">公開碼：攤開給大家</text>
+        <rect x="290" y="140" width="80" height="44" rx="4" fill="#fbe9dc" stroke="#b5530b"/>
+        <text x="330" y="168" font-size="15" text-anchor="middle" fill="#b5530b">x</text>
+        <rect x="380" y="140" width="80" height="44" rx="4" fill="#fbe9dc" stroke="#b5530b"/>
+        <text x="420" y="168" font-size="15" text-anchor="middle" fill="#b5530b">y</text>
+        <text x="375" y="220" font-size="15" text-anchor="middle">秘密＝兩個很短的向量</text>
+        <text x="375" y="250" font-size="15" text-anchor="middle" fill="#1b7a3a">沒有藏起來的結構可挖</text>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/code-based-cryptography.md">編碼式密碼 →</a>　依 S4（2016）</footer>
+  <aside class="notes">向量就是一長串數字，在 HQC 裡是一長串 0 與 1；「很短」指其中只有少數幾個 1。</aside>
+</section>
+
+<!-- 09 -->
+<section class="slide" data-slide="09" data-type="concept" data-wiki="concepts/quasi-cyclic-codes.md">
+  <h2>準循環：用一個向量代表一整個矩陣</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>矩陣是數字排成的方格表；循環矩陣每列右轉一格</li>
+      <li>所以整個矩陣只要記住第一列就夠</li>
+      <li>HQC 用準循環碼，金鑰因此小很多</li>
+      <li>格式有規律，但裡面的數字是隨機挑的</li>
+    </ul>
+    <figure>
+      <div class="term"><b>準循環碼</b>：用這種循環矩陣拼成的碼，只要幾個向量就能描述。</div>
+      <svg viewBox="0 0 460 320" role="img" aria-label="五乘五的循環矩陣：第一列是 1 0 1 1 0，下面每列往右轉一格">
+        <g font-size="22" text-anchor="middle">
+          <rect x="40" y="20" width="250" height="50" fill="#e3edf9" stroke="#1f5fa8" stroke-width="2"/>
+          <text x="65" y="53">1</text><text x="115" y="53">0</text><text x="165" y="53">1</text><text x="215" y="53">1</text><text x="265" y="53">0</text>
+          <text x="65" y="103">0</text><text x="115" y="103">1</text><text x="165" y="103">0</text><text x="215" y="103">1</text><text x="265" y="103">1</text>
+          <text x="65" y="153">1</text><text x="115" y="153">0</text><text x="165" y="153">1</text><text x="215" y="153">0</text><text x="265" y="153">1</text>
+          <text x="65" y="203">1</text><text x="115" y="203">1</text><text x="165" y="203">0</text><text x="215" y="203">1</text><text x="265" y="203">0</text>
+          <text x="65" y="253">0</text><text x="115" y="253">1</text><text x="165" y="253">1</text><text x="215" y="253">0</text><text x="265" y="253">1</text>
+          <rect x="40" y="20" width="250" height="250" fill="none" stroke="#8a94a6"/>
+        </g>
+        <text x="305" y="52" font-size="16" fill="#1f5fa8">← 只要記這一列</text>
+        <text x="305" y="102" font-size="16" fill="#566070">↻ 往右轉一格</text>
+        <text x="305" y="152" font-size="16" fill="#566070">↻ 再轉一格</text>
+        <text x="305" y="202" font-size="16" fill="#566070">最右邊那格</text>
+        <text x="305" y="224" font-size="16" fill="#566070">繞回最左邊</text>
+        <text x="40" y="305" font-size="16" fill="#566070">比喻：旋轉壽司轉盤，記住起點就推得出每一格</text>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/quasi-cyclic-codes.md">準循環碼 →</a>　依 S4（2016），並以 HQC 規格 2025-08-22 版補充</footer>
+  <aside class="notes">比喻是旋轉壽司的轉盤：記住一開始怎麼擺，之後每轉一格都推得出來。準循環碼就是由這種循環矩陣拼成的碼。</aside>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-slide="10" data-type="process" data-wiki="concepts/hqc-pke.md concepts/hqc-toy-example.md">
+  <h2>步驟一：金鑰產生——秘密是兩個很短的向量</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li><span class="sec">秘密 x、y</span>：很短的向量（只有少數位置是 1）</li>
+      <li><span class="pub">公開 h</span>：一串隨機的 0 與 1</li>
+      <li><span class="pub">公開 s</span>：用 h 把 y 打散，再加上 x 算出來</li>
+      <li>這裡的加法：逐位比對，相同得 0、不同得 1</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 500 360" role="img" aria-label="金鑰產生：秘密 x、y 與公開 h 算出 s = x + h·y；公鑰是 h 和 s，私鑰是 x 和 y">
+        <defs><marker id="ah10" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#566070"/></marker></defs>
+        <rect x="20" y="20" width="90" height="50" rx="8" fill="#fbe9dc" stroke="#b5530b" stroke-width="2"/><text x="65" y="52" font-size="22" text-anchor="middle" fill="#b5530b">x</text>
+        <rect x="130" y="20" width="90" height="50" rx="8" fill="#fbe9dc" stroke="#b5530b" stroke-width="2"/><text x="175" y="52" font-size="22" text-anchor="middle" fill="#b5530b">y</text>
+        <rect x="300" y="20" width="90" height="50" rx="8" fill="#e3edf9" stroke="#1f5fa8" stroke-width="2"/><text x="345" y="52" font-size="22" text-anchor="middle" fill="#1f5fa8">h</text>
+        <line x1="65" y1="75" x2="230" y2="125" stroke="#566070" stroke-width="2" marker-end="url(#ah10)"/>
+        <line x1="175" y1="75" x2="240" y2="122" stroke="#566070" stroke-width="2" marker-end="url(#ah10)"/>
+        <line x1="345" y1="75" x2="265" y2="122" stroke="#566070" stroke-width="2" marker-end="url(#ah10)"/>
+        <rect x="150" y="130" width="200" height="50" rx="8" fill="#e3edf9" stroke="#1f5fa8" stroke-width="2"/>
+        <text x="250" y="162" font-size="21" text-anchor="middle" fill="#1f5fa8">s = x + h·y</text>
+        <rect x="20" y="215" width="210" height="56" rx="8" fill="#e3edf9" stroke="#1f5fa8"/>
+        <text x="125" y="240" font-size="17" text-anchor="middle" fill="#1f5fa8" font-weight="bold">公鑰（公開）</text>
+        <text x="125" y="262" font-size="16" text-anchor="middle" fill="#1f5fa8">h、s</text>
+        <rect x="270" y="215" width="210" height="56" rx="8" fill="#fbe9dc" stroke="#b5530b"/>
+        <text x="375" y="240" font-size="17" text-anchor="middle" fill="#b5530b" font-weight="bold">私鑰（秘密）</text>
+        <text x="375" y="262" font-size="16" text-anchor="middle" fill="#b5530b">x、y</text>
+        <text x="20" y="310" font-size="15" fill="#566070">「·」：一種乘法，超過長度的部分繞回開頭</text>
+        <text x="20" y="335" font-size="15" fill="#566070">「+」「−」：逐位比對，相同得 0、不同得 1</text>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/hqc-pke.md">HQC-PKE →</a><a href="../../wiki/concepts/hqc-toy-example.md">小數字示例 →</a>　步驟依 HQC 規格 2025-08-22 版</footer>
+  <aside class="notes">橘色是秘密、藍色是公開，接下來三張都用同樣的顏色。之後解密只用到 y。規格實際上只存能重新產生 h、x、y 的種子。</aside>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-slide="11" data-type="process" data-wiki="concepts/hqc-pke.md">
+  <h2>步驟二：加密——訊息被蓋上一大片雜訊</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>寄件人另挑三個很短的隨機向量 r1、r2、e</li>
+      <li><span class="pub">密文</span>分兩部分 <span class="pub">u</span> 和 <span class="pub">v</span>，兩者都會公開送出</li>
+      <li>訊息先用公開碼編碼（多寫一點），放進 v</li>
+      <li>v 裡的訊息被一大片雜訊蓋住</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 500 360" role="img" aria-label="加密：u = r1 + h·r2；訊息編碼後加上雜訊 s·r2 + e 得到 v；u、v 是公開的密文">
+        <defs><marker id="ah11" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#566070"/></marker></defs>
+        <rect x="10" y="20" width="150" height="44" rx="8" fill="#eceff3" stroke="#8a94a6"/><text x="85" y="48" font-size="17" text-anchor="middle">r1、r2（不公開）</text>
+        <line x1="160" y1="42" x2="240" y2="42" stroke="#566070" stroke-width="2" marker-end="url(#ah11)"/>
+        <rect x="245" y="18" width="240" height="48" rx="8" fill="#e3edf9" stroke="#1f5fa8" stroke-width="2"/><text x="365" y="49" font-size="20" text-anchor="middle" fill="#1f5fa8">u = r1 + h·r2</text>
+        <rect x="10" y="120" width="90" height="44" rx="8" fill="#fff" stroke="#8a94a6"/><text x="55" y="148" font-size="17" text-anchor="middle">訊息</text>
+        <line x1="100" y1="142" x2="130" y2="142" stroke="#566070" stroke-width="2" marker-end="url(#ah11)"/>
+        <rect x="135" y="120" width="130" height="44" rx="8" fill="#fff" stroke="#8a94a6"/><text x="200" y="148" font-size="16" text-anchor="middle">公開碼編碼</text>
+        <line x1="265" y1="142" x2="300" y2="142" stroke="#566070" stroke-width="2" marker-end="url(#ah11)"/>
+        <text x="320" y="148" font-size="22" text-anchor="middle">+</text>
+        <rect x="340" y="110" width="150" height="64" rx="8" fill="#555" /><text x="415" y="138" font-size="15" text-anchor="middle" fill="#fff">一大片雜訊</text><text x="415" y="160" font-size="16" text-anchor="middle" fill="#fff">s·r2 + e</text>
+        <line x1="250" y1="180" x2="250" y2="218" stroke="#566070" stroke-width="2" marker-end="url(#ah11)"/>
+        <rect x="110" y="225" width="280" height="48" rx="8" fill="#e3edf9" stroke="#1f5fa8" stroke-width="2"/><text x="250" y="256" font-size="19" text-anchor="middle" fill="#1f5fa8">v = 編碼後的訊息 + 雜訊</text>
+        <text x="250" y="310" font-size="16" text-anchor="middle" fill="#1f5fa8">送出密文（u, v）：公開</text>
+        <text x="250" y="338" font-size="15" text-anchor="middle" fill="#566070">r1、r2、e 不公開，也不放進密文</text>
+      </svg>
+      <figcaption>比喻：訊息被潑上一大片墨水，路上的人只看到墨水。</figcaption>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/hqc-pke.md">HQC-PKE →</a>　步驟依 HQC 規格 2025-08-22 版</footer>
+  <aside class="notes">比喻：訊息被潑上一大片墨水，路上的人只看到墨水。</aside>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-slide="12" data-type="process" data-wiki="concepts/hqc-pke.md">
+  <h2>步驟三：解密——剩下的錯誤小到修得回來</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>收件人用<span class="sec">秘密 y</span> 和 u、v 計算，把雜訊擦少</li>
+      <li>結果＝編碼後的訊息＋剩下的一些錯誤</li>
+      <li>剩下的錯誤不超過修錯能力，公開碼就修得掉</li>
+      <li>沒有 y 的人，只看得到一大片雜訊</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 500 360" role="img" aria-label="解密：計算 v − u·y，得到編碼後的訊息加上剩下的錯誤 x·r2 − r1·y + e，再用公開碼修錯得到訊息">
+        <defs><marker id="ah12" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#566070"/></marker></defs>
+        <rect x="120" y="10" width="260" height="50" rx="8" fill="#fff" stroke="#8a94a6" stroke-width="2"/>
+        <text x="250" y="43" font-size="22" text-anchor="middle"><tspan fill="#1f5fa8">v</tspan> − <tspan fill="#1f5fa8">u</tspan>·<tspan fill="#b5530b" font-weight="bold">y</tspan></text>
+        <line x1="250" y1="60" x2="250" y2="92" stroke="#566070" stroke-width="2" marker-end="url(#ah12)"/>
+        <rect x="20" y="98" width="200" height="50" rx="8" fill="#fff" stroke="#8a94a6"/><text x="120" y="130" font-size="17" text-anchor="middle">編碼後的訊息</text>
+        <text x="245" y="131" font-size="22" text-anchor="middle">+</text>
+        <rect x="270" y="98" width="210" height="50" rx="8" fill="#f9dedc" stroke="#b3261e"/><text x="375" y="130" font-size="16" text-anchor="middle" fill="#b3261e">x·r2 − r1·y + e</text>
+        <text x="375" y="172" font-size="15" text-anchor="middle" fill="#b3261e">剩下的錯誤（不算少）</text>
+        <line x1="250" y1="185" x2="250" y2="217" stroke="#566070" stroke-width="2" marker-end="url(#ah12)"/>
+        <rect x="140" y="222" width="220" height="44" rx="8" fill="#e3edf9" stroke="#1f5fa8"/><text x="250" y="250" font-size="17" text-anchor="middle" fill="#1f5fa8">公開碼修掉錯誤</text>
+        <line x1="250" y1="266" x2="250" y2="294" stroke="#566070" stroke-width="2" marker-end="url(#ah12)"/>
+        <rect x="170" y="298" width="160" height="44" rx="8" fill="#e6f4ea" stroke="#1b7a3a"/><text x="250" y="327" font-size="18" text-anchor="middle" fill="#1b7a3a">訊息 ✓</text>
+      </svg>
+      <figcaption>比喻：去墨水劑把墨水擦到改錯字規則對付得了；擦完還有污點，但規則本來就很會改錯。</figcaption>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/hqc-pke.md">HQC-PKE →</a>　步驟依 HQC 規格 2025-08-22 版</footer>
+  <aside class="notes">比喻：去墨水劑把墨水擦到改錯字規則對付得了的程度；擦完還有不少污點，但規則本來就很會改錯。</aside>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-slide="13" data-type="example" data-wiki="concepts/hqc-toy-example.md">
+  <h2>用小數字走一遍 HQC：雜訊從 6 位降到 3 位就解得回來</h2>
+  <div class="cols wide-fig">
+    <ul class="pts">
+      <li>縮小版：向量長 13 位，公開碼是每個位元寫 3 次</li>
+      <li>加密時，蓋在訊息上的雜訊有 6 位是 1</li>
+      <li>用<span class="sec">秘密 y</span> 解密後只剩 3 位，解回 1011</li>
+      <li>換一個加密用的 e，錯誤擠在同一組就解密失敗</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 560 380" role="img" aria-label="小數字示例：雜訊 100110011010 有 6 個 1；解密後剩下的錯誤 000001001100 只有 3 個 1，解回 1011；換一個 e 後剩下 000001000101，解成 1010">
+        <g font-size="15">
+          <text x="0" y="22">公開 h = 1011001110100；秘密 x、y 各只有 1 個 1</text><text x="0" y="42">訊息 1011 → 編碼 111000111111（12 位）</text>
+          <text x="0" y="62" fill="#555">加密時的雜訊（6 位是 1）</text>
+          <g transform="translate(0,72)" font-size="17" text-anchor="middle">
+            <rect x="0" width="40" height="34" fill="#555"/><text x="20" y="23" fill="#fff">1</text>
+            <rect x="42" width="40" height="34" fill="#eee"/><text x="62" y="23">0</text>
+            <rect x="84" width="40" height="34" fill="#eee"/><text x="104" y="23">0</text>
+            <rect x="132" width="40" height="34" fill="#555"/><text x="152" y="23" fill="#fff">1</text>
+            <rect x="174" width="40" height="34" fill="#555"/><text x="194" y="23" fill="#fff">1</text>
+            <rect x="216" width="40" height="34" fill="#eee"/><text x="236" y="23">0</text>
+            <rect x="264" width="40" height="34" fill="#eee"/><text x="284" y="23">0</text>
+            <rect x="306" width="40" height="34" fill="#555"/><text x="326" y="23" fill="#fff">1</text>
+            <rect x="348" width="40" height="34" fill="#555"/><text x="368" y="23" fill="#fff">1</text>
+            <rect x="396" width="40" height="34" fill="#eee"/><text x="416" y="23">0</text>
+            <rect x="438" width="40" height="34" fill="#555"/><text x="458" y="23" fill="#fff">1</text>
+            <rect x="480" width="40" height="34" fill="#eee"/><text x="500" y="23">0</text>
+          </g>
+          <text x="0" y="146" fill="#b5530b">用秘密 y 解密後，剩下的錯誤（3 位）</text>
+          <g transform="translate(0,156)" font-size="17" text-anchor="middle">
+            <rect x="0" width="40" height="34" fill="#eee"/><text x="20" y="23">0</text>
+            <rect x="42" width="40" height="34" fill="#eee"/><text x="62" y="23">0</text>
+            <rect x="84" width="40" height="34" fill="#eee"/><text x="104" y="23">0</text>
+            <rect x="132" width="40" height="34" fill="#eee"/><text x="152" y="23">0</text>
+            <rect x="174" width="40" height="34" fill="#eee"/><text x="194" y="23">0</text>
+            <rect x="216" width="40" height="34" fill="#b3261e"/><text x="236" y="23" fill="#fff">1</text>
+            <rect x="264" width="40" height="34" fill="#eee"/><text x="284" y="23">0</text>
+            <rect x="306" width="40" height="34" fill="#eee"/><text x="326" y="23">0</text>
+            <rect x="348" width="40" height="34" fill="#b3261e"/><text x="368" y="23" fill="#fff">1</text>
+            <rect x="396" width="40" height="34" fill="#b3261e"/><text x="416" y="23" fill="#fff">1</text>
+            <rect x="438" width="40" height="34" fill="#eee"/><text x="458" y="23">0</text>
+            <rect x="480" width="40" height="34" fill="#eee"/><text x="500" y="23">0</text>
+          </g>
+          <text x="0" y="214" fill="#1b7a3a">每組最多錯 1 位 → 多數決解回 1011 ✓</text>
+          <text x="0" y="262" fill="#b3261e">對照：換一個 e，剩下的錯誤是</text>
+          <g transform="translate(0,272)" font-size="17" text-anchor="middle">
+            <rect x="0" width="40" height="34" fill="#eee"/><text x="20" y="23">0</text>
+            <rect x="42" width="40" height="34" fill="#eee"/><text x="62" y="23">0</text>
+            <rect x="84" width="40" height="34" fill="#eee"/><text x="104" y="23">0</text>
+            <rect x="132" width="40" height="34" fill="#eee"/><text x="152" y="23">0</text>
+            <rect x="174" width="40" height="34" fill="#eee"/><text x="194" y="23">0</text>
+            <rect x="216" width="40" height="34" fill="#b3261e"/><text x="236" y="23" fill="#fff">1</text>
+            <rect x="264" width="40" height="34" fill="#eee"/><text x="284" y="23">0</text>
+            <rect x="306" width="40" height="34" fill="#eee"/><text x="326" y="23">0</text>
+            <rect x="348" width="40" height="34" fill="#eee"/><text x="368" y="23">0</text>
+            <rect x="396" width="40" height="34" fill="#b3261e"/><text x="416" y="23" fill="#fff">1</text>
+            <rect x="438" width="40" height="34" fill="#eee"/><text x="458" y="23">0</text>
+            <rect x="480" width="40" height="34" fill="#b3261e"/><text x="500" y="23" fill="#fff">1</text>
+          </g>
+          <text x="0" y="330" fill="#b3261e">最後一組錯 2 位 → 解成 1010 ✗（解密失敗）</text>
+          <text x="0" y="365" fill="#566070">每 3 格一組；13 位的最後 1 位截掉，只看前 12 位</text>
+        </g>
+      </svg>
+      <figcaption>教學簡化版，沒有安全性；數字由 scripts/examples.py --toy 計算。</figcaption>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/hqc-toy-example.md">用小數字走一遍 HQC →</a>　步驟依 HQC 規格 2025-08-22 版</footer>
+  <aside class="notes">數字全由 scripts/examples.py --toy 算出；教學簡化版，沒有安全性。</aside>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-slide="14" data-type="concept" data-wiki="concepts/concatenated-rm-rs.md">
+  <h2>公開碼：Reed-Muller 與 Reed-Solomon 串起來</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>公開碼分兩層：外層 Reed-Solomon、內層 Reed-Muller</li>
+      <li>解碼時，先修每一小塊，再整串一起修</li>
+      <li>一次只帶少量資料，換來很強的修錯能力</li>
+      <li>碼公開也沒關係：沒有秘密 y，雜訊多到修不了</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 500 340" role="img" aria-label="兩層包裝：訊息先用外層 Reed-Solomon 包一次，切成小塊後每塊再用內層 Reed-Muller 包一次">
+        <defs><marker id="ah14" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#566070"/></marker></defs>
+        <rect x="180" y="10" width="140" height="40" rx="8" fill="#fff" stroke="#8a94a6"/><text x="250" y="36" font-size="17" text-anchor="middle">訊息</text>
+        <line x1="250" y1="50" x2="250" y2="76" stroke="#566070" stroke-width="2" marker-end="url(#ah14)"/>
+        <rect x="60" y="82" width="380" height="56" rx="8" fill="#e3edf9" stroke="#1f5fa8" stroke-width="2"/>
+        <text x="250" y="108" font-size="17" text-anchor="middle" fill="#1f5fa8">外層 Reed-Solomon：整串的「總清單」</text>
+        <line x1="250" y1="138" x2="250" y2="164" stroke="#566070" stroke-width="2" marker-end="url(#ah14)"/>
+        <g font-size="14" text-anchor="middle">
+          <rect x="30" y="170" width="100" height="60" rx="6" fill="#e3edf9" stroke="#1f5fa8"/><text x="80" y="196">小塊</text><text x="80" y="216" fill="#1f5fa8">內層 RM</text>
+          <rect x="145" y="170" width="100" height="60" rx="6" fill="#e3edf9" stroke="#1f5fa8"/><text x="195" y="196">小塊</text><text x="195" y="216" fill="#1f5fa8">內層 RM</text>
+          <rect x="260" y="170" width="100" height="60" rx="6" fill="#e3edf9" stroke="#1f5fa8"/><text x="310" y="196">小塊</text><text x="310" y="216" fill="#1f5fa8">內層 RM</text>
+          <text x="400" y="205" font-size="22">…</text>
+        </g>
+        <text x="250" y="262" font-size="15" text-anchor="middle" fill="#566070">內層 Reed-Muller：每一片印上加粗、重複的編號</text>
+        <text x="250" y="300" font-size="15" text-anchor="middle">兩層串起來叫「串接碼」：先修每一小塊，再修整串</text>
+        <text x="250" y="328" font-size="14" text-anchor="middle" fill="#566070">比喻：寄一套拼圖，附總清單，每片再印重複編號</text>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/concatenated-rm-rs.md">公開碼：Reed-Muller＋Reed-Solomon →</a>　依 HQC 規格 2025-08-22 版</footer>
+  <aside class="notes">比喻：寄一套拼圖，先附總清單，每片再印上重複的編號。</aside>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-slide="15" data-type="concept" data-wiki="concepts/hqc-kem-fo-transform.md">
+  <h2>從加密到 KEM：多一道「重新加密檢查」</h2>
+  <div class="cols">
+    <div>
+    <ul class="pts">
+      <li>HQC-KEM＝加密版 HQC-PKE 再包一層 FO 轉換</li>
+      <li>收件人解出訊息後，自己再加密一次來比對</li>
+      <li>對不上就默默給假鑰匙，這叫隱式拒絕</li>
+      <li>防的是拿假密文來試探、套話的攻擊者</li>
+    </ul>
+    <div class="term"><b>FO 轉換</b>：Fujisaki-Okamoto 轉換的簡稱，把加密版包成金鑰封裝版的方法，核心是「重新加密檢查」。</div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 500 340" role="img" aria-label="重新加密檢查：收到密文、解密、用同樣材料重新加密、比對；一樣給真鑰匙，不一樣給假鑰匙且不報錯">
+        <defs><marker id="ah15" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#566070"/></marker></defs>
+        <g font-size="16" text-anchor="middle">
+          <rect x="160" y="10" width="180" height="40" rx="8" fill="#e3edf9" stroke="#1f5fa8"/><text x="250" y="36" fill="#1f5fa8">收到密文</text>
+          <line x1="250" y1="50" x2="250" y2="72" stroke="#566070" stroke-width="2" marker-end="url(#ah15)"/>
+          <rect x="160" y="78" width="180" height="40" rx="8" fill="#fbe9dc" stroke="#b5530b"/><text x="250" y="104" fill="#b5530b">用私鑰解出訊息</text>
+          <line x1="250" y1="118" x2="250" y2="140" stroke="#566070" stroke-width="2" marker-end="url(#ah15)"/>
+          <rect x="130" y="146" width="240" height="40" rx="8" fill="#fff" stroke="#8a94a6"/><text x="250" y="172">用同樣材料重新加密一次</text>
+          <line x1="250" y1="186" x2="250" y2="208" stroke="#566070" stroke-width="2" marker-end="url(#ah15)"/>
+          <polygon points="250,212 340,246 250,280 160,246" fill="#f5f7fa" stroke="#8a94a6"/><text x="250" y="252">和收到的一樣？</text>
+          <line x1="160" y1="246" x2="95" y2="246" stroke="#1b7a3a" stroke-width="2" marker-end="url(#ah15)"/>
+          <text x="128" y="236" fill="#1b7a3a">一樣</text>
+          <rect x="10" y="226" width="80" height="40" rx="8" fill="#e6f4ea" stroke="#1b7a3a"/><text x="50" y="252" fill="#1b7a3a">真鑰匙</text>
+          <line x1="340" y1="246" x2="405" y2="246" stroke="#b3261e" stroke-width="2" marker-end="url(#ah15)"/>
+          <text x="372" y="236" fill="#b3261e">不一樣</text>
+          <rect x="410" y="226" width="80" height="40" rx="8" fill="#f9dedc" stroke="#b3261e"/><text x="450" y="252" fill="#b3261e">假鑰匙</text>
+          <text x="450" y="290" font-size="14" fill="#b3261e">不報錯</text>
+          <text x="250" y="325" font-size="15" fill="#566070">比喻：拆開包裹後照說明書重包一次，一模一樣才收下</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/hqc-kem-fo-transform.md">從 PKE 到 KEM →</a>　依 HQC 規格 2025-08-22 版</footer>
+  <aside class="notes">比喻：拆開包裹後照說明書重包一次，包得一模一樣才收下。</aside>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-slide="16" data-type="concept" data-wiki="concepts/decryption-failure-rate.md comparisons/hqc-parameter-sets.md">
+  <h2>解碼失敗率：小到可以忽略</h2>
+  <div class="cols">
+    <div>
+    <ul class="pts">
+      <li>解碼失敗率：錯誤太多、公開碼修不回來的機率</li>
+      <li>HQC 有三組設定 HQC-1、3、5：數字越大越安全</li>
+      <li>HQC-1 的失敗率小於 2<sup>−128</sup>，另兩組更小</li>
+      <li>2<sup>−128</sup> 約等於連丟 128 次硬幣都是正面</li>
+    </ul>
+    <div class="term"><b>安全等級</b>：NIST 的安全分級；HQC-1、3、5 對應等級 1、3、5（舊名 hqc-128／192／256，規格書沒明說，由表格對照得知）。</div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 480 330" role="img" aria-label="一百二十八枚硬幣排成八列，全部都是正面，代表機率約 2 的負 128 次方">
+        <g id="coins" fill="#e9c46a" stroke="#a07a10"></g>
+        <text x="240" y="300" font-size="17" text-anchor="middle">連丟 128 次硬幣，全部都是正面</text>
+        <text x="240" y="324" font-size="15" text-anchor="middle" fill="#566070">實際使用中可以不必擔心</text>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/decryption-failure-rate.md">解碼失敗率 →</a><a href="../../wiki/comparisons/hqc-parameter-sets.md">HQC 參數組 →</a>　數字依 HQC 規格 2025-08-22 版</footer>
+  <aside class="notes">數字依 HQC 規格 2025-08-22 版。安全性證明也要求失敗率夠小。</aside>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-slide="17" data-type="compare" data-wiki="comparisons/hqc-vs-ml-kem.md comparisons/hqc-parameter-sets.md">
+  <h2>HQC vs ML-KEM：數學不同，HQC 比較大、比較吃資源</h2>
+  <div class="cols">
+    <div>
+      <ul class="pts">
+        <li>HQC 靠錯誤更正碼，ML-KEM 靠結構化格</li>
+        <li>HQC-1：公鑰 2,241、密文 4,433 位元組</li>
+        <li>規格書承認：HQC 比 ML-KEM 大、效率較差</li>
+        <li>審查者認為：雖然較吃資源，但運作乾淨、安全</li>
+      </ul>
+      <div class="term"><b>結構化格</b>：ML-KEM 所根據的另一種數學，和 HQC 的錯誤更正碼不同。</div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 500 320" role="img" aria-label="長條圖：HQC-1 公鑰 2,241 位元組、密文 4,433 位元組、共享金鑰 32 位元組">
+        <text x="0" y="22" font-size="17" font-weight="bold">HQC-1 要傳多少資料（位元組）</text>
+        <g font-size="16">
+          <text x="0" y="78">公鑰</text>
+          <rect x="70" y="58" width="173" height="30" fill="#1f5fa8"/><text x="251" y="79">2,241</text>
+          <text x="0" y="138">密文</text>
+          <rect x="70" y="118" width="342" height="30" fill="#1f5fa8"/><text x="420" y="139">4,433</text>
+          <text x="0" y="198">鑰匙</text>
+          <rect x="70" y="178" width="3" height="30" fill="#1b7a3a"/><text x="82" y="199" fill="#1b7a3a">32（最後換到的共享金鑰）</text>
+        </g>
+        <text x="0" y="256" font-size="15" fill="#566070">位元組是電腦計算資料量的單位；安全等級越高，金鑰和密文越大。</text>
+        <text x="0" y="280" font-size="15" fill="#566070">送出 4,433 位元組，只為換到 32 位元組的鑰匙。</text>
+        <text x="0" y="304" font-size="15" fill="#566070">數字依 HQC 規格 2025-08-22 版；ML-KEM 的數字不收。</text>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/comparisons/hqc-vs-ml-kem.md">HQC 與 ML-KEM 比較 →</a><a href="../../wiki/comparisons/hqc-parameter-sets.md">HQC 參數組 →</a>　評價依 S2（2025-03）與 HQC 規格 2025-08-22 版</footer>
+  <aside class="notes">ML-KEM 的數字依使用者決定不放。「比 ML-KEM 大」是規格書（S5）的說法，「乾淨、安全」是 S2 引述的審查者看法。</aside>
+</section>
+
+<!-- 18 -->
+<section class="slide" data-slide="18" data-type="concept" data-wiki="overview/hqc-overview.md entities/fips-207.md">
+  <h2>NIST 選 HQC 當備援：失敗率分析穩定，代價是資料較大</h2>
+  <div class="cols">
+    <div>
+      <ul class="pts">
+        <li>備援：萬一 ML-KEM 出問題，還有數學不同的 HQC</li>
+        <li>理由：失敗率分析穩定；金鑰產生比另一候選快</li>
+        <li>代價：公鑰和密文比較大</li>
+        <li>2025-03 預估 2027 定案；2026-11-23 查未見草案</li>
+      </ul>
+      <p class="small">和 ML-KEM 比，HQC 比較大、實作效率比較差。</p>
+    </div>
+    <figure>
+      <svg viewBox="0 0 480 340" role="img" aria-label="時間軸：2025 年 3 月 HQC 被選中；2025 年 9 月已稱為 FIPS 207；2026 年 11 月 23 日查 NIST 專案頁未見草案；2027 年預計定案">
+        <line x1="40" y1="20" x2="40" y2="320" stroke="#8a94a6" stroke-width="3"/>
+        <g font-size="16">
+          <circle cx="40" cy="35" r="9" fill="#1f5fa8"/><text x="62" y="32" font-weight="bold">2025-03</text><text x="62" y="54">HQC 被選中</text>
+          <circle cx="40" cy="110" r="9" fill="#1f5fa8"/><text x="62" y="107" font-weight="bold">2025-09</text><text x="62" y="129">已稱為 FIPS 207</text><text x="62" y="150" font-size="14" fill="#566070">（HQC 正式標準的名稱）</text>
+          <circle cx="40" cy="200" r="9" fill="#b5530b"/><text x="62" y="197" font-weight="bold">2026-11-23 查核</text><text x="62" y="219">NIST 專案頁未列出草案</text><text x="62" y="240" font-size="14" fill="#566070">（只代表沒列，不代表確定沒發布）</text>
+          <circle cx="40" cy="290" r="9" fill="#fff" stroke="#1f5fa8" stroke-width="3"/><text x="62" y="287" font-weight="bold">2027（預估）</text><text x="62" y="309">定案</text><text x="62" y="330" font-size="14" fill="#566070">2025-03 的預估，查核日期 2026-11-19</text>
+        </g>
+      </svg>
+    </figure>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/overview/hqc-overview.md">HQC 總覽 →</a><a href="../../wiki/entities/fips-207.md">HQC 的標準化進度（FIPS 207）→</a>　選擇理由依 S6（2025-09）</footer>
+  <aside class="notes">理由是 S6（2025-09）的說法；「快」是和另一個候選比。依使用者決定不點名其他候選。</aside>
+</section>
+
+<!-- 19 -->
+<section class="slide" data-slide="19" data-type="misconception" data-wiki="overview/hqc-overview.md entities/fips-207.md concepts/decryption-failure-rate.md concepts/code-based-cryptography.md">
+  <h2>四個常見誤解</h2>
+  <div class="cards">
+    <div class="card"><p class="no">✗ 誤解：HQC 要取代 ML-KEM。</p><p class="yes">✓ 其實它是備援。</p><p class="src-hint">S2（2025-03）的說法，查核日期 2026-11-19</p></div>
+    <div class="card"><p class="no">✗ 誤解：等 HQC 定案再換。</p><p class="yes">✓ 其實現在就該換。</p><p class="src-hint">NIST 說應繼續轉換到 2024 年定案的標準（S2，2025-03；查核日期 2026-11-19）</p></div>
+    <div class="card"><p class="no">✗ 誤解：故意加錯誤會常解錯。</p><p class="yes">✓ 其實失敗率極小。</p><p class="src-hint">HQC-1 小於 2<sup>−128</sup>（HQC 規格 2025-08-22 版）</p></div>
+    <div class="card"><p class="no">✗ 誤解：碼公開就不安全。</p><p class="yes">✓ 秘密是很短的向量。</p><p class="src-hint">安全性本來就不靠藏碼</p></div>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/overview/hqc-overview.md">HQC 總覽 →</a><a href="../../wiki/entities/fips-207.md">FIPS 207 →</a><a href="../../wiki/concepts/decryption-failure-rate.md">解碼失敗率 →</a><a href="../../wiki/concepts/code-based-cryptography.md">編碼式密碼 →</a></footer>
+  <aside class="notes">第二點：NIST 說組織應繼續轉換到 2024 年定案的標準（S2，2025-03）。</aside>
+</section>
+
+<!-- 20 -->
+<section class="slide" data-slide="20" data-type="quiz" data-wiki="concepts/quantum-threat.md concepts/kem.md concepts/error-correcting-codes.md concepts/hqc-pke.md comparisons/hqc-vs-ml-kem.md">
+  <h2>小測驗：五題確認你懂了</h2>
+  <div class="quiz">
+    <div class="quiz-q"><p>1. 量子電腦還沒出現，為什麼現在就要換加密？</p>
+      <button class="opt" data-correct="false">現在的加密已經被破解了</button><button class="opt" data-correct="true">資料可能先被偷存、將來再解開</button><button class="opt" data-correct="false">因為 HQC 比較快</button>
+      <div class="feedback" hidden><span class="verdict"></span> 這叫「先收集、後解密」。</div></div>
+    <div class="quiz-q"><p>2. KEM 完成後，雙方各得到什麼？</p>
+      <button class="opt" data-correct="false">對方的私鑰</button><button class="opt" data-correct="true">同一把共享金鑰</button><button class="opt" data-correct="false">整份解密後的檔案</button>
+      <div class="feedback" hidden><span class="verdict"></span> KEM 只負責換到同一把鑰匙。</div></div>
+    <div class="quiz-q"><p>3. 10110 的漢明重量是多少？</p>
+      <button class="opt" data-correct="false">2</button><button class="opt" data-correct="true">3</button><button class="opt" data-correct="false">5</button>
+      <div class="feedback" hidden><span class="verdict"></span> 數有幾個 1：共 3 個。</div></div>
+    <div class="quiz-q"><p>4. HQC 的金鑰產生裡，哪一個是秘密？</p>
+      <button class="opt" data-correct="false">h</button><button class="opt" data-correct="false">s</button><button class="opt" data-correct="true">y</button>
+      <div class="feedback" hidden><span class="verdict"></span> x、y 是秘密；h、s 是公鑰。</div></div>
+    <div class="quiz-q"><p>5. HQC 在 NIST 的定位是？</p>
+      <button class="opt" data-correct="false">取代 ML-KEM</button><button class="opt" data-correct="true">ML-KEM 的備援</button><button class="opt" data-correct="false">一種新型量子電腦</button>
+      <div class="feedback" hidden><span class="verdict"></span> 數學不同，萬一 ML-KEM 出事還有 HQC。</div></div>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/concepts/quantum-threat.md">量子威脅 →</a><a href="../../wiki/concepts/kem.md">KEM →</a><a href="../../wiki/concepts/error-correcting-codes.md">錯誤更正碼 →</a><a href="../../wiki/concepts/hqc-pke.md">HQC-PKE →</a><a href="../../wiki/comparisons/hqc-vs-ml-kem.md">比較 →</a></footer>
+  <aside class="notes">答案：1 先收集後解密；2 同一把共享金鑰；3 是 3；4 y；5 ML-KEM 的備援。</aside>
+</section>
+
+<!-- 21 -->
+<section class="slide" data-slide="21" data-type="summary" data-wiki="overview/hqc-overview.md concepts/hqc-pke.md concepts/decryption-failure-rate.md comparisons/hqc-vs-ml-kem.md">
+  <h2>四句話記住 HQC</h2>
+  <div class="cols">
+    <ul class="pts">
+      <li>HQC 是 ML-KEM 的備援，數學基礎不同</li>
+      <li>故意加錯誤，只有握有<span class="sec">秘密 y</span> 的人能把它縮小</li>
+      <li>剩下的錯誤交給公開碼修，失敗率小到可忽略</li>
+      <li>代價是金鑰和密文比 ML-KEM 大</li>
+    </ul>
+    <div>
+    <p class="small">定位依 S2（2025-03）的說法。</p>
+    <div class="reading nonfact">
+      <b>延伸閱讀（wiki 的來源摘要）</b><br>
+      <a href="../../wiki/sources/S1-nist-pqc-explainer.md">S1 NIST：什麼是後量子密碼學</a><br>
+      <a href="../../wiki/sources/S2-nist-news-hqc.md">S2 NIST 新聞稿：選出 HQC</a><br>
+      <a href="../../wiki/sources/S4-aguilar-melchor-qc-codes.md">S4 HQC 原始論文</a><br>
+      <a href="../../wiki/sources/S5-hqc-spec-2025-08-22.md">S5 HQC 規格書</a><br>
+      <a href="../../wiki/sources/S6-nist-fips207-robinson.md">S6 NIST：FIPS 207 簡報</a><br>
+      <a href="../../wiki/index.md">整個 wiki 的目錄</a>
+    </div>
+    </div>
+  </div>
+  <footer class="src nonfact">Wiki：<a href="../../wiki/overview/hqc-overview.md">HQC 總覽 →</a><a href="../../wiki/concepts/hqc-pke.md">HQC-PKE →</a><a href="../../wiki/concepts/decryption-failure-rate.md">解碼失敗率 →</a><a href="../../wiki/comparisons/hqc-vs-ml-kem.md">比較 →</a></footer>
+  <aside class="notes">原訂「五句話」，因每張最多 4 個重點改成四句。</aside>
+</section>
+
+</main>
+<nav class="ctrl nonfact"><button id="prev" aria-label="上一頁">←</button><span id="counter"></span><button id="next" aria-label="下一頁">→</button></nav>
+<script>
+(function () {
+  // 第 16 張：畫 128 枚硬幣（8 列 × 16 枚）
+  var g = document.getElementById('coins'), ns = 'http://www.w3.org/2000/svg';
+  for (var r = 0; r < 8; r++) for (var c = 0; c < 16; c++) {
+    var e = document.createElementNS(ns, 'circle');
+    e.setAttribute('cx', 22 + c * 29); e.setAttribute('cy', 22 + r * 31); e.setAttribute('r', 12);
+    g.appendChild(e);
+  }
+  var slides = Array.prototype.slice.call(document.querySelectorAll('section.slide'));
+  var N = slides.length, cur = 0;
+  var counter = document.getElementById('counter'), bar = document.getElementById('progress');
+  var deck = document.querySelector('.deck');
+  function fit() {
+    if (window.innerWidth <= 700) { deck.style.transform = ''; return; }
+    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+    deck.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+  function show(i) {
+    cur = Math.max(0, Math.min(N - 1, i));
+    slides.forEach(function (s, k) { s.classList.toggle('active', k === cur); });
+    counter.textContent = (cur + 1) + ' / ' + N;
+    bar.style.width = ((cur + 1) / N * 100) + '%';
+    if (location.hash !== '#' + (cur + 1)) history.replaceState(null, '', '#' + (cur + 1));
+  }
+  function fromHash() { var n = parseInt(location.hash.slice(1), 10); show(isNaN(n) ? 0 : n - 1); }
+  window.addEventListener('hashchange', fromHash);
+  window.addEventListener('resize', fit);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(cur + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(cur - 1); }
+    else if (e.key === 'n' || e.key === 'N') { document.body.classList.toggle('show-notes'); }
+  });
+  document.getElementById('next').addEventListener('click', function () { show(cur + 1); this.blur(); });
+  document.getElementById('prev').addEventListener('click', function () { show(cur - 1); this.blur(); });
+  document.querySelectorAll('.quiz-q').forEach(function (q) {
+    q.querySelectorAll('button.opt').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var ok = b.dataset.correct === 'true', fb = q.querySelector('.feedback');
+        fb.hidden = false;
+        fb.className = 'feedback ' + (ok ? 'correct' : 'wrong');
+        fb.querySelector('.verdict').textContent = ok ? '答對了！' : '答錯了。';
+        b.blur();
+      });
+    });
+  });
+  fit(); fromHash();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{
+  "run_id": "run-002-v2",
+  "workflow_version": "v2",
+  "node": "B3",
+  "attempt": 1,
+  "timestamp": "2026-11-23T14:20:10+08:00",
+  "target": "runs/run-002-v2/outline-v1.md",
+  "results": [
+    {
+      "id": "O1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    },
+    {
+      "id": "O6",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "slide-07 圖示「左邊用去墨水劑（秘密）擦到只剩幾個污點，錯誤更正碼修好」",
+          "problem": "UNSUPPORTED（與 wiki 矛盾）：對照 concepts/code-based-cryptography.md#白話解釋 的比喻「擦完之後其實還有不少錯字，但這本規則本來就是挑很會改錯的那種」，以及同頁 #細節「剩下的錯誤其實不少（2016 論文版約為三分之一的位元）」。wiki 刻意強調擦完後錯誤仍『不少』，大綱寫『只剩幾個污點』正好相反；也和大綱自己第 12 張圖示「（剩下的錯誤，不算少）」不一致。建議改成「擦到還剩一些污點（其實不算少），錯誤更正碼仍修得好」。"
+        },
+        {
+          "where": "slide-03 圖示 名詞框「量子電腦：能同時篩選許多可能答案的新型電腦」",
+          "problem": "PARTIAL：對照 concepts/quantum-threat.md#白話解釋，wiki 只說「NIST 的科普說法是：……量子電腦則能『同時篩選』所有可能的因數」，限定在拆大數（找因數）這件事，且標明是 NIST 科普說法。名詞框把它推廣成量子電腦的一般定義（對『許多可能答案』都能同時篩選），也拿掉了『NIST 科普說法』的歸屬。講者備註寫的「同時篩選所有可能的因數」才和 wiki 一致。建議名詞框改用 glossary 的「利用量子世界特性來運算的新型電腦」，把『同時篩選因數』留給講者備註。"
+        },
+        {
+          "where": "slide-07 圖示 圖下文字「HQC 用的形式，研究者認為一樣難，但這不是數學證明」",
+          "problem": "PARTIAL：對照 concepts/syndrome-decoding.md#白話解釋 與 #重點，wiki 說 HQC 用的準循環版本「論文只說社群認為很難」「已知利用循環結構的攻擊影響很小」，沒有說『一樣難』（和一般形式同樣難）；『研究者認為』也少了『2016 年論文的說法』的歸屬（講者備註有寫，但圖示是觀眾看得到的）。建議改成「HQC 用的形式，研究者認為也很難，但這不是數學證明（2016 年論文的說法）」。"
+        },
+        {
+          "where": "slide-11 第 2 點「密文分兩部分：u 和 v，都用公開的 h、s 算」",
+          "problem": "PARTIAL：對照 concepts/hqc-pke.md#重點 的變數表，u = r1 + h·r2 只用到 h，v = C.Encode(m) + (s·r2 + e) 只用到 s，而且兩者都還用到不公開的 r1、r2、e（v 還有訊息）。『都用公開的 h、s 算』容易讀成每一部分都用 h 和 s、且只用公開值，比 wiki 不精確。建議改成「密文分兩部分 u 和 v：寄件人只需要公開的 h、s，再加上自己挑的 r1、r2、e」，或「u 用 h 算，v 用 s 算」。"
+        }
+      ],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "B2"
+}
