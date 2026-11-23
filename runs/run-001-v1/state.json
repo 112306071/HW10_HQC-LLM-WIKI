@@ -1,0 +1,14 @@
+{
+  "run_id": "run-001-v1",
+  "workflow_version": "v1.1",
+  "attempts": {
+    "B3:outline": 3
+  },
+  "extra_sources": [],
+  "history_len": 7,
+  "last_node": "B3",
+  "last_result": "PASS",
+  "current_node": "B4",
+  "target": "outline",
+  "updated": "2026-11-23T13:14:25+08:00"
+}

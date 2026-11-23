@@ -1,0 +1,48 @@
+{
+  "run_id": "run-001-v1",
+  "workflow_version": "v1.1",
+  "node": "B3",
+  "attempt": 3,
+  "timestamp": "2026-11-23T13:14:25+08:00",
+  "target": "runs/run-001-v1/outline-v3.md",
+  "results": [
+    {
+      "id": "O1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    }
+  ],
+  "overall": "PASS",
+  "route_to": "B4"
+}
