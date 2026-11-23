@@ -2,15 +2,15 @@
   "run_id": "run-002-v2",
   "workflow_version": "v2",
   "attempts": {
-    "B3:outline": 2,
-    "B4S:slides": 1,
-    "B5:slides": 1
+    "B3:outline": 3,
+    "B4S:slides": 2,
+    "B5:slides": 2
   },
   "extra_sources": [],
-  "history_len": 8,
-  "last_node": "B5",
-  "last_result": "PASS",
-  "current_node": "H2",
+  "history_len": 16,
+  "last_node": "B6",
+  "last_result": "DONE",
+  "current_node": "",
   "target": "slides",
-  "updated": "2026-11-23T14:31:05+08:00"
+  "updated": "2026-11-23T14:43:04+08:00"
 }

@@ -13,8 +13,8 @@
 <text x="219.0" y="270" text-anchor="middle">B5</text>
 <rect x="296" y="250.0" width="28" height="0.0" fill="#1f5fa8"/>
 <text x="310.0" y="244.0" text-anchor="middle">0</text>
-<rect x="330" y="250.0" width="28" height="0.0" fill="#b5530b"/>
-<text x="344.0" y="244.0" text-anchor="middle">0</text>
+<rect x="330" y="180.0" width="28" height="70.0" fill="#b5530b"/>
+<text x="344.0" y="174.0" text-anchor="middle">1</text>
 <text x="327.0" y="270" text-anchor="middle">H2</text>
 <line x1="60" y1="250" x2="540" y2="250" stroke="#566070"/>
 <rect x="60" y="282" width="12" height="12" fill="#1f5fa8"/><text x="78" y="292">run-001-v1</text>

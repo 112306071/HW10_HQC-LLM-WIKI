@@ -219,3 +219,7 @@
 - 依據 runs/run-001-v1（B3 失敗 3 次全是 O3 語意；B5 失敗 2 次：P4 語意 5 筆 PARTIAL、P6 版面）。
 - 修改：B2 大綱模板（workflow/outline_template.md）、O3 腳本加 lay_terms（workflow/lay_terms.yaml）、B3 加 O6、新增 B4S 產生後腳本自查、階段二步數上限 15 → 25、重試次數的算法寫明。
 - 細節與回頭驗證見 workflow/CHANGELOG.md v2；舊版快照在 workflow/v1.1/。wiki 內容沒有改。
+
+## [2026-11-23 14:42] query | run-002-v2 發布：最終版簡報
+- 簡報：runs/run-002-v2/slides-v2.html（B5 通過、H2 使用者通過並要求修第 18 張）→ slides/index.html，覆蓋 run-001 的版本。
+- reports/slide_wiki_map.md 重新產生；各頁 used_in_slides 與 run-001 相同（每張對應的頁沒變），wiki 內文沒有修改。

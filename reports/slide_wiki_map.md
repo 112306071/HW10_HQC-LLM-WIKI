@@ -1,6 +1,6 @@
 # 投影片 ↔ wiki 對應表
 
-由 `scripts/publish.py` 產生，2026-11-23T13:55:20+08:00。簡報：`runs/run-001-v1/slides-v4.html` → `slides/index.html`（run-001-v1）。
+由 `scripts/publish.py` 產生，2026-11-23T14:42:53+08:00。簡報：`runs/run-002-v2/slides-v2.html` → `slides/index.html`（run-002-v2）。
 來源代碼取自各 wiki 頁 frontmatter 的 `sources`；反向對應寫在各頁 frontmatter 的 `used_in_slides`。
 
 | # | 標題 | wiki 頁 | 來源 |

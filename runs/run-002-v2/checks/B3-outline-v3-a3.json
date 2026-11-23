@@ -1,0 +1,59 @@
+{
+  "run_id": "run-002-v2",
+  "workflow_version": "v2",
+  "node": "B3",
+  "attempt": 3,
+  "timestamp": "2026-11-23T14:39:15+08:00",
+  "target": "runs/run-002-v2/outline-v3.md",
+  "results": [
+    {
+      "id": "O1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    },
+    {
+      "id": "O6",
+      "status": "PASS",
+      "details": [
+        {
+          "where": "slide-09 第 1 點「矩陣是數字排成的方格表；循環矩陣每列右轉一格」",
+          "problem": "PARTIAL：後半句與 concepts/quasi-cyclic-codes.md#白話解釋「下面每一列都是上一列往右轉一格」等價；但前半句「矩陣是數字排成的方格表」在該頁（以及其他被引用頁）都找不到，屬於混入 wiki 沒有的細節。內容是常識、不與 wiki 矛盾，為了 O3 的白話定義而加入。"
+        }
+      ],
+      "by": "semantic"
+    }
+  ],
+  "overall": "PASS",
+  "route_to": "B4"
+}

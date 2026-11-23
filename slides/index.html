@@ -148,10 +148,10 @@ button.opt:hover { background:var(--soft); }
   <h2>夠強的量子電腦可能解開今天許多加密，而且資料現在就可能被偷存</h2>
   <div class="cols">
     <div>
-      <div class="term"><b>量子電腦</b>：一種新型電腦，能「同時篩選」許多可能的答案，所以拆大數比傳統電腦快得多。</div>
+      <div class="term"><b>量子電腦</b>：NIST 的科普說法是，它能「同時篩選」所有可能的因數，所以拆大數快得多。</div>
       <ul class="pts">
         <li>今天很多加密，靠「大數很難拆回兩個質數」</li>
-        <li>傳統電腦要數十億年，量子電腦可能只要幾小時</li>
+        <li>傳統電腦估計要數十億年；量子電腦可能幾天甚至幾小時</li>
         <li>先收集、後解密：資料今天被偷存，將來再解開</li>
         <li>換加密常要 10–20 年，所以現在就要開始</li>
       </ul>
@@ -179,7 +179,7 @@ button.opt:hover { background:var(--soft); }
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/quantum-threat.md">量子威脅 →</a>　時間估計依 S1（2026-02-27 更新版），查核日期 2026-11-19</footer>
-  <aside class="notes">量子電腦能「同時篩選」所有可能的因數，所以拆大數快得多。重點是「先收集、後解密」：就算量子電腦還沒出現，今天的資料也已經有風險。</aside>
+  <aside class="notes">量子電腦能「同時篩選」所有可能的因數，所以拆大數快得多。時間估計是 S1（2026-02-27 更新版）的說法。重點是「先收集、後解密」：就算量子電腦還沒出現，今天的資料也已經有風險。</aside>
 </section>
 
 <!-- 04 -->
@@ -207,7 +207,7 @@ button.opt:hover { background:var(--soft); }
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/post-quantum-cryptography.md">後量子密碼學 →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/overview/hqc-overview.md">HQC 總覽 →</a>　定位依 S2（2025-03），查核日期 2026-11-19</footer>
-  <aside class="notes">ML-KEM 是 NIST 2024 年定案的一般加密標準。HQC 不是要取代它，而是萬一它出問題時的備案。後量子密碼靠數學，和靠量子物理的「量子密碼學」是兩回事。</aside>
+  <aside class="notes">依 S2（2025-03）的說法，HQC 是備援，不是要取代 ML-KEM。後量子密碼靠數學，和靠量子物理的「量子密碼學」是兩回事。</aside>
 </section>
 
 <!-- 05 -->
@@ -245,7 +245,7 @@ button.opt:hover { background:var(--soft); }
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/kem.md">金鑰封裝機制（KEM）→</a>　函式依 HQC 規格 2025-08-22 版</footer>
-  <aside class="notes">KEM 全名是金鑰封裝機制。它本身不加密訊息，只負責讓雙方安全地拿到同一把鑰匙，之後的對話再用這把鑰匙加密。</aside>
+  <aside class="notes">KEM 全名是金鑰封裝機制。它本身不加密訊息，只負責讓雙方拿到同一把鑰匙。</aside>
 </section>
 
 <!-- 06 -->
@@ -304,7 +304,7 @@ button.opt:hover { background:var(--soft); }
       <li>編碼式密碼：故意加錯誤，把訊息藏在雜訊裡</li>
       <li>有秘密的人能把錯誤擦少，剩下的交給錯誤更正碼修</li>
       <li>沒秘密的人要猜錯在哪，組合多到試不完</li>
-      <li>一般形式研究 50 多年沒快解；HQC 用的形式，研究者也認為難</li>
+      <li>這種猜錯題的一般形式研究 50 多年仍無快解</li>
     </ul>
     <figure>
       <svg viewBox="0 0 500 300" role="img" aria-label="比喻：有去墨水劑的人能把墨水擦到只剩少數污點再修好；沒有的人只能面對整片墨水">
@@ -312,20 +312,21 @@ button.opt:hover { background:var(--soft); }
         <text x="125" y="38" font-size="17" text-anchor="middle" fill="#b5530b" font-weight="bold">有秘密（去墨水劑）</text>
         <rect x="30" y="55" width="190" height="90" fill="#fff" stroke="#8a94a6"/>
         <circle cx="70" cy="85" r="7" fill="#333"/><circle cx="150" cy="120" r="7" fill="#333"/><circle cx="190" cy="80" r="6" fill="#333"/>
-        <text x="125" y="175" font-size="15" text-anchor="middle">只剩幾個污點</text>
-        <text x="125" y="198" font-size="15" text-anchor="middle" fill="#1b7a3a">→ 錯誤更正碼修好 ✓</text>
+        <circle cx="110" cy="70" r="6" fill="#333"/><circle cx="95" cy="130" r="6" fill="#333"/><circle cx="200" cy="125" r="6" fill="#333"/><circle cx="130" cy="100" r="5" fill="#333"/>
+        <text x="125" y="175" font-size="15" text-anchor="middle">剩下的污點其實不算少</text>
+        <text x="125" y="198" font-size="15" text-anchor="middle" fill="#1b7a3a">→ 但錯誤更正碼很會改錯 ✓</text>
         <rect x="260" y="10" width="230" height="200" rx="10" fill="#fff" stroke="#c9d1dc"/>
         <text x="375" y="38" font-size="17" text-anchor="middle" fill="#566070" font-weight="bold">沒有秘密</text>
         <rect x="280" y="55" width="190" height="90" fill="#333" opacity=".85"/>
         <text x="375" y="175" font-size="15" text-anchor="middle">整片墨水</text>
         <text x="375" y="198" font-size="15" text-anchor="middle" fill="#b3261e">→ 不知從何修起 ✗</text>
-        <text x="250" y="250" font-size="16" text-anchor="middle" fill="#566070">「很難」是研究者的共識，</text>
-        <text x="250" y="274" font-size="16" text-anchor="middle" fill="#566070">不是數學上證明不可能</text>
+        <text x="250" y="250" font-size="16" text-anchor="middle" fill="#566070">HQC 用的形式，研究社群認為很難，</text>
+        <text x="250" y="274" font-size="16" text-anchor="middle" fill="#566070">但這不是數學證明</text>
       </svg>
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/code-based-cryptography.md">編碼式密碼 →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/syndrome-decoding.md">伴隨式解碼問題 →</a>　研究現況依 S4（2016），查核日期 2026-11-22</footer>
-  <aside class="notes">「50 多年」指一般線性碼的解碼問題（2016 年論文的說法）；HQC 用的準循環版本是研究社群認為很難，不是證明。</aside>
+  <aside class="notes">「50 多年」是一般線性碼的解碼問題（2016 年論文的說法）；HQC 用的準循環版本，論文只說研究社群認為很難，不是證明。</aside>
 </section>
 
 <!-- 08 -->
@@ -356,12 +357,12 @@ button.opt:hover { background:var(--soft); }
         <rect x="380" y="140" width="80" height="44" rx="4" fill="#fbe9dc" stroke="#b5530b"/>
         <text x="420" y="168" font-size="15" text-anchor="middle" fill="#b5530b">y</text>
         <text x="375" y="220" font-size="15" text-anchor="middle">秘密＝兩個很短的向量</text>
-        <text x="375" y="250" font-size="15" text-anchor="middle" fill="#1b7a3a">沒有結構可挖</text>
+        <text x="375" y="250" font-size="15" text-anchor="middle" fill="#1b7a3a">沒有藏起來的結構可挖</text>
       </svg>
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/code-based-cryptography.md">編碼式密碼 →</a>　依 S4（2016）</footer>
-  <aside class="notes">向量就是一長串數字，在 HQC 裡是一長串 0 與 1；「很短」的向量指其中只有少數幾個 1。</aside>
+  <aside class="notes">向量就是一長串數字，在 HQC 裡是一長串 0 與 1；「很短」指其中只有少數幾個 1。</aside>
 </section>
 
 <!-- 09 -->
@@ -422,17 +423,17 @@ button.opt:hover { background:var(--soft); }
         <text x="250" y="162" font-size="21" text-anchor="middle" fill="#1f5fa8">s = x + h·y</text>
         <rect x="20" y="215" width="210" height="56" rx="8" fill="#e3edf9" stroke="#1f5fa8"/>
         <text x="125" y="240" font-size="17" text-anchor="middle" fill="#1f5fa8" font-weight="bold">公鑰（公開）</text>
-        <text x="125" y="262" font-size="15" text-anchor="middle" fill="#1f5fa8">產生 h 的種子、s</text>
+        <text x="125" y="262" font-size="16" text-anchor="middle" fill="#1f5fa8">h、s</text>
         <rect x="270" y="215" width="210" height="56" rx="8" fill="#fbe9dc" stroke="#b5530b"/>
         <text x="375" y="240" font-size="17" text-anchor="middle" fill="#b5530b" font-weight="bold">私鑰（秘密）</text>
-        <text x="375" y="262" font-size="15" text-anchor="middle" fill="#b5530b">產生 x、y 的種子</text>
+        <text x="375" y="262" font-size="16" text-anchor="middle" fill="#b5530b">x、y</text>
         <text x="20" y="310" font-size="15" fill="#566070">「·」：一種乘法，超過長度的部分繞回開頭</text>
         <text x="20" y="335" font-size="15" fill="#566070">「+」「−」：逐位比對，相同得 0、不同得 1</text>
       </svg>
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/hqc-pke.md">HQC-PKE →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/hqc-toy-example.md">小數字示例 →</a>　步驟依 HQC 規格 2025-08-22 版</footer>
-  <aside class="notes">橘色是秘密、藍色是公開，接下來三張都用同樣的顏色。之後解密只會用到秘密 y。</aside>
+  <aside class="notes">橘色是秘密、藍色是公開，接下來三張都用同樣的顏色。之後解密只用到 y。規格實際上只存能重新產生 h、x、y 的種子。</aside>
 </section>
 
 <!-- 11 -->
@@ -441,7 +442,7 @@ button.opt:hover { background:var(--soft); }
   <div class="cols">
     <ul class="pts">
       <li>寄件人另挑三個很短的隨機向量 r1、r2、e</li>
-      <li><span class="pub">密文</span>分兩部分：<span class="pub">u</span> 和 <span class="pub">v</span>，都用公開的 h、s 算</li>
+      <li><span class="pub">密文</span>分兩部分 <span class="pub">u</span> 和 <span class="pub">v</span>，兩者都會公開送出</li>
       <li>訊息先用公開碼編碼（多寫一點），放進 v</li>
       <li>v 裡的訊息被一大片雜訊蓋住</li>
     </ul>
@@ -466,7 +467,7 @@ button.opt:hover { background:var(--soft); }
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/hqc-pke.md">HQC-PKE →</a>　步驟依 HQC 規格 2025-08-22 版</footer>
-  <aside class="notes">r1、r2、e 不公開，也不放進密文。</aside>
+  <aside class="notes">比喻：訊息被潑上一大片墨水，路上的人只看到墨水。</aside>
 </section>
 
 <!-- 12 -->
@@ -476,7 +477,7 @@ button.opt:hover { background:var(--soft); }
     <ul class="pts">
       <li>收件人用<span class="sec">秘密 y</span> 和 u、v 計算，把雜訊擦少</li>
       <li>結果＝編碼後的訊息＋剩下的一些錯誤</li>
-      <li>剩下的錯誤不算少，但公開碼修得掉</li>
+      <li>剩下的錯誤不超過修錯能力，公開碼就修得掉</li>
       <li>沒有 y 的人，只看得到一大片雜訊</li>
     </ul>
     <figure>
@@ -509,7 +510,7 @@ button.opt:hover { background:var(--soft); }
       <li>縮小版：向量長 13 位，公開碼是每個位元寫 3 次</li>
       <li>加密時，蓋在訊息上的雜訊有 6 位是 1</li>
       <li>用<span class="sec">秘密 y</span> 解密後只剩 3 位，解回 1011</li>
-      <li>換一個 e，錯誤擠在同一組就解密失敗</li>
+      <li>換一個加密用的 e，錯誤擠在同一組就解密失敗</li>
     </ul>
     <figure>
       <svg viewBox="0 0 560 380" role="img" aria-label="小數字示例：雜訊 100110011010 有 6 個 1；解密後剩下的錯誤 000001001100 只有 3 個 1，解回 1011；換一個 e 後剩下 000001000101，解成 1010">
@@ -569,7 +570,7 @@ button.opt:hover { background:var(--soft); }
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/hqc-toy-example.md">用小數字走一遍 HQC →</a>　步驟依 HQC 規格 2025-08-22 版</footer>
-  <aside class="notes">數字全由 scripts/examples.py --toy 算出；這是教學簡化版，沒有安全性。</aside>
+  <aside class="notes">數字全由 scripts/examples.py --toy 算出；教學簡化版，沒有安全性。</aside>
 </section>
 
 <!-- 14 -->
@@ -603,7 +604,7 @@ button.opt:hover { background:var(--soft); }
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/concatenated-rm-rs.md">公開碼：Reed-Muller＋Reed-Solomon →</a>　依 HQC 規格 2025-08-22 版</footer>
-  <aside class="notes">比喻：寄一套拼圖，先附總清單，每片再印上重複的編號。兩層的碼合起來叫「串接碼」。</aside>
+  <aside class="notes">比喻：寄一套拼圖，先附總清單，每片再印上重複的編號。</aside>
 </section>
 
 <!-- 15 -->
@@ -643,7 +644,7 @@ button.opt:hover { background:var(--soft); }
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/hqc-kem-fo-transform.md">從 PKE 到 KEM →</a>　依 HQC 規格 2025-08-22 版</footer>
-  <aside class="notes">比喻：拆開包裹後照說明書重包一次，包得一模一樣才收下。FO 是 Fujisaki-Okamoto 的簡稱。</aside>
+  <aside class="notes">比喻：拆開包裹後照說明書重包一次，包得一模一樣才收下。</aside>
 </section>
 
 <!-- 16 -->
@@ -653,11 +654,11 @@ button.opt:hover { background:var(--soft); }
     <div>
     <ul class="pts">
       <li>解碼失敗率：錯誤太多、公開碼修不回來的機率</li>
-      <li>HQC 有三組參數 HQC-1、3、5：數字越大越安全</li>
+      <li>HQC 有三組設定 HQC-1、3、5：數字越大越安全</li>
       <li>HQC-1 的失敗率小於 2<sup>−128</sup>，另兩組更小</li>
       <li>2<sup>−128</sup> 約等於連丟 128 次硬幣都是正面</li>
     </ul>
-    <div class="term"><b>安全等級</b>：NIST 的安全分級；HQC-1、HQC-3、HQC-5 分別對應等級 1、3、5。</div>
+    <div class="term"><b>安全等級</b>：NIST 的安全分級；HQC-1、3、5 對應等級 1、3、5（舊名 hqc-128／192／256，規格書沒明說，由表格對照得知）。</div>
     </div>
     <figure>
       <svg viewBox="0 0 480 330" role="img" aria-label="一百二十八枚硬幣排成八列，全部都是正面，代表機率約 2 的負 128 次方">
@@ -668,7 +669,7 @@ button.opt:hover { background:var(--soft); }
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/decryption-failure-rate.md">解碼失敗率 →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/comparisons/hqc-parameter-sets.md">HQC 參數組 →</a>　數字依 HQC 規格 2025-08-22 版</footer>
-  <aside class="notes">HQC-1、HQC-3、HQC-5 是 HQC 規格 2025-08-22 版的三組參數（舊名 hqc-128／192／256；規格書沒有明文說明，是從表格看出對應），對應 NIST 安全等級 1、3、5。安全性證明也要求失敗率夠小。</aside>
+  <aside class="notes">數字依 HQC 規格 2025-08-22 版。安全性證明也要求失敗率夠小。</aside>
 </section>
 
 <!-- 17 -->
@@ -679,8 +680,8 @@ button.opt:hover { background:var(--soft); }
       <ul class="pts">
         <li>HQC 靠錯誤更正碼，ML-KEM 靠結構化格</li>
         <li>HQC-1：公鑰 2,241、密文 4,433 位元組</li>
-        <li>安全等級越高，金鑰和密文越大</li>
-        <li>審查者認為：雖然較大、吃資源，但運作乾淨、安全</li>
+        <li>規格書承認：HQC 比 ML-KEM 大、效率較差</li>
+        <li>審查者認為：雖然較吃資源，但運作乾淨、安全</li>
       </ul>
       <div class="term"><b>結構化格</b>：ML-KEM 所根據的另一種數學，和 HQC 的錯誤更正碼不同。</div>
     </div>
@@ -695,14 +696,14 @@ button.opt:hover { background:var(--soft); }
           <text x="0" y="198">鑰匙</text>
           <rect x="70" y="178" width="3" height="30" fill="#1b7a3a"/><text x="82" y="199" fill="#1b7a3a">32（最後換到的共享金鑰）</text>
         </g>
-        <text x="0" y="256" font-size="15" fill="#566070">位元組是電腦計算資料量的單位。</text>
+        <text x="0" y="256" font-size="15" fill="#566070">位元組是電腦計算資料量的單位；安全等級越高，金鑰和密文越大。</text>
         <text x="0" y="280" font-size="15" fill="#566070">送出 4,433 位元組，只為換到 32 位元組的鑰匙。</text>
         <text x="0" y="304" font-size="15" fill="#566070">數字依 HQC 規格 2025-08-22 版；ML-KEM 的數字不收。</text>
       </svg>
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/comparisons/hqc-vs-ml-kem.md">HQC 與 ML-KEM 比較 →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/comparisons/hqc-parameter-sets.md">HQC 參數組 →</a>　評價依 S2（2025-03）與 HQC 規格 2025-08-22 版</footer>
-  <aside class="notes">ML-KEM 的數字依使用者決定不放；只說規格書自己承認 HQC 比較大。</aside>
+  <aside class="notes">ML-KEM 的數字依使用者決定不放。「比 ML-KEM 大」是規格書（S5）的說法，「乾淨、安全」是 S2 引述的審查者看法。</aside>
 </section>
 
 <!-- 18 -->
@@ -712,18 +713,18 @@ button.opt:hover { background:var(--soft); }
     <div>
       <ul class="pts">
         <li>備援：萬一 ML-KEM 出問題，還有數學不同的 HQC</li>
-        <li>選中理由：解碼失敗率分析穩定，金鑰產生快＊</li>
+        <li>理由：失敗率分析穩定；金鑰產生比另一候選快</li>
         <li>代價：公鑰和密文比較大</li>
         <li>2025-03 預估 2027 定案；2026-11-23 查未見草案</li>
       </ul>
-      <p class="small">＊「快」是和另一個候選演算法相比；和 ML-KEM 比，HQC 比較大、比較慢。</p>
+      <p class="small">和 ML-KEM 比，HQC 比較大、實作效率比較差。</p>
     </div>
     <figure>
-      <svg viewBox="0 0 480 340" role="img" aria-label="時間軸：2025 年 3 月 HQC 被選中；2025 年 9 月已稱為 FIPS 207；2026 年 11 月 23 日查 NIST 專案頁未見草案；2027 年預計定案">
+      <svg viewBox="0 0 480 340" role="img" aria-label="時間軸：2025 年 3 月 HQC 被選中；2025 年 9 月已稱為 FIPS 207（NIST 為 HQC 準備的標準名稱，尚未定案）；2026 年 11 月 23 日查 NIST 專案頁未見草案；2027 年預計定案">
         <line x1="40" y1="20" x2="40" y2="320" stroke="#8a94a6" stroke-width="3"/>
         <g font-size="16">
           <circle cx="40" cy="35" r="9" fill="#1f5fa8"/><text x="62" y="32" font-weight="bold">2025-03</text><text x="62" y="54">HQC 被選中</text>
-          <circle cx="40" cy="110" r="9" fill="#1f5fa8"/><text x="62" y="107" font-weight="bold">2025-09</text><text x="62" y="129">已稱為 FIPS 207</text><text x="62" y="150" font-size="14" fill="#566070">（HQC 正式標準的名稱）</text>
+          <circle cx="40" cy="110" r="9" fill="#1f5fa8"/><text x="62" y="107" font-weight="bold">2025-09</text><text x="62" y="129">已稱為 FIPS 207</text><text x="62" y="150" font-size="14" fill="#566070">（NIST 為 HQC 準備的標準名稱，尚未定案；</text><text x="62" y="168" font-size="14" fill="#566070">查核日期 2026-11-23）</text>
           <circle cx="40" cy="200" r="9" fill="#b5530b"/><text x="62" y="197" font-weight="bold">2026-11-23 查核</text><text x="62" y="219">NIST 專案頁未列出草案</text><text x="62" y="240" font-size="14" fill="#566070">（只代表沒列，不代表確定沒發布）</text>
           <circle cx="40" cy="290" r="9" fill="#fff" stroke="#1f5fa8" stroke-width="3"/><text x="62" y="287" font-weight="bold">2027（預估）</text><text x="62" y="309">定案</text><text x="62" y="330" font-size="14" fill="#566070">2025-03 的預估，查核日期 2026-11-19</text>
         </g>
@@ -731,14 +732,14 @@ button.opt:hover { background:var(--soft); }
     </figure>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/overview/hqc-overview.md">HQC 總覽 →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/entities/fips-207.md">HQC 的標準化進度（FIPS 207）→</a>　選擇理由依 S6（2025-09）</footer>
-  <aside class="notes">「快」是和另一個候選演算法比，不是和 ML-KEM 比；和 ML-KEM 比，HQC 比較大、比較慢。依使用者決定不點名其他候選。</aside>
+  <aside class="notes">理由是 S6（2025-09）的說法；「快」是和另一個候選比。依使用者決定不點名其他候選。</aside>
 </section>
 
 <!-- 19 -->
 <section class="slide" data-slide="19" data-type="misconception" data-wiki="overview/hqc-overview.md entities/fips-207.md concepts/decryption-failure-rate.md concepts/code-based-cryptography.md">
   <h2>四個常見誤解</h2>
   <div class="cards">
-    <div class="card"><p class="no">✗ 誤解：HQC 要取代 ML-KEM。</p><p class="yes">✓ 其實它是備援。</p></div>
+    <div class="card"><p class="no">✗ 誤解：HQC 要取代 ML-KEM。</p><p class="yes">✓ 其實它是備援。</p><p class="src-hint">S2（2025-03）的說法，查核日期 2026-11-19</p></div>
     <div class="card"><p class="no">✗ 誤解：等 HQC 定案再換。</p><p class="yes">✓ 其實現在就該換。</p><p class="src-hint">NIST 說應繼續轉換到 2024 年定案的標準（S2，2025-03；查核日期 2026-11-19）</p></div>
     <div class="card"><p class="no">✗ 誤解：故意加錯誤會常解錯。</p><p class="yes">✓ 其實失敗率極小。</p><p class="src-hint">HQC-1 小於 2<sup>−128</sup>（HQC 規格 2025-08-22 版）</p></div>
     <div class="card"><p class="no">✗ 誤解：碼公開就不安全。</p><p class="yes">✓ 秘密是很短的向量。</p><p class="src-hint">安全性本來就不靠藏碼</p></div>
@@ -764,7 +765,7 @@ button.opt:hover { background:var(--soft); }
       <button class="opt" data-correct="false">h</button><button class="opt" data-correct="false">s</button><button class="opt" data-correct="true">y</button>
       <div class="feedback" hidden><span class="verdict"></span> x、y 是秘密；h、s 是公鑰。</div></div>
     <div class="quiz-q"><p>5. HQC 在 NIST 的定位是？</p>
-      <button class="opt" data-correct="false">取代 ML-KEM</button><button class="opt" data-correct="true">ML-KEM 的備援</button><button class="opt" data-correct="false">一種量子密碼學</button>
+      <button class="opt" data-correct="false">取代 ML-KEM</button><button class="opt" data-correct="true">ML-KEM 的備援</button><button class="opt" data-correct="false">一種新型量子電腦</button>
       <div class="feedback" hidden><span class="verdict"></span> 數學不同，萬一 ML-KEM 出事還有 HQC。</div></div>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/quantum-threat.md">量子威脅 →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/kem.md">KEM →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/error-correcting-codes.md">錯誤更正碼 →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/hqc-pke.md">HQC-PKE →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/comparisons/hqc-vs-ml-kem.md">比較 →</a></footer>
@@ -781,6 +782,8 @@ button.opt:hover { background:var(--soft); }
       <li>剩下的錯誤交給公開碼修，失敗率小到可忽略</li>
       <li>代價是金鑰和密文比 ML-KEM 大</li>
     </ul>
+    <div>
+    <p class="small">定位依 S2（2025-03）的說法。</p>
     <div class="reading nonfact">
       <b>延伸閱讀（wiki 的來源摘要）</b><br>
       <a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/sources/S1-nist-pqc-explainer.md">S1 NIST：什麼是後量子密碼學</a><br>
@@ -789,6 +792,7 @@ button.opt:hover { background:var(--soft); }
       <a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/sources/S5-hqc-spec-2025-08-22.md">S5 HQC 規格書</a><br>
       <a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/sources/S6-nist-fips207-robinson.md">S6 NIST：FIPS 207 簡報</a><br>
       <a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/index.md">整個 wiki 的目錄</a>
+    </div>
     </div>
   </div>
   <footer class="src nonfact">Wiki：<a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/overview/hqc-overview.md">HQC 總覽 →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/hqc-pke.md">HQC-PKE →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/concepts/decryption-failure-rate.md">解碼失敗率 →</a><a href="https://github.com/112306071/HW10_HQC-LLM-WIKI/blob/main/wiki/comparisons/hqc-vs-ml-kem.md">比較 →</a></footer>

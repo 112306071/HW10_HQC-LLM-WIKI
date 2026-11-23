@@ -1,0 +1,22 @@
+{
+  "checker": "semantic-subagent",
+  "target": "runs/run-002-v2/outline-v3.md",
+  "results": [
+    {
+      "id": "O3",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O6",
+      "status": "PASS",
+      "details": [
+        {
+          "where": "slide-09 第 1 點「矩陣是數字排成的方格表；循環矩陣每列右轉一格」",
+          "problem": "PARTIAL：後半句與 concepts/quasi-cyclic-codes.md#白話解釋「下面每一列都是上一列往右轉一格」等價；但前半句「矩陣是數字排成的方格表」在該頁（以及其他被引用頁）都找不到，屬於混入 wiki 沒有的細節。內容是常識、不與 wiki 矛盾，為了 O3 的白話定義而加入。"
+        }
+      ]
+    }
+  ],
+  "notes": "1) O6 共 1 句 PARTIAL、0 句 UNSUPPORTED，未超過門檻。第 13 張圖示的示例數字（h=1011001110100、編碼 111000111111、雜訊 100110011010 有 6 個 1、剩下 000001001100、對照 000001000101 → 1010、最後 1 位截掉）與 concepts/hqc-toy-example.md 逐字一致；第 6 張的重複碼與漢明重量/距離示例也與 concepts/error-correcting-codes.md 一致。第 18 張 v3 新增的「尚未定案」與 entities/fips-207.md（2025-09 只是名稱、預計 2027 定案、2026-11-23 專案頁未列草案）一致。2) 引用錨點不精確但未計入問題：slide-02 第 1 點「量子電腦逼我們現在就換加密」標註 overview/hqc-overview.md#白話解釋，該節只說 ML-KEM 用來對抗量子電腦，沒有「現在就換」；同一頁 #常見誤解（組織應繼續轉換）與 concepts/quantum-threat.md 都有依據，因屬學習目標的預告句，判為支持。slide-08 圖示用了變數名 x、y，但標註頁 concepts/code-based-cryptography.md 沒有這兩個名稱（overview/hqc-overview.md#細節 與 concepts/hqc-pke.md 有）。3) slide-20 講者備註第 4 題答案只寫「y」，但 concepts/hqc-pke.md#重點 的表把 x、y 都列為秘密；如果選項裡有 x，答案就不完整，出題時要避開。4) O3 的邊界觀察（判為通過）：slide-04 標題的「演算法」沒有定義，也沒列在定義行，一般人大致能懂，但可以考慮在第 4 張用一句白話帶過；slide-07 第 1 點的「雜訊」靠同句「故意加錯誤」來暗示意思；slide-14 第 2 點的「解碼」靠第 6 張的「多數決解回」來暗示；slide-16 第 3 點先用 2^-128，第 4 點才解釋（同一張，依規則算已定義）；結構化格、位元組、準循環碼的白話說明主要放在圖示名詞框，依規則靠定義行算通過。5) 不屬本檢查、但順帶一提：slide-18 圖示 2025-09 節點的「尚未定案」旁邊沒有緊鄰的查核日期，同一條時間軸的下一個節點才有「2026-11-23 查核」，可另外確認是否符合 CLAUDE.md 規則 9。"
+}
