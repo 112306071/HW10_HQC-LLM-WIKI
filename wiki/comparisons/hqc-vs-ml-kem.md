@@ -6,6 +6,7 @@ related: [hqc-parameter-sets.md, ../sources/S5-hqc-spec-2025-08-22.md, ../overvi
 spec_version: 2025-08-22
 updated: 2026-11-23
 status: draft
+used_in_slides: [17, 20, 21]
 ---
 
 時間說明：本頁的定位、時程與「錯誤更正碼已使用數十年」等說法來自 S2（NIST 新聞稿，2025-03-11），查核日期 2026-11-19；HQC 的大小與優缺點依 HQC 規格 2025-08-22 版（S5），查核日期 2026-11-23。[S2 §1][S5 p.29、p.47]

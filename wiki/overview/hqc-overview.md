@@ -6,6 +6,7 @@ related: [../concepts/kem.md, ../concepts/hqc-pke.md, ../concepts/hqc-kem-fo-tra
 spec_version: 2025-08-22
 updated: 2026-11-23
 status: draft
+used_in_slides: [1, 2, 4, 18, 19, 21]
 ---
 
 時間說明：本頁根據 S2（NIST 新聞稿，2025-03-11）、S4（HQC 原始論文，2016-12 預印本）與 S5（HQC 規格 2025-08-22 版）；定位與評價都是各來源當時的說法，查核日期 2026-11-19（S2 部分）、2026-11-22（S4 部分）、2026-11-23（S5 部分）。[S2 摘要][S4 p.1][S5 p.1]

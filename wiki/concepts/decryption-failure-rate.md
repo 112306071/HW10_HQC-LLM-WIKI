@@ -6,6 +6,7 @@ related: [hqc-pke.md, hqc-toy-example.md, concatenated-rm-rs.md, hqc-kem-fo-tran
 spec_version: 2025-08-22
 updated: 2026-11-23
 status: draft
+used_in_slides: [16, 19, 21]
 ---
 
 時間說明：本頁依 HQC 規格 2025-08-22 版（S5）。其中對安全性、攻擊與研究現況的評價（例如「已知最好的攻擊」「沒有證明」「比 ML-KEM 大」）都是規格書當時的說法，不代表現況，查核日期 2026-11-23。[S5 p.1]

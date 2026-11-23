@@ -3,6 +3,7 @@
 主題：HQC 是什麼？一個用錯誤更正碼做成的後量子加密。
 讀者：知道公鑰／私鑰、但沒學過編碼理論的大學生。
 規則見 [CLAUDE.md](../CLAUDE.md)；每份來源的討論紀錄在 [discussions/](../discussions/)。
+簡報各張用到哪些頁見 [reports/slide_wiki_map.md](../reports/slide_wiki_map.md)；各頁 frontmatter 的 `used_in_slides` 是反向對應。
 
 時間說明：下列各頁的一句話摘要若提到定位、時程或狀態，都是該頁來源當時的說法，不代表現況；查核日期寫在各行與各頁。
 

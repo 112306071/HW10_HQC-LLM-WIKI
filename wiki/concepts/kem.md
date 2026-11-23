@@ -6,6 +6,7 @@ related: [hqc-kem-fo-transform.md, hqc-pke.md, ../sources/S5-hqc-spec-2025-08-22
 spec_version: none
 updated: 2026-11-23
 status: draft
+used_in_slides: [2, 5, 20]
 ---
 
 時間說明：本頁的定位說法來自 S2（NIST 新聞稿，2025-03-11），查核日期 2026-11-19；三個函式依 HQC 規格 2025-08-22 版（S5）。[S2 §3][S5 p.26]

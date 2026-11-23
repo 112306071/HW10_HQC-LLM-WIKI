@@ -4,7 +4,7 @@
 
 | 入口 | 連結 |
 | --- | --- |
-| 教學 HTML 簡報 | （發布後補上 GitHub Pages 網址） |
+| 教學 HTML 簡報 | https://112306071.github.io/HW10_HQC-LLM-WIKI/slides/ （原始檔 [slides/index.html](slides/index.html)） |
 | LLM Wiki | [wiki/index.md](wiki/index.md) |
 | 繳交報告 | [REPORT.md](REPORT.md)（完成後補上） |
 | 規格書 | [SPEC.md](SPEC.md) |

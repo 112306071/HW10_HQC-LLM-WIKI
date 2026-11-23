@@ -6,6 +6,7 @@ related: [../overview/hqc-overview.md, ../concepts/post-quantum-cryptography.md,
 spec_version: 2025-08-22
 updated: 2026-11-23
 status: draft
+used_in_slides: [18, 19]
 ---
 
 狀態查核：本頁的時程、選擇理由與「考慮中」的修改，都是各來源當時的說法，不是現況：S2 是 2025-03-11 的預估，S6 是 2025-09 的會議簡報。2026-11-23 查 NIST PQC 專案頁，只寫「HQC 於 2025-03-11 被選中」，沒有列出 FIPS 207 草案；這只代表專案頁沒列，不代表確定沒有發布，查核日期 2026-11-23。[S2 摘要、§2][S6 p.1][S6 專案頁查核]

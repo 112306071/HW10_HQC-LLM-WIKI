@@ -6,6 +6,7 @@ related: [code-based-cryptography.md, hqc-pke.md, ../sources/S5-hqc-spec-2025-08
 spec_version: none
 updated: 2026-11-23
 status: draft
+used_in_slides: [7]
 ---
 
 時間說明：本頁根據 S4（HQC 的原始論文，arXiv 2016-12 預印本）。「研究超過 50 年」「社群認為很難」「最好的攻擊」這類對研究現況與安全性的評價，都是論文 2016 年當時的說法，不代表現況，查核日期 2026-11-22；S5 的評價（「理解透徹的問題」「影響可以忽略」）是 HQC 規格 2025-08-22 版當時的說法，查核日期 2026-11-23。[S4 p.1、p.11、p.12][S5 p.11、p.47]

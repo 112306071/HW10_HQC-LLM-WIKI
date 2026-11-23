@@ -6,6 +6,7 @@ related: [hqc-vs-ml-kem.md, ../sources/S6-nist-fips207-robinson.md, ../concepts/
 spec_version: 2025-08-22
 updated: 2026-11-23
 status: draft
+used_in_slides: [16, 17]
 ---
 
 時間說明：本頁所有數字都依 HQC 規格 2025-08-22 版（S5）。其中對安全性、攻擊與研究現況的評價（例如「已知最好的攻擊」「沒有證明」「比 ML-KEM 大」）都是規格書當時的說法，不代表現況，查核日期 2026-11-23。[S5 p.1]

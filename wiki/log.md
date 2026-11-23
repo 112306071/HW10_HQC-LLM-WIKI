@@ -208,3 +208,9 @@
 - 檢查紀錄：runs/ingest/checks/A4-lint-S6-a2.json → PASS（A3S 3 次，擋下 1 次；A4 2 次，失敗 1 次）
 - 依 notes 小修：sources/S6「編碼式候選」改「不靠格的候選」、c1/c2 只引 p.15、衝突段標明是推斷；glossary FIPS 207 列補 p.16、p.17，BIKE 列標明「最多選一個」是 S6 引用第 3 輪報告的說法；post-quantum-cryptography 與 sources/S1 的「要由其他來源補上」改指向已由 S2 補上的段落。
 - 5 份來源（S1、S2、S4、S5、S6）全部 ingest 完成；全 wiki 腳本自查 PASS。v1.1 的實際效果已補進 workflow/CHANGELOG.md。
+
+## [2026-11-23 13:55] query | run-001-v1 發布：簡報與 wiki 雙向對應
+- 簡報：runs/run-001-v1/slides-v4.html（B5 第 3 次通過、H2 使用者通過）→ slides/index.html；頁尾 wiki 連結改成 GitHub 網址。
+- 由 scripts/publish.py 產生 reports/slide_wiki_map.md，並在 16 頁 frontmatter 寫入 `used_in_slides`（只加對應欄位，內文不變）。
+- index.md 補一行指向對應表。run-002 發布時會用同一支腳本覆寫這些欄位。
+- 類型原寫 publish，不在 SPEC §4.4 允許的類型內（自查 L6 抓到）；發布是「用 wiki 回答問題並把結果寫回」，歸為 query。

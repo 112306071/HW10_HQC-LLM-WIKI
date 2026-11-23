@@ -6,6 +6,7 @@ related: [quantum-threat.md, ../overview/hqc-overview.md, ../entities/fips-207.m
 spec_version: none
 updated: 2026-11-23
 status: draft
+used_in_slides: [4]
 ---
 
 時間說明：本頁關於 NIST 進度的說法來自 S1（NIST 科普頁，2026-02-27 更新版）與 S2（NIST 新聞稿，2025-03-11），各句標明出處，查核日期 2026-11-19。[S1 Q0、Q5][S2 §2]

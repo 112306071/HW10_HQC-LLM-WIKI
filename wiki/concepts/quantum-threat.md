@@ -6,6 +6,7 @@ related: [post-quantum-cryptography.md, ../sources/S1-nist-pqc-explainer.md]
 spec_version: none
 updated: 2026-11-19
 status: draft
+used_in_slides: [3, 20]
 ---
 
 時間說明：本頁的時間估計都是 S1（NIST 科普頁，2026-02-27 更新版）的說法，查核日期 2026-11-19；這些估計會隨研究進展改變。[S1 Q6、Q7]

@@ -6,6 +6,7 @@ related: [../overview/hqc-overview.md, ../sources/S6-nist-fips207-robinson.md, s
 spec_version: none
 updated: 2026-11-23
 status: draft
+used_in_slides: [2, 7, 8, 19]
 ---
 
 時間說明：本頁根據 S4（HQC 的原始論文，arXiv 2016-12 預印本）。「仍被認為安全」「已被攻破」這類評價都是論文 2016 年當時的說法，不代表現況；HQC 規格 2025-08-22 版的做法見 [HQC-PKE](hqc-pke.md)，查核日期 2026-11-22。[S4 p.1、p.2]
