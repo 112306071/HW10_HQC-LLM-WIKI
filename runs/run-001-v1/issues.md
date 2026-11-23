@@ -14,3 +14,10 @@ trace 與 checks 只能往後加，不能改；執行中發現的流程問題記
 - 經過：B3 前三次（outline-v1～v3）第 3 次通過。之後 B5 以內容問題退回 B2，產生 outline-v4，又要再過 B3。check_outline.py 自動把它編成第 4 次。
 - 解讀：graph.yaml 的 `max_attempts_per_check_node: 3` 是為了擋「同一個迴圈連續失敗」。前一輪已經通過，這是新的一輪，所以從 1 重新計算，沒有 ESCALATED。
 - 待辦：v2 在 graph.yaml 寫明計算方式。
+
+## [2026-11-23 14:10] issue | 階段二總步數超過上限，沒有停下來
+
+- 規則：graph.yaml v1.1 的 `max_steps_phase_b: 15`，超過時應 ESCALATED、交給使用者決定。
+- 實際：run-001 的階段二共 19 步（B1 到 B6）。第 15 步（B5 第 2 次 FAIL → B4）時已達上限，我沒有檢查這個條件就繼續跑，直到寫 v2 重讀 graph.yaml 才發現。
+- 影響：第 16–19 步（B4 改版面、B5 第 3 次通過、H2 使用者通過、B6 發布）本該先問使用者再做。使用者在 H2 看過成品並回覆通過，結果沒有偏差，但流程上是違規。
+- 處理：trace 不改。v2 把上限依實際數據調為 25，並在每次決定下一步時一併檢查總步數（見 workflow/CHANGELOG.md v2）。

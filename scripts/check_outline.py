@@ -105,6 +105,15 @@ def glossary_terms(path: Path) -> list[dict]:
     return terms
 
 
+def lay_terms(root: Path) -> list[dict]:
+    """v2：workflow/lay_terms.yaml 列的「一般人看不懂、glossary 沒收」的詞，也要先定義後使用。"""
+    path = root / "workflow" / "lay_terms.yaml"
+    if not path.exists():
+        return []
+    data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    return [{"zh": t["name"], "names": [t["name"]]} for t in data.get("terms", [])]
+
+
 def term_in(name: str, text: str) -> bool:
     if re.match(r"^[\x00-\x7f]+$", name):
         return re.search(rf"(?<![A-Za-z0-9]){re.escape(name)}(?![A-Za-z0-9])", text) is not None
@@ -152,7 +161,7 @@ def check(root: Path, outline_text: str, questions: list[dict],
                             O["O2"].append({"where": f"{where} 第 {bi} 點", "problem": f"{path} 沒有章節「{anchor}」"})
 
     # O3 術語先定義後使用（腳本部分）
-    terms = glossary_terms(wiki / "glossary.md")
+    terms = glossary_terms(wiki / "glossary.md") + lay_terms(root)
     ordered = sorted(slides, key=lambda s: s["n"])
     for t in terms:
         first_use = None
@@ -229,6 +238,22 @@ def selftest() -> int:
             print(f"[FAIL] outline-bad 應該抓到 {r['id']} 但沒有")
         else:
             print(f"[ok] outline-bad 抓到 {r['id']}：{r['details'][0]['problem'][:50]}")
+    # v2：lay_terms.yaml 的詞（例：向量）沒定義就使用，O3 要抓到；定義後就不抓
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        tr = Path(td)
+        (tr / "wiki").mkdir()
+        (tr / "workflow").mkdir()
+        (tr / "workflow" / "lay_terms.yaml").write_text("terms:\n  - {name: 向量, hint: x}\n", encoding="utf-8")
+        (tr / "wiki" / "a.md").write_text("---\ntitle: a\n---\n## 重點\n", encoding="utf-8")
+        mk = lambda d: f"## slide-03 | type: concept | 目標: G1\n標題：t\n定義：{d}\n- 秘密是向量 [wiki: a.md#重點]\n"
+        miss = [r for r in check(tr, mk("無"), [], 1, 30) if r["id"] == "O3"][0]
+        hit = [r for r in check(tr, mk("向量"), [], 1, 30) if r["id"] == "O3"][0]
+        if miss["status"] != "FAIL" or hit["status"] != "PASS":
+            ok = False
+            print("[FAIL] lay_terms：未定義的「向量」應被抓、定義後應通過")
+        else:
+            print("[ok] lay_terms：未定義的「向量」被抓到，定義後通過")
     print("selftest", "PASS" if ok else "FAIL")
     return 0 if ok else 1
 

@@ -1,0 +1,46 @@
+version: v2     # 2026-11-23：依 run-001 數據，B3 加 O6、O3 腳本加 lay_terms、B4 後加腳本自查 B4S（見 workflow/CHANGELOG.md；v1 快照在 workflow/v1/，v1.1 在 workflow/v1.1/）
+limits:
+  max_attempts_per_check_node: 3   # A4、B3、B5 各自計算；B5 的兩種退回合計。v2 寫明：計算「同一輪連續失敗」，通過後再次進入（例如 B5 退回 B2 後重過 B3）從 1 重新計算
+  max_extra_sources_per_run: 2      # B1 → A1 的次數
+  max_steps_phase_b: 25             # 整個階段二最多執行的節點次數。v2 由 15 調為 25：run-001 實際 19 步（超過 15 卻沒停下，見 runs/run-001-v1/issues.md），且 v2 多了 B4S 節點
+on_limit: escalate_to_user
+nodes:
+  A1: {name: 取得來源, type: action}
+  A2: {name: 寫討論備忘錄, type: action}
+  H1: {name: 使用者確認, type: human_gate}
+  A3: {name: 寫入 Wiki, type: action}
+  A3S: {name: 寫入後腳本自查, type: check, checks: [L1, L2, L3, L4, L5, L6, L7, L8, L9], by: script, command: "lint_wiki.py --dry-run", writes_check_json: false}
+  A4: {name: Wiki lint, type: check, checks: [L1, L2, L3, L4, L5, L6, L7, L8, L9]}
+  B1: {name: 查詢 Wiki, type: action}
+  B2: {name: 整理大綱, type: action}
+  B3: {name: 大綱檢查, type: check, checks: [O1, O2, O3, O4, O5, O6]}   # v2：加 O6（重點、圖示、備註被 wiki 支持）
+  B4: {name: 產生 HTML, type: action}
+  B4S: {name: 產生後腳本自查, type: check, checks: [P1, P2, P3, P6, P7], by: script, command: "check_slides.py --dry-run", writes_check_json: false}   # v2
+  B5: {name: 成品檢查, type: check, checks: [P1, P2, P3, P4, P5, P6, P7, P8]}
+  H2: {name: 使用者預覽, type: human_gate}
+  B6: {name: 發布, type: action}
+edges:
+  - {from: A1, to: A2}
+  - {from: A2, to: H1}
+  - {from: H1, to: A3, when: confirmed}
+  - {from: H1, to: A2, when: revise}
+  - {from: A3, to: A3S}
+  - {from: A3S, to: A3, when: fail}
+  - {from: A3S, to: A4, when: pass}
+  - {from: A4, to: A3, when: fail}
+  - {from: A4, to: A1, when: pass_and_sources_left}
+  - {from: A4, to: B1, when: pass_and_no_sources_left}
+  - {from: B1, to: A1, when: wiki_gap}
+  - {from: B1, to: B2, when: answered}
+  - {from: B2, to: B3}
+  - {from: B3, to: B2, when: fail}
+  - {from: B3, to: B4, when: pass}
+  - {from: B4, to: B4S}
+  - {from: B4S, to: B4, when: fail}
+  - {from: B4S, to: B5, when: pass}
+  - {from: B5, to: B4, when: fail_format}
+  - {from: B5, to: B2, when: fail_content}
+  - {from: B5, to: H2, when: pass}
+  - {from: H2, to: B2, when: revise_content}
+  - {from: H2, to: B4, when: revise_format}
+  - {from: H2, to: B6, when: approved}

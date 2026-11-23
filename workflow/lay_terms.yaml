@@ -1,0 +1,17 @@
+# v2（2026-11-23）：一般人看不懂、但 glossary 沒收的詞。
+# 依據：run-001 的 B3 O3 語意檢查 3 次失敗，抓到的詞都在這裡（runs/run-001-v1/checks/B3-outline-v1-a1.json 等）。
+# check_outline.py 的 O3 腳本部分把它們當成術語：標題或重點用到時，這張或更前面的「定義：」行要列出它。
+terms:
+  - {name: 向量, hint: 一長串數字；在 HQC 裡是一長串 0 與 1}
+  - {name: 矩陣, hint: 數字排成的方格表}
+  - {name: 密文, hint: 加密後送出的資料}
+  - {name: 公鑰, hint: 公開的鎖}
+  - {name: 私鑰, hint: 秘密的鑰匙}
+  - {name: 位元, hint: 一個 0 或 1}
+  - {name: 位元組, hint: 電腦計算資料量的單位}
+  - {name: 編碼, hint: 用錯誤更正碼把資料多寫一點}
+  - {name: NIST, hint: 負責挑選、發布加密標準的機構}
+  - {name: 安全等級, hint: NIST 的安全分級}
+  - {name: 公開碼, hint: HQC 修錯用、人人皆知的錯誤更正碼}
+  - {name: KB, hint: 資料量單位}
+  - {name: 參數, hint: 一組設定值}

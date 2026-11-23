@@ -214,3 +214,8 @@
 - 由 scripts/publish.py 產生 reports/slide_wiki_map.md，並在 16 頁 frontmatter 寫入 `used_in_slides`（只加對應欄位，內文不變）。
 - index.md 補一行指向對應表。run-002 發布時會用同一支腳本覆寫這些欄位。
 - 類型原寫 publish，不在 SPEC §4.4 允許的類型內（自查 L6 抓到）；發布是「用 wiki 回答問題並把結果寫回」，歸為 query。
+
+## [2026-11-23 14:15] workflow-change | v1.1 → v2：依 run-001 數據修改簡報階段
+- 依據 runs/run-001-v1（B3 失敗 3 次全是 O3 語意；B5 失敗 2 次：P4 語意 5 筆 PARTIAL、P6 版面）。
+- 修改：B2 大綱模板（workflow/outline_template.md）、O3 腳本加 lay_terms（workflow/lay_terms.yaml）、B3 加 O6、新增 B4S 產生後腳本自查、階段二步數上限 15 → 25、重試次數的算法寫明。
+- 細節與回頭驗證見 workflow/CHANGELOG.md v2；舊版快照在 workflow/v1.1/。wiki 內容沒有改。

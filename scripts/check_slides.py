@@ -342,9 +342,18 @@ def main(argv=None) -> int:
     ap.add_argument("--attempt", type=int)
     ap.add_argument("--semantic")
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--dry-run", action="store_true",
+                    help="只跑腳本部分（P1–P3、P6、P7）並印出結果，不寫檢查紀錄、不存截圖（B4S 自查用，v2）")
     a = ap.parse_args(argv)
     if a.selftest:
         return selftest()
+    if a.dry_run:
+        if not (a.html and a.outline):
+            ap.error("--dry-run 需要 --html、--outline")
+        res, p2_b2 = run_all(ROOT, Path(a.html), Path(a.outline).read_text(encoding="utf-8"), None)
+        print(f"B4 自查（dry-run，不寫紀錄）{Path(a.html).name}: {overall_of(res)}")
+        print_summary(res)
+        return 0 if overall_of(res) == "PASS" else 1
     if not (a.run and a.html and a.outline):
         ap.error("需要 --run、--html、--outline")
     graph = yaml.safe_load((ROOT / "workflow" / "graph.yaml").read_text(encoding="utf-8"))
