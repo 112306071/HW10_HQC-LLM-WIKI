@@ -1,0 +1,53 @@
+{
+  "run_id": "run-001-v1",
+  "workflow_version": "v1.1",
+  "node": "B3",
+  "attempt": 4,
+  "timestamp": "2026-11-23T13:31:32+08:00",
+  "target": "runs/run-001-v1/outline-v4.md",
+  "results": [
+    {
+      "id": "O1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O4",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O5",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "O3",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "slide-07 第 4 點",
+          "problem": "「一般版本」「HQC 的版本」「社群」在這裡第一次出現但沒有定義。畫面沒說是「什麼問題」的版本，也沒說兩個版本差在哪裡。真正的意思（一般線性碼的解碼問題，以及 HQC 用的準循環版本）只寫在講者備註裡，觀眾看不到；「準循環」要到第 9 張才定義。另外，一般人看到「社群」容易以為是社群媒體，不會想到研究社群。建議：第 7 張改成白話，例如「這種『猜錯在哪』的難題，一般形式研究 50 多年沒有快速解法；HQC 用的是帶規律的特殊形式（第 9 張說明），密碼學研究者認為一樣難」，或者把『HQC 的版本』這半句移到第 9 張講完準循環之後再說。"
+        }
+      ],
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "B2"
+}

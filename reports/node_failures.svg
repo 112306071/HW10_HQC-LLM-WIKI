@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" role="img" aria-label="各檢查節點失敗次數">
+<style>text{font-family:"PingFang TC","Noto Sans TC",sans-serif;font-size:14px}</style>
+<text x="60" y="24" font-size="16" font-weight="bold">各檢查節點失敗次數（簡報階段）</text>
+<rect x="80" y="40.0" width="28" height="210.0" fill="#1f5fa8"/>
+<text x="94.0" y="34.0" text-anchor="middle">3</text>
+<text x="94.0" y="270" text-anchor="middle">B3</text>
+<rect x="154" y="110.0" width="28" height="140.0" fill="#1f5fa8"/>
+<text x="168.0" y="104.0" text-anchor="middle">2</text>
+<text x="168.0" y="270" text-anchor="middle">B5</text>
+<rect x="228" y="250.0" width="28" height="0.0" fill="#1f5fa8"/>
+<text x="242.0" y="244.0" text-anchor="middle">0</text>
+<text x="242.0" y="270" text-anchor="middle">H2</text>
+<line x1="60" y1="250" x2="540" y2="250" stroke="#566070"/>
+<rect x="60" y="282" width="12" height="12" fill="#1f5fa8"/><text x="78" y="292">run-001-v1</text>
+</svg>

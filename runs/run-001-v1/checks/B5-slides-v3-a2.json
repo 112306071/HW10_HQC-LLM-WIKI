@@ -1,0 +1,211 @@
+{
+  "run_id": "run-001-v1",
+  "workflow_version": "v1.1",
+  "node": "B5",
+  "attempt": 2,
+  "timestamp": "2026-11-23T13:37:50+08:00",
+  "target": "runs/run-001-v1/slides-v3.html",
+  "results": [
+    {
+      "id": "P1",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "P2",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "P3",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "P6",
+      "by": "script",
+      "status": "FAIL",
+      "details": [
+        {
+          "where": "desktop slide-15",
+          "problem": "整張垂直溢出 789>720"
+        },
+        {
+          "where": "desktop slide-15",
+          "problem": "div 超出投影片下緣"
+        },
+        {
+          "where": "desktop slide-15",
+          "problem": "figure 超出投影片下緣"
+        },
+        {
+          "where": "desktop slide-15",
+          "problem": "svg 超出投影片下緣"
+        },
+        {
+          "where": "desktop slide-16",
+          "problem": "整張垂直溢出 802>720"
+        },
+        {
+          "where": "desktop slide-16",
+          "problem": "div 超出投影片下緣"
+        },
+        {
+          "where": "desktop slide-16",
+          "problem": "figure 超出投影片下緣"
+        },
+        {
+          "where": "desktop slide-16",
+          "problem": "svg 超出投影片下緣"
+        }
+      ]
+    },
+    {
+      "id": "P7",
+      "by": "script",
+      "status": "PASS",
+      "details": []
+    },
+    {
+      "id": "P4",
+      "status": "PASS",
+      "details": [
+        {
+          "where": "slide-03 重點 li 2「傳統電腦要數十億年，量子電腦可能只要幾小時」",
+          "problem": "PARTIAL：對照 concepts/quantum-threat.md「白話解釋」第 2 段「夠強的量子電腦，可能只要幾天甚至幾小時」[S1 Q4]。簡報拿掉了「幾天」，只留最短的「幾小時」，li 本身也沒寫「夠強的」（標題有），所以說得比 wiki 更肯定。建議改成「可能只要幾天甚至幾小時」。"
+        },
+        {
+          "where": "slide-17 重點 li 4「審查者認為：雖然較大、吃資源，但運作乾淨、安全」",
+          "problem": "PARTIAL：對照 comparisons/hqc-vs-ml-kem.md「細節」：「審查者認為 HQC 雖然比較吃資源，但運作乾淨、安全」[S2 §1]；表格「運算資源」列寫「比較冗長，需要更多運算資源 [S2 §1]」。「比 ML-KEM 大」在 wiki 裡是規格書（S5 p.47）的說法，不是審查者（S2）的。簡報把「較大」也算成審查者的看法，兩個來源的說法混在一起了。建議改成「審查者認為：雖然較吃資源，但運作乾淨、安全」；「較大」已經在 li 2、3 和標題講過。"
+        }
+      ],
+      "by": "semantic"
+    },
+    {
+      "id": "P5",
+      "status": "PASS",
+      "details": [],
+      "by": "semantic"
+    },
+    {
+      "id": "P8",
+      "status": "PASS",
+      "details": [
+        {
+          "where": "slide-01",
+          "problem": "分數 4：標題就說出核心點子，錯誤位元的示意圖也清楚；但「後量子」「ML-KEM」「NIST」在封面就出現，要到第 4 張才定義。"
+        },
+        {
+          "where": "slide-02",
+          "problem": "分數 4：有路線圖，KEM 隨文附了白話解釋；「ML-KEM」還沒定義就出現。"
+        },
+        {
+          "where": "slide-03",
+          "problem": "分數 5：標題就是結論；量子電腦有術語框；時間軸圖和保險箱比喻好懂。"
+        },
+        {
+          "where": "slide-04",
+          "problem": "分數 4：後量子密碼、NIST 都有白話定義，輪胎／備胎圖很直觀；「演算法」沒有白話解釋，「第五個」也沒交代前四個是什麼。"
+        },
+        {
+          "where": "slide-05",
+          "problem": "分數 5：公鑰、私鑰、密文都先定義；掛鎖寄送流程圖加上藍／橘色標示，一看就懂。"
+        },
+        {
+          "where": "slide-06",
+          "problem": "分數 5：重複碼的具體例子有成功、失敗兩種情況；漢明重量和距離各有數字例子；附電話比喻。"
+        },
+        {
+          "where": "slide-07",
+          "problem": "分數 4：去墨水劑對照圖很清楚；但 li 4「一般形式／HQC 用的形式」沒說是「什麼問題」的形式，一般人讀不出在講解碼問題。"
+        },
+        {
+          "where": "slide-08",
+          "problem": "分數 4：說明書上鎖和攤開的對照圖好懂，向量也有定義；「結構」「變體」沒有白話解釋。"
+        },
+        {
+          "where": "slide-09",
+          "problem": "分數 5：矩陣、循環矩陣、準循環碼依序定義；5×5 的實例矩陣加上旋轉壽司比喻。"
+        },
+        {
+          "where": "slide-10",
+          "problem": "分數 4：顏色區分公開和秘密，「·」「+」也有白話說明；但符號偏多，而且圖裡的「種子」沒有定義。"
+        },
+        {
+          "where": "slide-11",
+          "problem": "分數 4：流程圖和墨水比喻有助理解；r1、r2、e、u、v 一次出現五個符號，一般人要讀兩次。"
+        },
+        {
+          "where": "slide-12",
+          "problem": "分數 4：li 用白話講清楚，有比喻；但圖中的 x·r2 − r1·y + e 這類式子對一般人偏抽象。"
+        },
+        {
+          "where": "slide-13",
+          "problem": "分數 4：標題就是結論，6 位降到 3 位的格子圖很直觀；但圖裡文字和位元很密，超過一分鐘才讀得完。"
+        },
+        {
+          "where": "slide-14",
+          "problem": "分數 4：串接碼有定義，有兩層包裝圖和拼圖比喻；Reed-Solomon／Reed-Muller 只是名字，一般人記不住它們的差別。"
+        },
+        {
+          "where": "slide-15",
+          "problem": "分數 4：FO 轉換有術語框，重新加密檢查的流程圖和包裹比喻清楚；li 1 一句塞了 HQC-KEM、HQC-PKE、FO 三個縮寫。"
+        },
+        {
+          "where": "slide-16",
+          "problem": "分數 5：解碼失敗率、安全等級都有定義；用 128 枚硬幣把 2^−128 變成看得見的圖。"
+        },
+        {
+          "where": "slide-17",
+          "problem": "分數 5：標題就是結論；結構化格、位元組都有定義；長條圖直接看出 4,433 和 32 的對比。"
+        },
+        {
+          "where": "slide-18",
+          "problem": "分數 4：時間軸圖清楚，FIPS 207 在圖中有說明；「解碼失敗率分析穩定」對一般人意思模糊，沒有比喻或例子。"
+        },
+        {
+          "where": "slide-19",
+          "problem": "分數 4：誤解／正解卡片格式直觀；標題「四個常見誤解」不是結論，也沒有圖。"
+        },
+        {
+          "where": "slide-20",
+          "problem": "分數 4：互動小測驗，題目都對應前面教過的內容；第 5 題的選項「量子密碼學」只在第 4 張的講者備註解釋過，觀眾看得到的投影片沒有定義。"
+        },
+        {
+          "where": "slide-21",
+          "problem": "分數 4：四句重點能完整複述 HQC；沒有圖或比喻，標題「四句話記住 HQC」不是結論句。"
+        }
+      ],
+      "scores": {
+        "01": 4,
+        "02": 4,
+        "03": 5,
+        "04": 4,
+        "05": 5,
+        "06": 5,
+        "07": 4,
+        "08": 4,
+        "09": 5,
+        "10": 4,
+        "11": 4,
+        "12": 4,
+        "13": 4,
+        "14": 4,
+        "15": 4,
+        "16": 5,
+        "17": 5,
+        "18": 4,
+        "19": 4,
+        "20": 4,
+        "21": 4
+      },
+      "by": "semantic"
+    }
+  ],
+  "overall": "FAIL",
+  "route_to": "B4",
+  "screenshots": "runs/run-001-v1/screenshots/slides-v3-a2"
+}
